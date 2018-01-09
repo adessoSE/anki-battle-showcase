@@ -12,6 +12,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import com.states.GameState;
+
 @Slf4j
 @Component
 @Profile("simulation")
@@ -43,6 +45,7 @@ public class SimulationInitializer implements ApplicationRunner {
 
     private void addVehicles() {
         Vehicle vehicle = new Vehicle();
+        vehicle.setRuleEngine("factsModel"); //static for prototyping stuff
         // vehicle.setPosition(world.getRoadmap().getStartPosition());
         // vehicle.setVelocity(500);
 

@@ -1,0 +1,81 @@
+//created on: 03.01.2018
+package FactsRules
+
+//list any import classes here.
+import com.commands.*
+import com.states.*;
+
+//declare any global variables here
+
+
+
+rule "Right Curve"
+    when
+        $rCurve : RightCurveAhead();
+    then
+    	System.out.println("rule triggered: " + drools.getRule().getName());
+    	insert (new DriveRightCommand());
+        //retract($rCurve)
+end
+
+rule "Left Curve"
+    when
+      //  $lCurve : LeftCurveAhead();
+    then
+        System.out.println("rule triggered: " + drools.getRule().getName());
+    	insert (new DriveLeftCommand());
+    	//retract($lCurve);
+end
+
+rule "test"
+when 
+then 
+	System.out.println("drools works");
+end
+/*
+rule "Fire Rocket everytime"
+    when
+        $inventory : Inventory( typeOfWeapon == "ROCKET");
+    then
+        System.out.println("rule triggered: " + drools.getRule().getName());
+    	insert (new FireRocketCommand("Forward"));   // Forward/Backwards
+    	retract($inventory); /// change inventory
+        //actions
+
+end
+
+rule " Rocket when vehicle in front"
+    when
+        $obstacleFront : ObjectInFront(  metersInFront < 200 ,type == "Vehicle" );
+    then
+        System.out.println("rule triggered: " + drools.getRule().getName());
+    	insert (new FireRocketCommand("Forward"));   // Forward/Backwards
+    	retract($obstacleFront); /// change inventory
+        //actions
+
+end
+
+rule " Incoming Rocket"
+    when
+        $obstacleBehind : ObjectBehind( metersBehind < 200 ,type == "Rocket" );
+    then
+        System.out.println("rule triggered: " + drools.getRule().getName());
+    	insert (new FireRocketCommand("Backwards"));   // Forward/Backwards
+    	//retract($obstacleBehind); /// change inventory
+        //actions
+
+end
+
+
+rule "reflect incoming Rocket"
+    //include attributes such as "salience" here...
+    when
+        $obstacleBehind : ObjectBehind( metersBehind < 200 ,type == "Rocket" );
+        //conditions
+    then
+        //actions
+        System.out.println("rule triggered: " + drools.getRule().getName());
+        insert(new UseReflectorCommand());
+
+end
+*/
