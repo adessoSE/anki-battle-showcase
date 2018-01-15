@@ -14,6 +14,7 @@ public class Vehicle implements DynamicBody {
 	private RuleEngine re ; 
 	private List<GameState> facts;
 	private int track =3 ; 			// 0-6 (l nach r) 
+	private int speed ;
 	private Command nextCommand;
 	
 	public Vehicle() {	
@@ -35,6 +36,12 @@ public class Vehicle implements DynamicBody {
 	
 	public void setTrack (int track) {
 		this.track = track;
+	}
+	
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
+		// TODO Auto-generated method stub
 	}
 	
     @Override
@@ -66,5 +73,7 @@ public class Vehicle implements DynamicBody {
     	}
 
     }
+
+	
 
 }

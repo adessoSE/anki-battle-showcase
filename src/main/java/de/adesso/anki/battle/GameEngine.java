@@ -5,6 +5,7 @@ import de.adesso.anki.battle.renderers.Renderer;
 import de.adesso.anki.battle.world.Body;
 import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.World;
+import de.adesso.anki.battle.world.bodies.Roadmap;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -40,11 +41,15 @@ public class GameEngine {
 
     @Scheduled(fixedRate = 1000)
     public void gameLoop() {
+    	VehicleStateProvider vehicleStateProvider = new VehicleStateProvider();
         if (running) {
             log.info("Entering game loop");
             // Step 1: Synchronize with real world
             // TODO: Synchronize with Anki vehicles
 
+
+            
+            
             // Step 2: Simulate movement
             updateSimulation();
 
@@ -53,6 +58,28 @@ public class GameEngine {
             // TODO: Process input from frontend
 
             // Step 4: Evaluate behavior
+            
+            
+            //Roadmap.builder()
+            //.start().right().right().straight().right().right().finish()
+            //.build()
+            
+            Roadmap map =  world.getRoadmap();
+     
+            List<DynamicBody> dynBodies = world.getDynamicBodies();
+            
+     
+            for (DynamicBody body : dynBodies) {
+                List<GameState> facts = vehicleStateProvider.getRoadFacts( body);
+                body.setFacts(facts);
+            	//setFacts(facts, body);
+            }
+            
+            
+            evaluateBehavior();
+
+            
+            
             ArrayList<GameState> facts = new ArrayList<>();
             RightCurveAhead rCurve = new RightCurveAhead(150); 
 
@@ -72,6 +99,14 @@ public class GameEngine {
         }
     }
 
+    
+    private void setFacts(List<GameState> facts, DynamicBody body) {
+           body.setFacts(facts);
+        }
+    
+    
+    
+    
     private void setFacts(List<GameState> facts) {
     	//all vehicles have same facts, prototype
         for (DynamicBody body : world.getDynamicBodies()) {
