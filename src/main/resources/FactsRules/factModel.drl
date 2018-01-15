@@ -15,23 +15,17 @@ rule "Right Curve"
     then
     	System.out.println("rule triggered: " + drools.getRule().getName());
     	insert (new DriveRightCommand());
-        //retract($rCurve)
 end
 
 rule "Left Curve"
     when
-      //  $lCurve : LeftCurveAhead();
+        $lCurve : LeftCurveAhead();
     then
         System.out.println("rule triggered: " + drools.getRule().getName());
     	insert (new DriveLeftCommand());
-    	//retract($lCurve);
 end
 
-rule "test"
-when 
-then 
-	System.out.println("drools works");
-end
+
 /*
 rule "Fire Rocket everytime"
     when
