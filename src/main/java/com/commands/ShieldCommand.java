@@ -6,5 +6,6 @@ public class ShieldCommand extends Command {
 	
 	public void execute() {
 		//remove Shield from Inventory
+		// destroy Rocket, mine 
 	}
 }
