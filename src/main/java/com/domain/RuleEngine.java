@@ -60,8 +60,6 @@ public class RuleEngine {
 	@SuppressWarnings("unchecked")
 	public Collection<? extends Command> evaluateRules () {
 	    kSession.fireAllRules();  
-	    Collection<? extends Object> test = kSession.getObjects();
-	    System.out.println("Size" + test.size());
 	    Collection<? extends Object> allCommands = kSession.getObjects(x -> x instanceof Command);
 	    return (Collection<? extends Command>) allCommands;
 	}

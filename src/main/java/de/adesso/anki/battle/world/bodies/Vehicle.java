@@ -14,6 +14,7 @@ public class Vehicle implements DynamicBody {
 	private RuleEngine re ; 
 	private List<GameState> facts;
 	private int track =3 ; 			// 0-6 (l nach r) 
+	private Command nextCommand;
 	
 	public Vehicle() {	
 	}
@@ -53,7 +54,6 @@ public class Vehicle implements DynamicBody {
     
     @Override
     public void evaluateBehavior() {
-    	System.out.println(this.re.getSession().getFactCount());
     	Collection<? extends Command> allCommands = this.re.evaluateRules(); 
     	System.out.println(allCommands.size());
     	Command command = allCommands.iterator().next();
@@ -61,7 +61,10 @@ public class Vehicle implements DynamicBody {
     	for (Object fact: facts) {
     		this.re.retractFact(fact);
     	}
-    	// 
+    	for (Object commands: allCommands) {
+    		this.re.retractFact(commands);
+    	}
+
     }
 
 }
