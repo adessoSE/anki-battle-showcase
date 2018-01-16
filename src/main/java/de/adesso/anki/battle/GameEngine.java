@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 
 import com.commands.Command;
 import com.states.GameState;
+import com.states.InventoryRocket;
+import com.states.LeftCurveAhead;
 import com.states.RightCurveAhead;
 
 import java.util.ArrayList;
@@ -39,10 +41,26 @@ public class GameEngine {
         running = true;
     }
 
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedDelay = 10)
     public void gameLoop() {
     	VehicleStateProvider vehicleStateProvider = new VehicleStateProvider();
         if (running) {
+            
+        	
+        	//prototype
+            ArrayList<GameState> mapprototype = new ArrayList<>();
+            RightCurveAhead rCurve = new RightCurveAhead(150); 
+            mapprototype.add(rCurve);  
+            RightCurveAhead rCurve2 = new RightCurveAhead(150); 
+            mapprototype.add(rCurve2);  
+            InventoryRocket rocketFact = new InventoryRocket();
+            mapprototype.add(rocketFact);
+            LeftCurveAhead lCurve = new LeftCurveAhead(150); 
+            mapprototype.add(lCurve);  
+            LeftCurveAhead lCurve2 = new LeftCurveAhead(150); 
+            mapprototype.add(lCurve2);  
+            
+        	
             log.info("Entering game loop");
             // Step 1: Synchronize with real world
             // TODO: Synchronize with Anki vehicles
@@ -69,24 +87,36 @@ public class GameEngine {
             List<DynamicBody> dynBodies = world.getDynamicBodies();
             
      
-            for (DynamicBody body : dynBodies) {
-                List<GameState> facts = vehicleStateProvider.getRoadFacts( body);
-                body.setFacts(facts);
+/*            for (DynamicBody body : dynBodies) {
+                List<GameState> factsRoad = vehicleStateProvider.getRoadFacts( body);
+                List<GameState> factsObstacles= vehicleStateProvider.getObstacleFacts(map, body);
+                List<GameState> factsInventory = vehicleStateProvider.getInventoryFacts(body);
+                factsRoad.addAll(factsObstacles);
+                factsRoad.addAll(factsInventory);
+                body.setFacts(factsRoad);
             	//setFacts(facts, body);
             }
+           evaluateBehavior();
+*/
             
             
-            evaluateBehavior();
-
-            
-            
-            ArrayList<GameState> facts = new ArrayList<>();
+ /*           ArrayList<GameState> facts = new ArrayList<>();
             RightCurveAhead rCurve = new RightCurveAhead(150); 
-
             facts.add(rCurve);  
-            
+
+            RightCurveAhead rCurve2 = new RightCurveAhead(150); 
+            facts.add(rCurve2);  
+              
             setFacts(facts);
             evaluateBehavior();
+            */
+            for( GameState state :  mapprototype ) {
+            	ArrayList <GameState> oneFactTest = new ArrayList<>() ;
+            	oneFactTest.add(state);
+            	setFacts(oneFactTest);
+                evaluateBehavior();
+            }
+
 
             // Step 5: Render world
             renderWorld();
@@ -100,10 +130,7 @@ public class GameEngine {
     }
 
     
-    private void setFacts(List<GameState> facts, DynamicBody body) {
-           body.setFacts(facts);
-        }
-    
+
     
     
     
