@@ -89,6 +89,9 @@ public class Vehicle extends DynamicBody {
     	if (command != null ){
     		command.execute(this);
     	}
+    	else {
+    		System.out.println("No Command");
+    	}
     	System.out.println(this.hashCode() + " trackNr: " + this.track);
     	for (Object fact: facts) {
     		this.re.retractFact(fact);
@@ -112,6 +115,9 @@ public class Vehicle extends DynamicBody {
         currentRoadpiece = roadpiece;
     }
 
+    public Roadpiece getRoadPiece () {
+    	return this.currentRoadpiece;
+    }
 	
 
 }

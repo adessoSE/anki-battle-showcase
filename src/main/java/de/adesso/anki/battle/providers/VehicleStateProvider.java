@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.states.GameState;
+import com.states.LeftCurveAhead;
 import com.states.ObjectInFront;
 import com.states.RightCurveAhead;
 import com.states.RocketInFront;
 
 import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.bodies.Roadmap;
+import de.adesso.anki.battle.world.bodies.Vehicle;
+import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
 
 public class VehicleStateProvider {
 	
@@ -18,19 +21,17 @@ public class VehicleStateProvider {
 
 	}
 	
-	public List<GameState> getRoadFacts(  DynamicBody vehicle )
-	{
+	public List<GameState> getRoadFacts(  Vehicle vehicle ){
 		ArrayList<GameState> facts = new ArrayList<>();
-		RightCurveAhead rCurve = new RightCurveAhead(150);
-		/*if (vehicle.currentRoadPiece.nextPiece == "right"){
-	    /	RightCurveAhead rCurve = new RightCurveAhead(150); 
+		Roadpiece nextPiece = vehicle.getRoadPiece().getNext() ;
+		if (nextPiece.isRightCurved()){
+	    	RightCurveAhead rCurve = new RightCurveAhead(150); 
 	     	facts.add(rCurve);
 		}
-		if (vehicle.currentRoadPiece.nextPiece =="left") {
-			LeftCurveAhead lCurve = new RightCurveAhead(150) ; 
+		if (nextPiece.isLeftCurved()) {
+			LeftCurveAhead lCurve = new LeftCurveAhead(150) ; 
 			facts.add(lCurve); 
-		}*/
-	    facts.add(rCurve);  	
+		}
 		return facts;
 	}
 
