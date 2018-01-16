@@ -37,7 +37,7 @@ public class SimulationInitializer implements ApplicationRunner {
 
     private void buildRoadmap() {
         Roadmap map = Roadmap.builder()
-                        .start().right().right().straight().right().right().finish()
+                        .start().left().left().straight().left().left().finish()
                         .build();
 
         world.setRoadmap(map);
@@ -46,8 +46,9 @@ public class SimulationInitializer implements ApplicationRunner {
     private void addVehicles() {
         Vehicle vehicle = new Vehicle();
         vehicle.setRuleEngine("factsModel"); //static for prototyping stuff
-        // vehicle.setPosition(world.getRoadmap().getStartPosition());
-        // vehicle.setVelocity(500);
+        vehicle.setCurrentRoadpiece(world.getRoadmap().getAnchor());
+        vehicle.setPosition(world.getRoadmap().getAnchor().getEntry());
+        vehicle.setTargetSpeed(500);
 
         /*Vehicle vehicle2 = new Vehicle();
         vehicle2.setRuleEngine("factsModel"); //static for prototyping stuff

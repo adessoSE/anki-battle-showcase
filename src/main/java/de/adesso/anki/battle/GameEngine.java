@@ -35,9 +35,11 @@ public class GameEngine {
 
     
     private boolean running = false;
+    private long lastStep;
 
     
     public void start() {
+        lastStep = System.nanoTime();
         running = true;
     }
 
@@ -59,9 +61,12 @@ public class GameEngine {
             mapprototype.add(lCurve);  
             LeftCurveAhead lCurve2 = new LeftCurveAhead(150); 
             mapprototype.add(lCurve2);  
+           
+            // Step 0: Calculate elapsed nanoseconds since last loop
+            long step = System.nanoTime();
+            long deltaNanos = step - lastStep;
+            lastStep = step;
             
-        	
-            log.info("Entering game loop");
             // Step 1: Synchronize with real world
             // TODO: Synchronize with Anki vehicles
 
@@ -69,7 +74,7 @@ public class GameEngine {
             
             
             // Step 2: Simulate movement
-            updateSimulation();
+            updateSimulation(deltaNanos);
 
           
             // Step 3: Process input
@@ -123,9 +128,9 @@ public class GameEngine {
         }
     }
 
-    private void updateSimulation() {
+    private void updateSimulation(long deltaNanos) {
         for (DynamicBody body : world.getDynamicBodies()) {
-           body.updatePosition();
+           body.updatePosition(deltaNanos);
         }
     }
 
