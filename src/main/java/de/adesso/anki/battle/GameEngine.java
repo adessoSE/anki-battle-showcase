@@ -23,20 +23,28 @@ public class GameEngine {
     private List<Renderer> renderers;
 
     private boolean running = false;
+    private long lastStep;
 
     public void start() {
+        lastStep = System.nanoTime();
         running = true;
     }
 
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedDelay = 1000)
     public void gameLoop() {
         if (running) {
-            log.info("Entering game loop");
+            //log.info("Entering game loop");
+
+            // Step 0: Calculate elapsed nanoseconds since last loop
+            long step = System.nanoTime();
+            long deltaNanos = step - lastStep;
+            lastStep = step;
+
             // Step 1: Synchronize with real world
             // TODO: Synchronize with Anki vehicles
 
             // Step 2: Simulate movement
-            updateSimulation();
+            updateSimulation(deltaNanos);
 
             // Step 3: Process input
             // TODO: Process input from frontend
@@ -49,9 +57,9 @@ public class GameEngine {
         }
     }
 
-    private void updateSimulation() {
+    private void updateSimulation(long deltaNanos) {
         for (DynamicBody body : world.getDynamicBodies()) {
-           body.updatePosition();
+           body.updatePosition(deltaNanos);
         }
     }
 

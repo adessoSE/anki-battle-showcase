@@ -2,6 +2,7 @@ package de.adesso.anki.battle.initializers;
 
 
 import de.adesso.anki.battle.GameEngine;
+import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.World;
 import de.adesso.anki.battle.world.bodies.Roadmap;
 import de.adesso.anki.battle.world.bodies.Vehicle;
@@ -35,7 +36,7 @@ public class SimulationInitializer implements ApplicationRunner {
 
     private void buildRoadmap() {
         Roadmap map = Roadmap.builder()
-                        .start().right().right().straight().right().right().finish()
+                        .start().left().left().straight().left().left().finish()
                         .build();
 
         world.setRoadmap(map);
@@ -43,8 +44,9 @@ public class SimulationInitializer implements ApplicationRunner {
 
     private void addVehicles() {
         Vehicle vehicle = new Vehicle();
-        // vehicle.setPosition(world.getRoadmap().getStartPosition());
-        // vehicle.setVelocity(500);
+        vehicle.setCurrentRoadpiece(world.getRoadmap().getAnchor());
+        vehicle.setPosition(world.getRoadmap().getAnchor().getEntry());
+        vehicle.setTargetSpeed(500);
 
         world.addBody(vehicle);
     }

@@ -38,4 +38,12 @@ public class World {
                 .map(x -> (DynamicBody) x)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public String toString() {
+        return "World{" +
+                "roadmap=" + roadmap +
+                ", bodies=" + bodies +
+                '}';
+    }
 }

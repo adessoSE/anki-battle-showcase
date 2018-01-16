@@ -16,7 +16,6 @@ public class ConsoleRenderer implements Renderer {
     @SneakyThrows
     @Async
     public void render(World world) {
-        Thread.sleep(2000);
         log.info(world.toString());
     }
 
