@@ -62,9 +62,11 @@ public class Vehicle implements DynamicBody {
     @Override
     public void evaluateBehavior() {
     	Collection<? extends Command> allCommands = this.re.evaluateRules(); 
-    	System.out.println(allCommands.size());
     	Command command = allCommands.iterator().next();
-    	command.execute(this);
+    	if (command != null ){
+    		command.execute(this);
+    	}
+    	System.out.println(this.hashCode() + " trackNr: " + this.track);
     	for (Object fact: facts) {
     		this.re.retractFact(fact);
     	}

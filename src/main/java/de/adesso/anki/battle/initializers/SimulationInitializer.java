@@ -49,6 +49,15 @@ public class SimulationInitializer implements ApplicationRunner {
         // vehicle.setPosition(world.getRoadmap().getStartPosition());
         // vehicle.setVelocity(500);
 
+        /*Vehicle vehicle2 = new Vehicle();
+        vehicle2.setRuleEngine("factsModel"); //static for prototyping stuff
+        Vehicle vehicle3 = new Vehicle();
+        vehicle3.setRuleEngine("factsModel"); //static for prototyping stuff
+        
+      
+        world.addBody(vehicle3);
+        world.addBody(vehicle2);
+        */
         world.addBody(vehicle);
     }
 
