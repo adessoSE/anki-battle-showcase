@@ -1,27 +1,17 @@
 package de.adesso.anki.battle;
 
+import com.states.GameState;
 import de.adesso.anki.battle.providers.VehicleStateProvider;
 import de.adesso.anki.battle.renderers.Renderer;
 import de.adesso.anki.battle.world.Body;
 import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.World;
-import de.adesso.anki.battle.world.bodies.Roadmap;
 import de.adesso.anki.battle.world.bodies.Vehicle;
 import lombok.extern.slf4j.Slf4j;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.commands.Command;
-import com.states.GameState;
-import com.states.InventoryRocket;
-import com.states.LeftCurveAhead;
-import com.states.RightCurveAhead;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -79,7 +69,7 @@ public class GameEngine {
             
      
             for (DynamicBody body : dynBodies) {
-            	System.out.println((Vehicle)body);
+            	log.debug(body.toString());
             	List<GameState> factsRoad = vehicleStateProvider.getRoadFacts((Vehicle) body);
             //    List<GameState> factsObstacles= vehicleStateProvider.getObstacleFacts(map, body);
              //   List<GameState> factsInventory = vehicleStateProvider.getInventoryFacts(body);

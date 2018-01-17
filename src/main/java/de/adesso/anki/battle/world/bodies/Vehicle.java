@@ -1,19 +1,18 @@
 package de.adesso.anki.battle.world.bodies;
 
-import java.util.Collection;
-import java.util.List;
-
 import com.commands.Command;
 import com.domain.RuleEngine;
 import com.states.GameState;
-
 import de.adesso.anki.battle.util.Position;
-import de.adesso.anki.battle.world.Body;
 import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
+@Slf4j
 public class Vehicle extends DynamicBody {
 
     private Roadpiece currentRoadpiece;
@@ -90,9 +89,9 @@ public class Vehicle extends DynamicBody {
     		command.execute(this);
     	}
     	else {
-    		System.out.println("No Command");
+    		log.debug("No Command");
     	}
-    	System.out.println(this.hashCode() + " trackNr: " + this.track);
+    	log.debug(this.hashCode() + " trackNr: " + this.track);
     	for (Object fact: facts) {
     		this.re.retractFact(fact);
     	}
