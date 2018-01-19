@@ -12,12 +12,12 @@ public class CurvedRoadpiece extends Roadpiece {
 
     @Override
     public Position relativeEntry() {
-        return Position.at(-RADIUS, 0, 0);
+        return Position.at(0, -RADIUS, 0);
     }
 
     @Override
     public Position relativeExit() {
-        return Position.at(0, RADIUS, 90);
+        return Position.at(RADIUS, 0, 90);
     }
 
     @Override
@@ -28,9 +28,12 @@ public class CurvedRoadpiece extends Roadpiece {
     @Override
     public Position followTrack(Position origin, double travel) {
         double maxTravel = findMaximumTravel(origin); // maximum travel on this piece
-        log.info(String.format("%.1f", maxTravel));
+        //log.debug(String.format("maxTravel=%.1f", maxTravel));
         if (travel <= maxTravel) {
-            return origin.rotate(Math.toDegrees(travel / RADIUS)); // follow track on this piece
+
+            return origin.invTranslate(position.x(), position.y())
+                    .rotate(Math.toDegrees(travel / RADIUS))
+                    .translate(position.x(), position.y()); // follow track on this piece
         }
         else if (next != null) {
             return next.followTrack(this.getExit(), travel - maxTravel);
@@ -40,16 +43,22 @@ public class CurvedRoadpiece extends Roadpiece {
     }
 
     private double findMaximumTravel(Position origin) {
-        // winkel zwischen center-origin und center-exit
+        /*// winkel zwischen center-origin und center-exit
         Position co = Position.at(origin.x() - position.x(), origin.y() - position.y());
         Position ce = relativeExit();
-        double theta = Math.acos((co.x()*ce.x() + co.y()+ce.y()) / (RADIUS*RADIUS));
+        // double theta = Math.acos((co.x()*ce.x() + co.y()+ce.y()) / (RADIUS*RADIUS));
+        double theta = Math.atan2(ce.y(), ce.x()) - Math.atan2(co.y(), co.x());
+        theta = theta < 0 ? theta + 2*Math.PI : theta;*/
+
+        double theta = Math.toRadians(getExit().angle() - origin.angle());
+        theta = theta < 0 ? theta + 2*Math.PI : theta;
+        log.debug(String.format("theta=%.1f, maxTravel=%.1f", Math.toDegrees(theta), theta * RADIUS));
         return theta * RADIUS;
     }
 
     @Override
     public Roadpiece followTrackRoadpiece(Position origin, double travel) {
-        double maxTravel = origin.distance(this.getExit()); // maximum travel on this piece
+        double maxTravel = findMaximumTravel(origin); // maximum travel on this piece
         if (next == null || travel <= maxTravel) {
             return this;
         }

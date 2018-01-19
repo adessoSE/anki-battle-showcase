@@ -34,7 +34,7 @@ public class GameEngine {
         running = true;
     }
 
-    @Scheduled(fixedRate = 2000)
+    @Scheduled(fixedRate = 200)
     public void gameLoop() {
     	VehicleStateProvider vehicleStateProvider = new VehicleStateProvider();
         if (running) {
