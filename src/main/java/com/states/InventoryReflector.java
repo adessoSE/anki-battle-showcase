@@ -1,6 +1,6 @@
 package com.states;
 
-public class InventoryReflector {
+public class InventoryReflector extends GameState{
 	
 	public InventoryReflector() {}
 }

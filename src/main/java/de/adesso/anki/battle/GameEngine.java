@@ -1,6 +1,9 @@
 package de.adesso.anki.battle;
 
 import com.states.GameState;
+import com.states.InventoryRocket;
+import com.states.ObjectInFront;
+
 import de.adesso.anki.battle.providers.VehicleStateProvider;
 import de.adesso.anki.battle.renderers.Renderer;
 import de.adesso.anki.battle.world.Body;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -67,18 +71,26 @@ public class GameEngine {
      
             List<DynamicBody> dynBodies = world.getDynamicBodies();
             
-     
             for (DynamicBody body : dynBodies) {
             	log.debug(body.toString());
+            	if (!(body instanceof Vehicle))
+            	{
+            		continue;
+            	}
+            	List <GameState> allFacts = new ArrayList<>();
             	List<GameState> factsRoad = vehicleStateProvider.getRoadFacts((Vehicle) body);
-            //    List<GameState> factsObstacles= vehicleStateProvider.getObstacleFacts(map, body);
-             //   List<GameState> factsInventory = vehicleStateProvider.getInventoryFacts(body);
-              //  factsRoad.addAll(factsObstacles);
-              //  factsRoad.addAll(factsInventory);
-                body.setFacts(factsRoad);
-            	//setFacts(facts, body);
+            	List<GameState> factsInventory = vehicleStateProvider.getInventoryFacts((Vehicle)body);
+            	List<GameState> factsObstacles = vehicleStateProvider.getObstacleFacts((Vehicle)body);
+   
+            	
+            	allFacts.addAll(factsRoad);
+            	allFacts.clear();
+            	allFacts.addAll(factsInventory);
+            	allFacts.addAll(factsObstacles);
+                body.setFacts(allFacts);
             }
-           evaluateBehavior();
+           
+            evaluateBehavior();
 
             
             
@@ -118,7 +130,8 @@ public class GameEngine {
     
     
     private void evaluateBehavior() {
-        for (Body body : world.getBodies()) {
+    	List<Body> oldBodies= new ArrayList<Body>(world.getBodies());
+        for (Body body : oldBodies) {
             body.evaluateBehavior();
         }
     }

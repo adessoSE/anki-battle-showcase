@@ -26,6 +26,16 @@ rule "Left Curve"
     	insert (new DriveLeftCommand());
 end
 
+rule "Fire Rocket when Vehicle in Front"
+    when
+       $rocket: InventoryRocket(); // and $vehicleFront : ObjectInFront( );
+    then
+        LoggerFactory.getLogger("factModel.drl").debug("rule triggered: " + drools.getRule().getName());
+        insert (new FireRocketCommand("forward"));
+end
+
+
+
 
 /*
 rule "Fire Rocket everytime"

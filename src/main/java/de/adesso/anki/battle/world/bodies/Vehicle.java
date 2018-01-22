@@ -20,7 +20,45 @@ public class Vehicle extends DynamicBody {
 	private List<GameState> facts;
 	private int track =3 ; 			// 0-6 (l nach r) 
 	private Command nextCommand;
+	private boolean rocketReady;
+	private boolean mineReady;
+	private boolean shieldReady;
+	private boolean reflectorReady;
 	
+	
+
+	public boolean isMineReady() {
+		return mineReady;
+	}
+
+	public void setMineReady(boolean mineReady) {
+		this.mineReady = mineReady;
+	}
+
+	public boolean isShieldReady() {
+		return shieldReady;
+	}
+
+	public void setShieldReady(boolean shieldReady) {
+		this.shieldReady = shieldReady;
+	}
+
+	public boolean isReflectorReady() {
+		return reflectorReady;
+	}
+
+	public void setReflectorReady(boolean reflectorReady) {
+		this.reflectorReady = reflectorReady;
+	}
+
+	public boolean isRocketReady() {
+		return rocketReady;
+	}
+
+	public void setRocketReady(boolean rocketReady) {
+		this.rocketReady = rocketReady;
+	}
+
 	public Vehicle() {	
 	}
 	
@@ -91,7 +129,8 @@ public class Vehicle extends DynamicBody {
     	else {
     		log.debug("No Command");
     	}
-    	log.debug(this.hashCode() + " trackNr: " + this.track);
+    	
+    	//clean Ruleengine after execution of Command
     	for (Object fact: facts) {
     		this.re.retractFact(fact);
     	}

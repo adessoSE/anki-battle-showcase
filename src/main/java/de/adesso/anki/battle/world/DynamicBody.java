@@ -5,7 +5,7 @@ import java.util.List;
 import com.states.GameState;
 import de.adesso.anki.battle.util.Position;
 
-public abstract class DynamicBody implements Body {
+public abstract class DynamicBody extends Body {
 
     protected Position position = Position.at(0,0);
     protected double speed;

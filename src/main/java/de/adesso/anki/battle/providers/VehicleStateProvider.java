@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.states.GameState;
+import com.states.InventoryMine;
+import com.states.InventoryReflector;
+import com.states.InventoryRocket;
+import com.states.InventoryShield;
 import com.states.LeftCurveAhead;
 import com.states.ObjectInFront;
 import com.states.RightCurveAhead;
@@ -36,63 +40,63 @@ public class VehicleStateProvider {
 	}
 
 
-	public List<GameState> getInventoryFacts( DynamicBody vehicle )
+	public List<GameState> getInventoryFacts( Vehicle vehicle )
 	{
 		ArrayList<GameState> facts = new ArrayList<>();
-		/*if (Vehicle.hasRocket()){
+		if (vehicle.isRocketReady()){
 	    	InventoryRocket rocketFact = new InventoryRocket();
 	    	facts.add(rocketFact); 
 		}
-		if (Vehicle.hasMine) {
+		if (vehicle.isMineReady()) {
 			InventoryMine mineFact = new InventoryMine() ; 
-			facts.add(MineFact); 
+			facts.add(mineFact); 
 		}
-		if (Vehicle.hasShield) {
+		if (vehicle.isShieldReady()) {
 			InventoryShield shieldFact = new InventoryShield() ; 
 			facts.add(shieldFact); 
 		}
-		if (Vehicle.hasReflector) {
+		if (vehicle.isReflectorReady()) {
 			InventoryReflector reflectorFact = new InventoryReflector() ; 
 			facts.add(reflectorFact); 
 		}
-		
-		}*/
-	
+
 		return facts;
 	}
 
 	
-	public List<GameState> getObstacleFacts( Roadmap map, DynamicBody vehicle )
+	public List<GameState> getObstacleFacts(Vehicle vehicle )
 	{
 		ArrayList<GameState> facts = new ArrayList<>();
-		
+		Roadmap map = vehicle.getWorld().getRoadmap();
+		Roadpiece nextPiece = vehicle.getRoadPiece().getNext();
+		Roadpiece prevPiece = vehicle.getRoadPiece().getPrev();
 		//if vehicle.nextRoadPiece.containsRocket()
-/*		if (rocketInFront) {
+/*		if (nextPiece) {
 			int meters = 100;
 			String type = "";
 			RocketInFront rocketInFront  = new RocketInFront(100, type);
 			facts.add(rocketInFront); 
 		}
-		if (rocketBehind) {
+		if (prevPiece) {
 			int meters = 100;
 			String type = "";
 			RocketBehind obstacleBehind  = new RocketBehind(100, type);
 			facts.add(obstacleBehind); 
 		}
 		
-		if (MineInFront) {
+		if (nextPiece) {
 			int meters = 100;
 			String type = "";
 			MineInFront mineInFront  = new MineInFront(100);
 			facts.add(mineInFront); 
 		}
-		if (VehicleInFront) {
+		if (nextPiece.containsRocket()) {
 			int meters = 100;
 			String type = "";
 			RocketInFront obstacleInFront  = new RocketInFront(100, type);
 				    	facts.add(rocketFact); 
 		}
-		if (VehicleBehind) {
+		if (prevPiece) {
 			int meters = 100;
 			String type = "";
 			RocketInFront obstacleInFront  = new RocketInFront(100, type);

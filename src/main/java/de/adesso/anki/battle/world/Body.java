@@ -1,7 +1,21 @@
 package de.adesso.anki.battle.world;
 
-public interface Body {
+public abstract class Body {
+	
+	private World world ; 
+	
+	public Body() {
+		
+	}
+	
+	public World getWorld() {
+		return world;
+	}
 
-    void evaluateBehavior();
+	public void setWorld (World world){
+		this.world = world ; 
+	}
+	
+    public abstract void evaluateBehavior();
 
 }

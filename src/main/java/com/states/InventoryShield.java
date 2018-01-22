@@ -1,5 +1,5 @@
 package com.states;
 
-public class InventoryShield {
+public class InventoryShield extends GameState {
 
 }

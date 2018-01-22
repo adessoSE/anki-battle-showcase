@@ -1,5 +1,6 @@
 package com.commands;
 
+import de.adesso.anki.battle.world.World;
 import de.adesso.anki.battle.world.bodies.Vehicle;
 
 public class UseReflectorCommand extends Command {
@@ -10,7 +11,9 @@ public class UseReflectorCommand extends Command {
 	
 	public void execute(Vehicle vehicle) {
 		/*TODO implement  reflection 
-		/ Problem: how to get incoming Rocket?
 		*/
+		
+		World world = vehicle.getWorld();
+		vehicle.setReflectorReady(false);
 	}
 }
