@@ -122,14 +122,19 @@ public class Vehicle extends DynamicBody {
     @Override
     public void evaluateBehavior() {
     	Collection<? extends Command> allCommands = this.re.evaluateRules(); 
-    	Command command = allCommands.iterator().next();
-    	if (command != null ){
-    		command.execute(this);
-    	}
+    	//Command command = allCommands.iterator().next();
+    	//if (command != null ){
+    	//	command.execute(this);
+    	//}
+    	for (Command command : allCommands )
+    	{
+    		if (command != null){
+    			command.execute(this);
+    		}
     	else {
     		log.debug("No Command");
     	}
-    	
+    	}
     	//clean Ruleengine after execution of Command
     	for (Object fact: facts) {
     		this.re.retractFact(fact);

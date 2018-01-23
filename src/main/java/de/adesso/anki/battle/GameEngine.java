@@ -78,14 +78,14 @@ public class GameEngine {
             		continue;
             	}
             	List <GameState> allFacts = new ArrayList<>();
-            	List<GameState> factsRoad = vehicleStateProvider.getRoadFacts((Vehicle) body);
-            	List<GameState> factsInventory = vehicleStateProvider.getInventoryFacts((Vehicle)body);
+            	//List<GameState> factsRoad = vehicleStateProvider.getRoadFacts((Vehicle) body);
+            	//List<GameState> factsInventory = vehicleStateProvider.getInventoryFacts((Vehicle)body);
             	List<GameState> factsObstacles = vehicleStateProvider.getObstacleFacts((Vehicle)body);
    
             	
-            	allFacts.addAll(factsRoad);
-            	allFacts.clear();
-            	allFacts.addAll(factsInventory);
+            	//allFacts.addAll(factsRoad);
+            	//allFacts.clear();
+            	//allFacts.addAll(factsInventory);
             	allFacts.addAll(factsObstacles);
                 body.setFacts(allFacts);
             }

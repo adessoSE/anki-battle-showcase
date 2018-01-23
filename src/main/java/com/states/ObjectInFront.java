@@ -1,13 +1,14 @@
 package com.states;
 
 public class ObjectInFront extends GameState {
-	private int metersInFront;
+	private double metersInFront;
+	private String type;
 	
-	public int getMetersInFront() {
+	public double getMetersInFront() {
 		return metersInFront;
 	}
 
-	public void setMetersInFront(int metersInFront) {
+	public void setMetersInFront(double metersInFront) {
 		this.metersInFront = metersInFront;
 	}
 
@@ -18,10 +19,8 @@ public class ObjectInFront extends GameState {
 	public void setType(String type) {
 		this.type = type;
 	}
-
-	private String type;
 	
-	public ObjectInFront(int meters, String type) {
+	public ObjectInFront(double meters, String type) {
 		this.metersInFront = meters;
 		this.type = type;
 	}

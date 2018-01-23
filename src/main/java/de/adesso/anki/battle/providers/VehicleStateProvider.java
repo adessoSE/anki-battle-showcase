@@ -9,6 +9,7 @@ import com.states.InventoryReflector;
 import com.states.InventoryRocket;
 import com.states.InventoryShield;
 import com.states.LeftCurveAhead;
+import com.states.ObjectBehind;
 import com.states.ObjectInFront;
 import com.states.RightCurveAhead;
 import com.states.RocketInFront;
@@ -17,7 +18,9 @@ import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.Body;
 import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.World;
+import de.adesso.anki.battle.world.bodies.Mine;
 import de.adesso.anki.battle.world.bodies.Roadmap;
+import de.adesso.anki.battle.world.bodies.Rocket;
 import de.adesso.anki.battle.world.bodies.Vehicle;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
 
@@ -67,20 +70,42 @@ public class VehicleStateProvider {
 	}
 
 	
-	public List<GameState> getObstacleFacts(Vehicle vehicle )
-	{
-		ArrayList<GameState> facts = new ArrayList<>();
-		Roadmap map = vehicle.getWorld().getRoadmap();
-		
+	public List<GameState> getObstacleFacts(Vehicle vehicle ){
+		ArrayList<GameState> facts = new ArrayList<>();	
 		World world = vehicle.getWorld();
-		List<Body> bodies=  world.getBodies();
-		for (Body body : world.getBodies()) {
-			body.getPosition();
+		for (Body body : world.getBodies()){
+			if (vehicle == body) {
+				continue;
+			}
+			String type = "";
+			if ( body instanceof Rocket) {
+				type = "Rocket";
+			}
+			if ( body instanceof Mine) {
+				type = "Mine";
+			}
+			if (body instanceof Vehicle) {
+				type = "Vehicle";
+			}
+			Position position1 = vehicle.getPosition();
+			Position position2 = body.getPosition();
+			double distance = position1.distance(position2);
+			System.out.println(distance);
+			double angle = position1.angle();
+			if( angle < 180 ) {
+				ObjectInFront objInFront = new ObjectInFront(distance, "type");
+				facts.add(objInFront);
+			}
+			else {
+				ObjectBehind objBehind = new ObjectBehind(distance, "type");
+				facts.add(objBehind);
+			}
 		}
+		return facts;
+	}
 		
-		Roadpiece nextPiece = vehicle.getRoadPiece().getNext();
-		Roadpiece prevPiece = vehicle.getRoadPiece().getPrev();
-
+		
+		
 		//if vehicle.nextRoadPiece.containsRocket()
 /*		if (nextPiece) {
 			int meters = 100;
@@ -116,16 +141,18 @@ public class VehicleStateProvider {
 		
 		
 */
-		return facts;
-	}
+
 
 	
-	private boolean objectInNeighbourhood(Body body1, Body body2 ){
-		Position position1 = body1.getPosition();
+	private boolean objectInNeighbourhood(Vehicle vehicle, Body body2 , double neighbourhoodDistance){
+		Position position1 = vehicle.getPosition();
 		Position position2 = body2.getPosition();
 		double distance = position1.distance(position2);
 		double angle1 = position1.angle();
 		double angle2  = position2.angle();
+		if (distance  < neighbourhoodDistance) {
+			
+		}
 		return false;
 	}
 	

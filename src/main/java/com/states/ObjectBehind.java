@@ -1,17 +1,15 @@
 package com.states;
 
 public class ObjectBehind extends GameState {
-	private int metersBehind;
+	private double metersBehind;
 	private String type; 
-	private int track ;
 	
 	
 
-	public ObjectBehind(int metersBehind, String type, int track) {
+	public ObjectBehind(double distance, String type) {
 		super();
-		this.metersBehind = metersBehind;
+		this.metersBehind = distance;
 		this.type = type;
-		this.track = track;
 	}
 	public String getType() {
 		return type;
@@ -19,16 +17,10 @@ public class ObjectBehind extends GameState {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public int getTrack() {
-		return track;
-	}
-	public void setTrack(int track) {
-		this.track = track;
-	}
-	public int getMetersBehind() {
+	public double getMetersBehind() {
 		return metersBehind;
 	}
-	public void setMetersBehind(int meters) {
+	public void setMetersBehind(double meters) {
 		this.metersBehind = meters;
 	}
 }
