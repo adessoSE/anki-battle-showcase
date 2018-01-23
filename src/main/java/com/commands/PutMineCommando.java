@@ -17,6 +17,7 @@ public class PutMineCommando {
 		
 		World world = vehicle.getWorld();
 		Mine mine = new Mine ();
+		mine.setPosition(vehicle.getPosition());
 		world.addBody(mine);
 		mine.setWorld(world);
 		vehicle.setMineReady(false);

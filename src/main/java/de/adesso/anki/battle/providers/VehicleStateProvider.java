@@ -13,7 +13,10 @@ import com.states.ObjectInFront;
 import com.states.RightCurveAhead;
 import com.states.RocketInFront;
 
+import de.adesso.anki.battle.util.Position;
+import de.adesso.anki.battle.world.Body;
 import de.adesso.anki.battle.world.DynamicBody;
+import de.adesso.anki.battle.world.World;
 import de.adesso.anki.battle.world.bodies.Roadmap;
 import de.adesso.anki.battle.world.bodies.Vehicle;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
@@ -68,8 +71,16 @@ public class VehicleStateProvider {
 	{
 		ArrayList<GameState> facts = new ArrayList<>();
 		Roadmap map = vehicle.getWorld().getRoadmap();
+		
+		World world = vehicle.getWorld();
+		List<Body> bodies=  world.getBodies();
+		for (Body body : world.getBodies()) {
+			body.getPosition();
+		}
+		
 		Roadpiece nextPiece = vehicle.getRoadPiece().getNext();
 		Roadpiece prevPiece = vehicle.getRoadPiece().getPrev();
+
 		//if vehicle.nextRoadPiece.containsRocket()
 /*		if (nextPiece) {
 			int meters = 100;
@@ -109,7 +120,14 @@ public class VehicleStateProvider {
 	}
 
 	
-	
+	private boolean objectInNeighbourhood(Body body1, Body body2 ){
+		Position position1 = body1.getPosition();
+		Position position2 = body2.getPosition();
+		double distance = position1.distance(position2);
+		double angle1 = position1.angle();
+		double angle2  = position2.angle();
+		return false;
+	}
 	
 	
 	
