@@ -1,6 +1,7 @@
 package de.adesso.anki.battle;
 
 import com.states.GameState;
+import de.adesso.anki.battle.mqtt.MqttService;
 import de.adesso.anki.battle.providers.VehicleStateProvider;
 import de.adesso.anki.battle.renderers.Renderer;
 import de.adesso.anki.battle.sync.AnkiSynchronization;
@@ -9,6 +10,7 @@ import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.World;
 import de.adesso.anki.battle.world.bodies.Vehicle;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -25,6 +27,10 @@ public class GameEngine {
 
     @Autowired
     private List<Renderer> renderers;
+
+    @Autowired
+    private MqttService mqtt;
+
 
     @Autowired
     private AnkiSynchronization anki;

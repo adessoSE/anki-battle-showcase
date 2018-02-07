@@ -74,8 +74,11 @@
 			<artifactId>ble-gateway</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-
-
+		<dependency>
+			<groupId>org.eclipse.paho</groupId>
+			<artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+			<version>1.0.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
