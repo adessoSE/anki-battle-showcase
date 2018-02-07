@@ -3,7 +3,6 @@ package de.adesso.anki.battle.world.bodies;
 import com.commands.Command;
 import com.domain.RuleEngine;
 import com.states.GameState;
-import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
 import lombok.extern.slf4j.Slf4j;
@@ -85,7 +84,7 @@ public class Vehicle extends DynamicBody {
 		this.speed = speed;
 		// TODO Auto-generated method stub
 	}
-	
+
     @Override
     public void updatePosition(long deltaNanos) {
         if (position != null) {
@@ -102,9 +101,17 @@ public class Vehicle extends DynamicBody {
             double travel = speed * deltaNanos / 1_000_000_000;
 
             if (currentRoadpiece != null) {
-                Position newPosition = currentRoadpiece.followTrack(position, travel);
-                currentRoadpiece = currentRoadpiece.followTrackRoadpiece(position, travel);
-                position = newPosition;
+                while (travel > 0) {
+                    double maxTravel = currentRoadpiece.findMaximumTravel(position);
+                    if (travel <= maxTravel) {
+                        position = currentRoadpiece.followTrack(position, travel);
+                        travel = 0;
+                    } else {
+                        position = currentRoadpiece.followTrack(position, maxTravel);
+                        travel -= maxTravel;
+                        currentRoadpiece = currentRoadpiece.getNext();
+                    }
+                }
             }
         }
     }

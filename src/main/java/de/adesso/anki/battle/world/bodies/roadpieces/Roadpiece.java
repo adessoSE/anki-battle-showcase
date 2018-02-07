@@ -53,9 +53,10 @@ public abstract class Roadpiece {
     }
 
     public abstract Position followTrack(Position origin, double travel);
-    public abstract Roadpiece followTrackRoadpiece(Position origin, double travel);
+    public abstract double findMaximumTravel(Position position);
 
     public boolean isStraight() { return false; }
     public boolean isLeftCurved() { return false; }
     public boolean isRightCurved() { return false; }
+
 }

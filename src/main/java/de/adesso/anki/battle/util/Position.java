@@ -75,6 +75,11 @@ public class Position {
         return Position.at(newX, newY, newAngle);
     }
 
+    public Position invTransform2(Position other) {
+        return this.invTranslate(other.x(), other.y())
+                .invRotate(other.angle());
+    }
+
     public double distance(Position other) {
         double dx = this.x - other.x;
         double dy = this.y - other.y;

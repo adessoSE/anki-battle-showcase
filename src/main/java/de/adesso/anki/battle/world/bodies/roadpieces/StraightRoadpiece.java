@@ -23,26 +23,7 @@ public class StraightRoadpiece extends Roadpiece {
 
     @Override
     public Position followTrack(Position origin, double travel) {
-        double maxTravel = origin.distance(this.getExit()); // maximum travel on this piece
-        if (travel <= maxTravel) {
-            return origin.transform(Position.at(travel, 0)); // follow track on this piece
-        }
-        else if (next != null) {
-            return next.followTrack(this.getExit(), travel - maxTravel);
-        } else {
-            return this.getExit();
-        }
-    }
-
-    @Override
-    public Roadpiece followTrackRoadpiece(Position origin, double travel) {
-        double maxTravel = origin.distance(this.getExit()); // maximum travel on this piece
-        if (next == null || travel <= maxTravel) {
-            return this;
-        }
-        else {
-            return next.followTrackRoadpiece(this.getExit(), travel - maxTravel);
-        }
+        return origin.transform(Position.at(travel, 0));
     }
 
     @Override
@@ -53,5 +34,12 @@ public class StraightRoadpiece extends Roadpiece {
     @Override
     public boolean isStraight() {
         return true;
+    }
+
+    @Override
+    public double findMaximumTravel(Position origin) {
+        Position relativeOrigin = origin.invTransform2(position);
+        Position normalizedOrigin = Position.at(relativeOrigin.x(), 0);
+        return normalizedOrigin.distance(relativeExit());
     }
 }
