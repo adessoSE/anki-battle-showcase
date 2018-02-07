@@ -3,6 +3,7 @@ package de.adesso.anki.battle.world.bodies;
 import com.commands.Command;
 import com.domain.RuleEngine;
 import com.states.GameState;
+import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
 import lombok.extern.slf4j.Slf4j;
@@ -14,17 +15,20 @@ import java.util.Locale;
 @Slf4j
 public class Vehicle extends DynamicBody {
 
-    private Roadpiece currentRoadpiece;
-	private RuleEngine re ; 
+	private Roadpiece currentRoadpiece;
+	private RuleEngine re ;
 	private List<GameState> facts;
-	private int track =3 ; 			// 0-6 (l nach r) 
+	private int track =3 ; 			// 0-6 (l nach r)
 	private Command nextCommand;
 	private boolean rocketReady;
 	private boolean mineReady;
 	private boolean shieldReady;
 	private boolean reflectorReady;
-	
-	
+
+	private double offsetFromCenter;
+	private double targetOffset;
+
+	private double horizontalSpeed = 80;
 
 	public boolean isMineReady() {
 		return mineReady;
@@ -78,7 +82,10 @@ public class Vehicle extends DynamicBody {
 	public void setTrack (int track) {
 		this.track = track;
 	}
-	
+
+	public void setTargetOffset(double offsetFromCenter) {
+		targetOffset = offsetFromCenter;
+	}
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
@@ -88,35 +95,59 @@ public class Vehicle extends DynamicBody {
     @Override
     public void updatePosition(long deltaNanos) {
         if (position != null) {
-            if (speed < targetSpeed) {
-                speed += acceleration * deltaNanos / 1_000_000_000;
-                speed = Math.min(speed, targetSpeed);
-            }
-
-            if (speed > targetSpeed) {
-                speed -= acceleration * deltaNanos / 1_000_000_000;
-                speed = Math.max(speed, targetSpeed);
-            }
-
-            double travel = speed * deltaNanos / 1_000_000_000;
-
-            if (currentRoadpiece != null) {
-                while (travel > 0) {
-                    double maxTravel = currentRoadpiece.findMaximumTravel(position);
-                    if (travel <= maxTravel) {
-                        position = currentRoadpiece.followTrack(position, travel);
-                        travel = 0;
-                    } else {
-                        position = currentRoadpiece.followTrack(position, maxTravel);
-                        travel -= maxTravel;
-                        currentRoadpiece = currentRoadpiece.getNext();
-                    }
-                }
-            }
+        	updateOffset(deltaNanos);
+			updateForwardPosition(deltaNanos);
         }
     }
 
-    @Override
+    private void updateOffset(long deltaNanos) {
+		double deltaOffset = 0;
+
+		if (offsetFromCenter < targetOffset && speed > horizontalSpeed) {
+			deltaOffset = horizontalSpeed * deltaNanos / 1_000_000_000;
+			deltaOffset = Math.min(deltaOffset, targetOffset - offsetFromCenter);
+		}
+
+		if (offsetFromCenter > targetOffset && speed > horizontalSpeed) {
+			deltaOffset = -horizontalSpeed * deltaNanos / 1_000_000_000;
+			deltaOffset = Math.max(deltaOffset, targetOffset - offsetFromCenter);
+		}
+
+		if (deltaOffset != 0) {
+			position = position.transform(Position.at(0, -deltaOffset));
+			offsetFromCenter += deltaOffset;
+		}
+	}
+
+	private void updateForwardPosition(long deltaNanos) {
+		if (speed < targetSpeed) {
+            speed += acceleration * deltaNanos / 1_000_000_000;
+            speed = Math.min(speed, targetSpeed);
+        }
+
+		if (speed > targetSpeed) {
+            speed -= acceleration * deltaNanos / 1_000_000_000;
+            speed = Math.max(speed, targetSpeed);
+        }
+
+		double travel = speed * deltaNanos / 1_000_000_000;
+
+		if (currentRoadpiece != null) {
+            while (travel > 0) {
+                double maxTravel = currentRoadpiece.findMaximumTravel(position);
+                if (travel <= maxTravel) {
+                    position = currentRoadpiece.followTrack(position, travel);
+                    travel = 0;
+                } else {
+                    position = currentRoadpiece.followTrack(position, maxTravel);
+                    travel -= maxTravel;
+                    currentRoadpiece = currentRoadpiece.getNext();
+                }
+            }
+        }
+	}
+
+	@Override
     public void setFacts(List <GameState> facts)
     {
     	
