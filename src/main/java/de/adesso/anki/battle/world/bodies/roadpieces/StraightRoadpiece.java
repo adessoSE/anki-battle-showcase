@@ -38,8 +38,14 @@ public class StraightRoadpiece extends Roadpiece {
 
     @Override
     public double findMaximumTravel(Position origin) {
-        Position relativeOrigin = origin.invTransform2(position);
-        Position normalizedOrigin = Position.at(relativeOrigin.x(), 0);
-        return normalizedOrigin.distance(relativeExit());
+        Position relativeOrigin = origin.invTransform2(getPosition());
+
+        if (relativeOrigin.angle() == 0) {
+            Position normalizedOrigin = Position.at(relativeOrigin.x(), 0);
+            return normalizedOrigin.distance(relativeExit());
+        } else {
+            Position normalizedOrigin = Position.at(relativeOrigin.x(), 0);
+            return normalizedOrigin.distance(relativeEntry());
+        }
     }
 }

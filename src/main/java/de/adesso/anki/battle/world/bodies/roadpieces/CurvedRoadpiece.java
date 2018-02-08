@@ -8,8 +8,6 @@ public class CurvedRoadpiece extends Roadpiece {
 
     private static final double RADIUS = 280;
 
-    private boolean reversed;
-
     @Override
     public Position relativeEntry() {
         return Position.at(0, -RADIUS, 0);
@@ -27,38 +25,38 @@ public class CurvedRoadpiece extends Roadpiece {
 
     @Override
     public Position followTrack(Position origin, double travel) {
-        return origin.invTranslate(position.x(), position.y())
+        if (getExit().rotate(-origin.angle()).angle() <= 90) {
+            return origin.invTranslate(getPosition().x(), getPosition().y())
                     .rotate(Math.toDegrees(travel / findRadius(origin)))
-                    .translate(position.x(), position.y());
+                    .translate(getPosition().x(), getPosition().y());
+        } else {
+            return origin.invTranslate(getPosition().x(), getPosition().y())
+                    .rotate(Math.toDegrees(-travel / findRadius(origin)))
+                    .translate(getPosition().x(), getPosition().y());
+        }
     }
 
     public double findMaximumTravel(Position origin) {
-        double theta = Math.toRadians(getExit().angle() - origin.angle());
-        theta = theta < 0 ? theta + 2*Math.PI : theta;
-        return theta * findRadius(origin);
+        if (getExit().rotate(-origin.angle()).angle() <= 90) {
+            double theta = Math.toRadians(getExit().angle() - origin.angle());
+            theta = theta < 0 ? theta + 2 * Math.PI : theta;
+            return theta * findRadius(origin);
+        } else {
+            double theta = Math.toRadians(origin.angle() - getEntry().reverse().angle());
+            theta = theta < 0 ? theta + 2 * Math.PI : theta;
+            return theta * findRadius(origin);
+        }
     }
 
     private double findRadius(Position origin) {
-        return position.distance(origin);
-    }
-
-    public Roadpiece reverse() {
-        reversed = !reversed;
-        return this;
+        return getPosition().distance(origin);
     }
 
     @Override
-    public boolean isLeftCurved() {
-        return !reversed;
-    }
-
-    @Override
-    public boolean isRightCurved() {
-        return reversed;
-    }
+    public boolean isLeftCurved() { return true; }
 
     @Override
     public String toString() {
-        return reversed ? "R" : "L";
+        return "L";
     }
 }

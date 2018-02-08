@@ -4,10 +4,10 @@ import de.adesso.anki.battle.util.Position;
 
 public abstract class Roadpiece {
 
-    protected Roadpiece prev;
-    protected Roadpiece next;
+    private Roadpiece prev;
+    private Roadpiece next;
 
-    protected Position position;
+    private Position position;
 
     public abstract Position relativeEntry();
     public abstract Position relativeExit();
@@ -19,21 +19,27 @@ public abstract class Roadpiece {
     }
 
     public void connect(Roadpiece next) {
-        this.next = next;
-        next.prev = this;
+        this.setNext(next);
+        next.setPrev(this);
 
-        if (next.position == null) {
-            next.position = position.transform(this.relativeExit())
-                    .invTransform(next.relativeEntry());
+        if (next.getPosition() == null) {
+            next.setPosition(this.getPosition().transform(this.relativeExit())
+                    .invTransform(next.relativeEntry()));
         }
     }
 
     public Position getEntry() {
-        return position.transform(relativeEntry());
+        if (getPosition() == null)
+            return null;
+
+        return getPosition().transform(relativeEntry());
     }
 
     public Position getExit() {
-        return position.transform(relativeExit());
+        if (getPosition() == null)
+            return null;
+
+        return getPosition().transform(relativeExit());
     }
 
     public Roadpiece getNext() {
@@ -42,6 +48,18 @@ public abstract class Roadpiece {
 
     public Roadpiece getPrev() {
         return prev;
+    }
+
+    void setPrev(Roadpiece prev) {
+        this.prev = prev;
+    }
+
+    void setNext(Roadpiece next) {
+        this.next = next;
+    }
+
+    public Roadpiece reverse() {
+        return new ReverseRoadpiece(this);
     }
 
     public Position getPosition() {
@@ -53,7 +71,7 @@ public abstract class Roadpiece {
     }
 
     public abstract Position followTrack(Position origin, double travel);
-    public abstract double findMaximumTravel(Position position);
+    public abstract double findMaximumTravel(Position origin);
 
     public boolean isStraight() { return false; }
     public boolean isLeftCurved() { return false; }
