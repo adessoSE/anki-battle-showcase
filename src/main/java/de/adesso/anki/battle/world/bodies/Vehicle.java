@@ -6,6 +6,7 @@ import com.states.GameState;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
+import de.adesso.anki.sdk.AnkiVehicle;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
@@ -24,13 +25,15 @@ public class Vehicle extends DynamicBody {
 	private boolean mineReady;
 	private boolean shieldReady;
 	private boolean reflectorReady;
+    private AnkiVehicle ankiReference;
+
 
 	private double offsetFromCenter;
 	private double targetOffset;
 
-	private double horizontalSpeed = 80;
+	private double horizontalSpeed = 150;
 
-	public boolean isMineReady() {
+    public boolean isMineReady() {
 		return mineReady;
 	}
 
@@ -154,41 +157,39 @@ public class Vehicle extends DynamicBody {
     	this.facts = facts;
     	this.re.insertFacts(facts);
     }
-    
 
-    
-    @Override
-    public void evaluateBehavior() {
-    	Collection<? extends Command> allCommands = this.re.evaluateRules(); 
-    	//Command command = allCommands.iterator().next();
-    	//if (command != null ){
-    	//	command.execute(this);
-    	//}
-    	for (Command command : allCommands )
-    	{
-    		if (command != null){
-    			command.execute(this);
-    		}
-    	else {
-    		log.debug("No Command");
-    	}
-    	}
-    	//clean Ruleengine after execution of Command
-    	for (Object fact: facts) {
-    		this.re.retractFact(fact);
-    	}
-    	for (Object commands: allCommands) {
-    		this.re.retractFact(commands);
-    	}
 
-    }
+	@Override
+	public void evaluateBehavior() {
+		Collection<? extends Command> allCommands = this.re.evaluateRules();
+		//Command command = allCommands.iterator().next();
+		//if (command != null ){
+		//	command.execute(this);
+		//}
+		for (Command command : allCommands) {
+			if (command != null) {
+				command.execute(this);
+			} else {
+				log.debug("No Command");
+			}
+		}
+		//clean Ruleengine after execution of Command
+		for (Object fact : facts) {
+			this.re.retractFact(fact);
+		}
+		for (Object commands : allCommands) {
+			this.re.retractFact(commands);
+		}
+
+	}
 
     @Override
     public String toString() {
         return "Vehicle{" +
                 "roadpiece=" + currentRoadpiece +
                 ", position=" + position +
-                ", speed=" + String.format(Locale.ROOT, "%.1f", speed) +
+				", speed=" + String.format(Locale.ROOT, "%.1f", speed) +
+				", offset=" + String.format(Locale.ROOT, "%.1f", offsetFromCenter) +
                 '}';
     }
 
@@ -199,6 +200,17 @@ public class Vehicle extends DynamicBody {
     public Roadpiece getRoadPiece () {
     	return this.currentRoadpiece;
     }
-	
 
+
+    public void setAnkiReference(AnkiVehicle ankiReference) {
+        this.ankiReference = ankiReference;
+    }
+
+	public AnkiVehicle getAnkiReference() {
+		return ankiReference;
+	}
+
+	public double getTargetOffset() {
+		return targetOffset;
+	}
 }

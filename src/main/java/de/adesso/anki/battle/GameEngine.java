@@ -1,11 +1,9 @@
 package de.adesso.anki.battle;
 
 import com.states.GameState;
-import com.states.InventoryRocket;
-import com.states.ObjectInFront;
-
 import de.adesso.anki.battle.providers.VehicleStateProvider;
 import de.adesso.anki.battle.renderers.Renderer;
+import de.adesso.anki.battle.sync.AnkiSynchronization;
 import de.adesso.anki.battle.world.Body;
 import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.World;
@@ -27,6 +25,9 @@ public class GameEngine {
 
     @Autowired
     private List<Renderer> renderers;
+
+    @Autowired
+    private AnkiSynchronization anki;
 
     
     private boolean running = false;
@@ -52,7 +53,9 @@ public class GameEngine {
             
             // Step 1: Synchronize with real world
             // TODO: Synchronize with Anki vehicles
-
+            for (DynamicBody body : world.getDynamicBodies()) {
+                anki.synchronizeState((Vehicle) body);
+            }
 
             
             
@@ -78,12 +81,12 @@ public class GameEngine {
             		continue;
             	}
             	List <GameState> allFacts = new ArrayList<>();
-            	//List<GameState> factsRoad = vehicleStateProvider.getRoadFacts((Vehicle) body);
+            	List<GameState> factsRoad = vehicleStateProvider.getRoadFacts((Vehicle) body);
             	//List<GameState> factsInventory = vehicleStateProvider.getInventoryFacts((Vehicle)body);
             	List<GameState> factsObstacles = vehicleStateProvider.getObstacleFacts((Vehicle)body);
    
             	
-            	//allFacts.addAll(factsRoad);
+            	allFacts.addAll(factsRoad);
             	//allFacts.clear();
             	//allFacts.addAll(factsInventory);
             	allFacts.addAll(factsObstacles);

@@ -59,38 +59,59 @@ public class Roadmap {
             return map;
         }
 
-        public RoadmapBuilder straight() {
-            Roadpiece next = new StraightRoadpiece();
-            addRoadpiece(next);
+        public boolean isComplete() {
+            return map.anchor != null && map.anchor.getPrev() != null;
+        }
 
+        public RoadmapBuilder straight() {
+            return straight(false);
+        }
+
+        public RoadmapBuilder straight(boolean reverse) {
+            Roadpiece next = new StraightRoadpiece();
+            if (reverse) next = next.reverse();
+
+            addRoadpiece(next);
             return this;
         }
 
         public RoadmapBuilder left() {
-            Roadpiece next = new CurvedRoadpiece();
-            addRoadpiece(next);
-
-            return this;
+            return curve(false);
         }
 
         public RoadmapBuilder right() {
-            Roadpiece next = new CurvedRoadpiece().reverse();
-            addRoadpiece(next);
+            return curve(true);
+        }
 
+        public RoadmapBuilder curve(boolean reverse) {
+            Roadpiece next = new CurvedRoadpiece();
+            if (reverse) next = next.reverse();
+
+            addRoadpiece(next);
             return this;
         }
 
         public RoadmapBuilder start() {
-            Roadpiece next = new StartRoadpiece();
-            addRoadpiece(next);
+            return start(false);
+        }
 
+        public RoadmapBuilder start(boolean reverse) {
+            Roadpiece next = new StartRoadpiece();
+            if (reverse) next = next.reverse();
+
+            addRoadpiece(next);
             return this;
         }
 
         public RoadmapBuilder finish() {
-            Roadpiece next = new FinishRoadpiece();
-            addRoadpiece(next);
+            return finish(false);
+        }
 
+        public RoadmapBuilder finish(boolean reverse) {
+            Roadpiece next = new FinishRoadpiece();
+            if (reverse) next = next.reverse();
+
+            addRoadpiece(next);
             return this;
         }
     }

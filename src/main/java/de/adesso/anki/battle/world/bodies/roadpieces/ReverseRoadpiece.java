@@ -17,12 +17,12 @@ public class ReverseRoadpiece extends Roadpiece {
 
     @Override
     public Roadpiece getNext() {
-        return original.getPrev().reverse();
+        return original.getPrev() != null ? original.getPrev().reverse() : null;
     }
 
     @Override
     public Roadpiece getPrev() {
-        return original.getNext().reverse();
+        return original.getNext() != null ? original.getNext().reverse() : null;
     }
 
     @Override

@@ -4,7 +4,6 @@ package de.adesso.anki.battle.initializers;
 import de.adesso.anki.battle.GameEngine;
 import de.adesso.anki.battle.world.World;
 import de.adesso.anki.battle.world.bodies.Roadmap;
-import de.adesso.anki.battle.world.bodies.Roadmap.RoadmapBuilder;
 import de.adesso.anki.battle.world.bodies.Vehicle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
-import com.states.GameState;
 
 @Slf4j
 @Component
@@ -38,7 +35,7 @@ public class SimulationInitializer implements ApplicationRunner {
 
     private void buildRoadmap() {
         Roadmap map = Roadmap.builder()
-                        .start().left().left().straight().left().left().finish()
+                        .start().right().straight().right().right().left().right().right().finish()
                         .build();
     //	Roadmap map = Roadmap.builder().start().right().right().straight().right().right().finish().build();
     	world.setRoadmap(map);
@@ -49,12 +46,12 @@ public class SimulationInitializer implements ApplicationRunner {
         vehicle.setWorld(world);
         vehicle.setRuleEngine("factsModel"); //static for prototyping stuff
         vehicle.setTrack(3);
-        vehicle.setCurrentRoadpiece(world.getRoadmap().getAnchor());
-        vehicle.setPosition(world.getRoadmap().getAnchor().getEntry());
+        vehicle.setCurrentRoadpiece(world.getRoadmap().getAnchor().reverse());
+        vehicle.setPosition(world.getRoadmap().getAnchor().getEntry().reverse());
         vehicle.setTargetSpeed(500);
         vehicle.setRocketReady(true);
 
-        Vehicle vehicle2 = new Vehicle();
+        /*Vehicle vehicle2 = new Vehicle();
         vehicle2.setWorld(world);
         vehicle2.setRuleEngine("factsModel"); //static for prototyping stuff
         vehicle2.setTrack(1);
