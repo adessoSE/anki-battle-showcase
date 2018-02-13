@@ -1,0 +1,31 @@
+<script type="text/javascript">
+    RED.nodes.registerType('Bremsen',{
+        category: 'Aktionen',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+			velocity:{value:"100"},
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        label: function() {
+            return this.name||"Bremsen";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="Bremsen">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+	<div class="form-row">
+		<label for="node-input-velocity"><i class="icon-tag"></i> velocity</label>
+		<input type="text" id="node-input-velocity">
+ </div>
+</script>
+
+<script type="text/x-red" data-help-name="Bremsen">
+    <p> Node that puts mine</p>
+</script>

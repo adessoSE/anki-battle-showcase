@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    RED.nodes.registerType('Mine legen',{
+        category: 'Aktionen',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        label: function() {
+            return this.name||"Mine legen";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="Mine legen">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="Mine legen">
+    <p> Node that puts mine</p>
+</script>
