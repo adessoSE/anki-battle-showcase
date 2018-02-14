@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">
+    <kbase name="rules" packages="rules">
+        <ksession name="ksession-rules"/>
+    </kbase>
+       	<kbase name="test" packages="test">
+        <ksession name="test-rules"/>
+    </kbase>
+    <kbase name="vehicle" packages="vehicleRules">
+        <ksession name="bot-rules"/>
+    </kbase>
+        <kbase name="DSL" packages="dslRules">
+        <ksession name="dsl-rules"/>
+    </kbase>
+        <kbase name="facts" packages="FactsRules">
+        <ksession name="factsModel"/>
+    </kbase>
+
+    
+</kmodule>

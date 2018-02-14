@@ -1,0 +1,86 @@
+//created on: 03.01.2018
+package FactsRules
+
+//list any import classes here.
+import com.commands.*
+import com.states.*
+import org.slf4j.LoggerFactory;
+
+//declare any global variables here
+
+
+
+rule "Right Curve"
+    when
+        $rCurve : RightCurveAhead();
+    then
+    	LoggerFactory.getLogger("factModel.drl").debug("rule triggered: " + drools.getRule().getName());
+    	insert (new DriveRightCommand());
+end
+
+rule "Left Curve"
+    when
+        $lCurve : LeftCurveAhead();
+    then
+    	LoggerFactory.getLogger("factModel.drl").debug("rule triggered: " + drools.getRule().getName());
+    	insert (new DriveLeftCommand());
+end
+
+rule "Fire Rocket when Vehicle in Front"
+    when
+       $rocket: InventoryRocket(); // and $vehicleFront : ObjectInFront( );
+    then
+        LoggerFactory.getLogger("factModel.drl").debug("rule triggered: " + drools.getRule().getName());
+        insert (new FireRocketCommand("forward"));
+end
+
+
+
+
+/*
+rule "Fire Rocket everytime"
+    when
+        $inventory : Inventory( typeOfWeapon == "ROCKET");
+    then
+    	LoggerFactory.getLogger("factModel.drl").debug("rule triggered: " + drools.getRule().getName());
+    	insert (new FireRocketCommand("Forward"));   // Forward/Backwards
+    	retract($inventory); /// change inventory
+        //actions
+
+end
+
+rule " Rocket when vehicle in front"
+    when
+        $obstacleFront : ObjectInFront(  metersInFront < 200 ,type == "Vehicle" );
+    then
+    	LoggerFactory.getLogger("factModel.drl").debug("rule triggered: " + drools.getRule().getName());
+    	insert (new FireRocketCommand("Forward"));   // Forward/Backwards
+    	retract($obstacleFront); /// change inventory
+        //actions
+
+end
+
+rule " Incoming Rocket"
+    when
+        $obstacleBehind : ObjectBehind( metersBehind < 200 ,type == "Rocket" );
+    then
+    	LoggerFactory.getLogger("factModel.drl").debug("rule triggered: " + drools.getRule().getName());
+    	insert (new FireRocketCommand("Backwards"));   // Forward/Backwards
+    	//retract($obstacleBehind); /// change inventory
+        //actions
+
+end
+
+
+rule "reflect incoming Rocket"
+    //include attributes such as "salience" here...
+    when
+        $obstacleBehind : ObjectBehind( metersBehind < 200 ,type == "Rocket" );
+        //conditions
+    then
+        //actions
+    	LoggerFactory.getLogger("factModel.drl").debug("rule triggered: " + drools.getRule().getName());
+        insert(new UseReflectorCommand());
+
+end
+*/
