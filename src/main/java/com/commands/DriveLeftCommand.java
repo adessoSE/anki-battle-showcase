@@ -8,6 +8,6 @@ public class DriveLeftCommand extends Command{
 	
 	@Override
 	public void execute(Vehicle vehicle){
-		vehicle.setTargetOffset(-76.5);
+		vehicle.setTargetOffset(-67.5);
 	}
 }

@@ -80,4 +80,15 @@ public class ReverseRoadpiece extends Roadpiece {
     public boolean isLeftCurved() { return original.isRightCurved(); }
     public boolean isRightCurved() { return original.isLeftCurved(); }
 
+    @Override
+    public boolean equals(Object other) {
+        if (this == other)
+            return true;
+        if (other == null)
+            return false;
+        if (this.getClass() != other.getClass())
+            return false;
+
+        return this.original == ((ReverseRoadpiece) other).original;
+    }
 }

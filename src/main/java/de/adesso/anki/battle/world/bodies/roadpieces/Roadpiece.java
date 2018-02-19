@@ -9,6 +9,8 @@ public abstract class Roadpiece {
 
     private Position position;
 
+    private int locationId;
+
     public abstract Position relativeEntry();
     public abstract Position relativeExit();
 
@@ -77,4 +79,11 @@ public abstract class Roadpiece {
     public boolean isLeftCurved() { return false; }
     public boolean isRightCurved() { return false; }
 
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
+    }
+
+    public int getLocationId() {
+        return locationId;
+    }
 }

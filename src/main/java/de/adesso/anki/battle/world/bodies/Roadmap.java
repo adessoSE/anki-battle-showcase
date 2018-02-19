@@ -49,7 +49,7 @@ public class Roadmap {
             else {
                 last.connect(next);
                 last = next;
-                if (last.getExit().distance(map.anchor.getEntry()) < 1) {
+                if (last.getExit().distance(map.anchor.getEntry()) < 10) {
                     last.connect(map.anchor);
                 }
             }

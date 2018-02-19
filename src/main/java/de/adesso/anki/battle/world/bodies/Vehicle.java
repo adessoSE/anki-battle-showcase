@@ -8,6 +8,7 @@ import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
 import de.adesso.anki.sdk.AnkiVehicle;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 
 import java.util.Collection;
 import java.util.List;
@@ -28,10 +29,14 @@ public class Vehicle extends DynamicBody {
     private AnkiVehicle ankiReference;
 
 
+	public double getOffset() {
+		return offsetFromCenter;
+	}
+
 	private double offsetFromCenter;
 	private double targetOffset;
 
-	private double horizontalSpeed = 150;
+	private double horizontalSpeed = 80;
 
     public boolean isMineReady() {
 		return mineReady;
@@ -95,6 +100,15 @@ public class Vehicle extends DynamicBody {
 		// TODO Auto-generated method stub
 	}
 
+	public void setCalibrationOffset(double newOffset) {
+    	val deltaOffset = newOffset - offsetFromCenter;
+    	if (deltaOffset != 0) {
+    		if (position != null)
+				position = position.transform(Position.at(0, -deltaOffset));
+			offsetFromCenter += deltaOffset;
+		}
+	}
+
     @Override
     public void updatePosition(long deltaNanos) {
         if (position != null) {
@@ -123,7 +137,8 @@ public class Vehicle extends DynamicBody {
 	}
 
 	private void updateForwardPosition(long deltaNanos) {
-		if (speed < targetSpeed) {
+		/*/
+    	if (speed < targetSpeed) {
             speed += acceleration * deltaNanos / 1_000_000_000;
             speed = Math.min(speed, targetSpeed);
         }
@@ -132,10 +147,13 @@ public class Vehicle extends DynamicBody {
             speed -= acceleration * deltaNanos / 1_000_000_000;
             speed = Math.max(speed, targetSpeed);
         }
+        /**/
 
 		double travel = speed * deltaNanos / 1_000_000_000;
 
-		if (currentRoadpiece != null) {
+		val oldRoadpiece = currentRoadpiece;
+
+		if (currentRoadpiece != null && position != null) {
             while (travel > 0) {
                 double maxTravel = currentRoadpiece.findMaximumTravel(position);
                 if (travel <= maxTravel) {
@@ -148,6 +166,8 @@ public class Vehicle extends DynamicBody {
                 }
             }
         }
+
+        currentRoadpiece = oldRoadpiece;
 	}
 
 	@Override
@@ -212,5 +232,13 @@ public class Vehicle extends DynamicBody {
 
 	public double getTargetOffset() {
 		return targetOffset;
+	}
+
+    public Roadpiece getCurrentRoadpiece() {
+        return currentRoadpiece;
+    }
+
+	public double getHorizontalSpeed() {
+		return horizontalSpeed;
 	}
 }

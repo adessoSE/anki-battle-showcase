@@ -1,6 +1,7 @@
 package de.adesso.anki.battle.initializers;
 
 import de.adesso.anki.battle.GameEngine;
+import de.adesso.anki.battle.sync.AnkiSynchronization;
 import de.adesso.anki.battle.world.World;
 import de.adesso.anki.battle.world.bodies.Roadmap;
 import de.adesso.anki.battle.world.bodies.Vehicle;
@@ -43,6 +44,9 @@ public class AnkiInitializer implements ApplicationRunner {
     private Roadmap.RoadmapBuilder builder = Roadmap.builder();
     private AnkiVehicle vehicle;
     private Vehicle myVehicle;
+
+    @Autowired
+    private AnkiSynchronization sync;
 
     @Async
     @Override
@@ -111,6 +115,23 @@ public class AnkiInitializer implements ApplicationRunner {
                 vehicle.removeMessageListener(LocalizationPositionUpdateMessage.class, listener);
                 vehicle.removeMessageListener(LocalizationTransitionUpdateMessage.class, listener2);
                 vehicle.sendMessage(new SetSpeedMessage(0, 5000));
+                LightsPatternMessage lights = new LightsPatternMessage();
+                lights.add(new LightsPatternMessage.LightConfig(
+                        LightsPatternMessage.LightChannel.FRONT_RED,
+                        LightsPatternMessage.LightEffect.STEADY,
+                        15,
+                        0,
+                        1
+                ));
+                lights.add(new LightsPatternMessage.LightConfig(
+                        LightsPatternMessage.LightChannel.FRONT_GREEN,
+                        LightsPatternMessage.LightEffect.STEADY,
+                        15,
+                        0,
+                        1
+                ));
+                vehicle.sendMessage(lights);
+
                 startEngine();
             }
 
@@ -135,9 +156,9 @@ public class AnkiInitializer implements ApplicationRunner {
 
     private void startEngine() {
         myVehicle.setCurrentRoadpiece(world.getRoadmap().getAnchor());
-        myVehicle.setPosition(world.getRoadmap().getAnchor().getEntry());
         myVehicle.setTargetSpeed(500);
         myVehicle.setRuleEngine("factsModel");
+        sync.setupHandlers(myVehicle);
         engine.start();
     }
 }
