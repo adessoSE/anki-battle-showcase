@@ -12,7 +12,9 @@
 			"Beschleunigen": "commands/accelerate.js",
 			"Bremsen": "commands/brake.js",
 			"Schild": "commands/use-shield.js",
-			"U Turn": "commands/u-turn.js"
+			"U Turn": "commands/u-turn.js", 
+			"roadLogic" :"logic/curve.js",
+			"inventarLogic" :"logic/inv.js"
         }
     }
 }

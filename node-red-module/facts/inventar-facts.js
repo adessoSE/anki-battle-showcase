@@ -4,8 +4,8 @@ module.exports = function(RED) {
         var node = this;
         node.on('input', function(msg) {
 			var weapon = msg.payload.inv;
-			msg.payload = weapon;
-            node.send(msg);
+			var newMsg = {"weaponType" : weapon};
+            node.send(newMsg);
         });
     }
     RED.nodes.registerType("Inventarfakten",InventarNode);

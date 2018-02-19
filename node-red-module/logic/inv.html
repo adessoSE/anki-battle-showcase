@@ -1,0 +1,36 @@
+<script type="text/javascript">
+    RED.nodes.registerType('Inventar',{
+        category: 'Logik',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+			art: {value: "left"}
+		//art:{options:["l","r"]},
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        label: function() {
+            return this.name||"Inventar";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="Inventar">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+ 	<div class="form-row">
+     <label for="node-input-art"><i class="icon-tag"></i>art</label>
+	 <select value= "" id ="node-input-art" placeholder= "Bereit">
+  <option value="rocket">Rakete</option> 
+    <option value="mine">Mine</option> 
+	    <option value="shield">Schild</option> 
+ </select>
+ </div>
+</script>
+
+<script type="text/x-red" data-help-name="Inventar">
+    <p> Node that checks user rules for inventar</p>
+</script>
