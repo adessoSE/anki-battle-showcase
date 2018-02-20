@@ -1,0 +1,13 @@
+.curve{
+  top : -285px;
+  left: -285px;
+  width: 395px ; /* Auﬂenradius der Kurve */
+  height: 395px; /* Auﬂenradius der Kurve */
+  border-bottom-right-radius: 395px; /* Auﬂenradius der Kurve */
+  border-bottom: 220px solid black; /* Breite der Straﬂe */
+  border-right: 220px solid black; /* Breite der Straﬂe */
+  box-sizing: border-box;
+  position: absolute;
+  display: inline-block;
+  transform-origin: 285px 285px;
+}
