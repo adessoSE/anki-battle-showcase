@@ -1,10 +1,11 @@
 package de.adesso.anki.battle.world.bodies;
 
-import java.util.List;
-
 import com.states.GameState;
-
+import de.adesso.anki.battle.mqtt.MqttService;
 import de.adesso.anki.battle.world.DynamicBody;
+import org.eclipse.paho.client.mqttv3.MqttException;
+
+import java.util.List;
 
 public class Rocket extends DynamicBody {
 
@@ -17,7 +18,7 @@ public class Rocket extends DynamicBody {
 	
 	
 	@Override
-	public void evaluateBehavior() {
+	public void evaluateBehavior(MqttService mqtt) throws MqttException {
 		// TODO Auto-generated method stub
 		
 	}

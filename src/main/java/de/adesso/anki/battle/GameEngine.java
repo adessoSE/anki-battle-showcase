@@ -51,7 +51,14 @@ public class GameEngine {
     public void gameLoop() {
     	VehicleStateProvider vehicleStateProvider = new VehicleStateProvider();
         if (running) {
-            
+
+            try {
+            	subscribeAllVehicles ();
+            	//mqtt.publish("vehicleTest","{\"speed\":\"100\",\"nextRoadPiece\":\"left\",\"inv\":\"mine\"}");
+                //mqtt.subscribe("anki-response");
+            } catch (MqttException e) {
+                e.printStackTrace();
+            }
         	 
            
             // Step 0: Calculate elapsed nanoseconds since last loop
@@ -77,60 +84,53 @@ public class GameEngine {
             // TODO: Process input from frontend
 
             // Step 4: Evaluate behavior
-            
-            
-            
-            //Roadmap map =  world.getRoadmap();
 
             stepCount++;
             if (stepCount > 3) {
-                produceFacts(vehicleStateProvider);
-                evaluateBehavior();
+
+                List<DynamicBody> dynBodies = world.getDynamicBodies();
+
+                for (DynamicBody body : dynBodies) {
+                    log.debug(body.toString());
+                    if (!(body instanceof Vehicle)) {
+                        continue;
+                    }
+                    List<GameState> allFacts = new ArrayList<>();
+                    List<GameState> factsRoad = vehicleStateProvider.getRoadFacts((Vehicle) body);
+                    List<GameState> factsInventory = vehicleStateProvider.getInventoryFacts((Vehicle) body);
+                    List<GameState> factsObstacles = vehicleStateProvider.getObstacleFacts((Vehicle) body);
+
+
+                    allFacts.addAll(factsRoad);
+                    allFacts.addAll(factsInventory);
+                    allFacts.addAll(factsObstacles);
+                    body.setFacts(allFacts);
+                }
+                try {
+                    evaluateBehavior();
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    e.printStackTrace();
+                }
+
                 stepCount = 0;
             }
-
-
-
- /*           ArrayList<GameState> facts = new ArrayList<>();
-            RightCurveAhead rCurve = new RightCurveAhead(150);
-            facts.add(rCurve);
-
-            RightCurveAhead rCurve2 = new RightCurveAhead(150);
-            facts.add(rCurve2);
-
-            setFacts(facts);
-            evaluateBehavior();
-            */
 
             // Step 5: Render world
             renderWorld();
         }
     }
 
-    private void produceFacts(VehicleStateProvider vehicleStateProvider) {
-        List<DynamicBody> dynBodies = world.getDynamicBodies();
-
-        for (DynamicBody body : dynBodies) {
-            //log.debug(body.toString());
-            if (!(body instanceof Vehicle))
-            {
-                continue;
-            }
-            List <GameState> allFacts = new ArrayList<>();
-            List<GameState> factsRoad = vehicleStateProvider.getRoadFacts((Vehicle) body);
-            //List<GameState> factsInventory = vehicleStateProvider.getInventoryFacts((Vehicle)body);
-            List<GameState> factsObstacles = vehicleStateProvider.getObstacleFacts((Vehicle)body);
-
-
-            allFacts.addAll(factsRoad);
-            //allFacts.clear();
-            //allFacts.addAll(factsInventory);
-            allFacts.addAll(factsObstacles);
-            body.setFacts(allFacts);
+    private void subscribeAllVehicles() throws MqttException {
+        for (DynamicBody body : world.getDynamicBodies()) {
+        	if (body instanceof Vehicle)
+        	{
+        		mqtt.subscribe(((Vehicle) body).getName() + "_sub");
+        	}
         }
-    }
+	}
 
-    private void updateSimulation(long deltaNanos) {
+	private void updateSimulation(long deltaNanos) {
         for (DynamicBody body : world.getDynamicBodies()) {
            body.updatePosition(deltaNanos);
         }
@@ -152,7 +152,12 @@ public class GameEngine {
     private void evaluateBehavior() {
     	List<Body> oldBodies= new ArrayList<Body>(world.getBodies());
         for (Body body : oldBodies) {
-            body.evaluateBehavior();
+            try {
+				body.evaluateBehavior(mqtt);
+			} catch (MqttException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
     }
 

@@ -4,7 +4,7 @@ import de.adesso.anki.battle.world.World;
 import de.adesso.anki.battle.world.bodies.Mine;
 import de.adesso.anki.battle.world.bodies.Vehicle;
 
-public class PutMineCommand {
+public class PutMineCommand extends Command {
 	private int track; 
 	
 	

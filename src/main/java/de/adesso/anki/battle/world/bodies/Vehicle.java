@@ -3,6 +3,8 @@ package de.adesso.anki.battle.world.bodies;
 import com.commands.Command;
 import com.domain.RuleEngine;
 import com.states.GameState;
+
+import de.adesso.anki.battle.mqtt.MqttService;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
@@ -14,13 +16,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
+import org.eclipse.paho.client.mqttv3.MqttException;
+
 @Slf4j
 public class Vehicle extends DynamicBody {
 
-	private Roadpiece currentRoadpiece;
-	private RuleEngine re ;
+	private String name;
+    private Roadpiece currentRoadpiece;
 	private List<GameState> facts;
-	private int track =3 ; 			// 0-6 (l nach r)
+	private int track;
 	private Command nextCommand;
 	private boolean rocketReady;
 	private boolean mineReady;
@@ -38,7 +42,14 @@ public class Vehicle extends DynamicBody {
 
 	private double horizontalSpeed = 80;
 
-    public boolean isMineReady() {
+	public String getName() {
+		return this.name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean isMineReady() {
 		return mineReady;
 	}
 
@@ -72,15 +83,6 @@ public class Vehicle extends DynamicBody {
 
 	public Vehicle() {	
 	}
-	
-	public Vehicle(String pathDRL) {
-		this.re = new RuleEngine(pathDRL);		
-	}
-	
-	public void setRuleEngine(String pathDRL) {
-		this.re = new RuleEngine(pathDRL);
-	}
-	
 
 	public int getTrack() {
 		return this.track;
@@ -175,33 +177,26 @@ public class Vehicle extends DynamicBody {
     {
     	
     	this.facts = facts;
-    	this.re.insertFacts(facts);
+
     }
 
+    public String generateMessageFromFacts(List <GameState> facts) {
+    	for (GameState gameState : facts) {
+    		gameState.toString();
+		}
+    	return "{\"speed\":\"100\",\"nextRoadPiece\":\"left\",\"inv\":\"mine\"}";
+    }
 
-	@Override
-	public void evaluateBehavior() {
-		Collection<? extends Command> allCommands = this.re.evaluateRules();
-		//Command command = allCommands.iterator().next();
-		//if (command != null ){
-		//	command.execute(this);
-		//}
-		for (Command command : allCommands) {
-			if (command != null) {
-				command.execute(this);
-			} else {
-				log.debug("No Command");
-			}
-		}
-		//clean Ruleengine after execution of Command
-		for (Object fact : facts) {
-			this.re.retractFact(fact);
-		}
-		for (Object commands : allCommands) {
-			this.re.retractFact(commands);
-		}
+    @Override
+    public void evaluateBehavior(MqttService mqtt) throws MqttException {
 
-	}
+    	List<GameState> factsForVehicle = this.facts;
+    	String topic = this.name;
+    	String message ="{\"speed\":\"100\",\"nextRoadPiece\":\"left\",\"inv\":\"mine\"}";
+    	// generate Message from facts
+    	String messageToSend = generateMessageFromFacts(factsForVehicle);
+    	mqtt.publish(topic, message);
+    }
 
     @Override
     public String toString() {
