@@ -3,7 +3,7 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,config);
         var node = this;
         node.on('input', function(msg) {
-			var newMsg = {"type":"shield"};
+			var newMsg = {"payload":{"type":"shield"}};
             node.send(newMsg);
         });
     }

@@ -3,7 +3,7 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,config);
         var node = this;
         node.on('input', function(msg) {
-		var newMsg = {"type":"beschleunige", "veloc":config.velocity}
+		var newMsg = {"payload":{"type":"beschleunige", "veloc":config.velocity}};
 		node.send(newMsg);
         });
     }
