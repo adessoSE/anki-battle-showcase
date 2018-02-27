@@ -21,8 +21,7 @@ module.exports = function(RED) {
 			var startTime = context.get("startTime");
 			var lapTime = endTime - startTime;
 		}
-		newMsg = {"time" : lapTime/1000};
-		node.log(newMsg);
+		newMsg = {"payload":{"time" : lapTime/1000}};
 		node.send( newMsg);
         });
     }
