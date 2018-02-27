@@ -3,10 +3,11 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,config);
         var node = this;
         node.on('input', function(msg) {
-			if (msg.payload.nextRoadPiece == "left"){
+			// dirty, assumes theres only one fact right now
+			if (msg.payload.nextRoadPiece[0] == "LeftCurveAhead"){
 				var newMsg = {"fact": "Linkskurve"};
 			}
-			else if (msg.payload.nextRoadPiece == "right"){
+			else if (msg.payload.nextRoadPiece[0] == "RightCurveAhead"){
 				var newMsg = {"fact":"Rechtskurve"};
 			}
 			node.send(newMsg);
