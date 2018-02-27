@@ -49,7 +49,7 @@ public class SimulationInitializer implements ApplicationRunner {
         vehicle.setCurrentRoadpiece(world.getRoadmap().getAnchor().reverse());
         vehicle.setPosition(world.getRoadmap().getAnchor().getEntry().reverse());
         vehicle.setTargetSpeed(500);
-        vehicle.setRocketReady(true);
+        vehicle.setMineReady(true);
 
         world.addBody(vehicle);
 

@@ -66,11 +66,11 @@ public class MqttService {
                     int track;
                     switch(commandType) {
                     	case("accelerate"): 
-                    		speed = (int) json.get("velocity");
+                    		speed = Integer.parseInt((String)  json.get("velocity"));
                     		command = new AccelerateCommand(speed) ;
                     		break;
                     	case("brake"): 
-                    		speed = (int) json.get("velocity");
+                    		speed = Integer.parseInt((String)  json.get("velocity"));
                     		command = new BrakeCommand(speed) ;
                     		break;
                     	case("uTurn"): 
@@ -80,8 +80,7 @@ public class MqttService {
                     		command = new FireRocketCommand("") ;
                     		break;
                     	case("putMine"): 
-                    		track = (int) json.get("track");
-                    		command = new PutMineCommand(track) ;
+                    		command = new PutMineCommand() ;
                     		break;
                     } 
                     if (command != null) {

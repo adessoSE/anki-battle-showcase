@@ -101,10 +101,10 @@ public class GameEngine {
                     List<GameState> factsObstacles = vehicleStateProvider.getObstacleFacts((Vehicle) body);
 
 
-                    allFacts.addAll(factsRoad);
-                    allFacts.addAll(factsInventory);
-                    allFacts.addAll(factsObstacles);
-                    body.setFacts(allFacts);
+                    //allFacts.addAll(factsRoad);
+                    //allFacts.addAll(factsInventory);
+                    //allFacts.addAll(factsObstacles);
+                    body.setFacts(factsRoad, factsInventory, factsObstacles);
                 }
                 try {
                     evaluateBehavior();
@@ -115,6 +115,26 @@ public class GameEngine {
 
                 stepCount = 0;
             }
+
+            
+
+            /*
+            try {
+            	//{"speed":"100","nextRoadPiece":"left","inv":"mine"}
+            	JSONObject json = new JSONObject();
+            	json.put("speed", 100);
+            	json.put("nextRoadPiece", "left");
+            	json.put("inv", "mine");
+            	//mqtt.publish("vehicleTest",json );
+            	mqtt.publish("vehicleTest","{\"speed\":\"100\",\"nextRoadPiece\":\"left\",\"inv\":\"mine\"}");
+                mqtt.subscribe("anki-response");
+            } catch (MqttException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		*/
 
             // Step 5: Render world
             renderWorld();
@@ -140,20 +160,23 @@ public class GameEngine {
 
     
     
-    
+  /*
     private void setFacts(List<GameState> facts) {
     	//all vehicles have same facts, prototype
         for (DynamicBody body : world.getDynamicBodies()) {
            body.setFacts(facts);
         }
     }
-    
+    */
     
     private void evaluateBehavior() {
     	List<Body> oldBodies= new ArrayList<Body>(world.getBodies());
         for (Body body : oldBodies) {
             try {
-				body.evaluateBehavior(mqtt);
+            	// world needs a get Vehicle Method
+            	if (body instanceof Vehicle) {
+    				body.evaluateBehavior(mqtt);
+            	}
 			} catch (MqttException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

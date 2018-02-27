@@ -1,9 +1,8 @@
 package de.adesso.anki.battle.world.bodies;
 
 import com.commands.Command;
-import com.domain.RuleEngine;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.states.GameState;
-
 import de.adesso.anki.battle.mqtt.MqttService;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.DynamicBody;
@@ -11,20 +10,27 @@ import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
 import de.adesso.anki.sdk.AnkiVehicle;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
-
-import org.eclipse.paho.client.mqttv3.MqttException;
 
 @Slf4j
 public class Vehicle extends DynamicBody {
 
 	private String name;
     private Roadpiece currentRoadpiece;
-	private List<GameState> facts;
-	private int track;
+
+
+    //TODO: Bei Gelegenheit in 3 Pakete unterteilen
+	private List<GameState> factsRoad;
+	private List<GameState> factsInventory;
+	private List<GameState> factsObstacles;
+
+	private int track ; 		
 	private Command nextCommand;
 	private boolean rocketReady;
 	private boolean mineReady;
@@ -172,30 +178,60 @@ public class Vehicle extends DynamicBody {
         currentRoadpiece = oldRoadpiece;
 	}
 
-	@Override
-    public void setFacts(List <GameState> facts)
+    @Override
+    public void setFacts(List <GameState> factsRoad, List <GameState> factsInventory,
+    											List <GameState> factsObstacles)
     {
-    	
-    	this.facts = facts;
+    	this.factsRoad = factsRoad ;
+    	this.factsInventory =factsInventory ;
+    	this.factsObstacles = factsObstacles;
 
     }
 
-    public String generateMessageFromFacts(List <GameState> facts) {
-    	for (GameState gameState : facts) {
-    		gameState.toString();
+    public String convertFactsToMessage() {
+    	ObjectMapper objMapper = new ObjectMapper();
+
+		JSONObject json = new JSONObject();
+		JSONArray arr = new JSONArray();
+    	try {
+			json.put("speed", this.speed);
+			for (GameState gameState : this.factsRoad) {
+	    		arr.put(gameState.getClass().getSimpleName());
+			}
+			json.put("nextRoadPiece", arr);
+
+
+			arr = new JSONArray();
+			for (GameState gameState : this.factsInventory) {
+				arr.put(gameState.getClass().getSimpleName());
+			}
+    		json.put("inv",arr);
+
+
+			//arr = new JSONArray();
+			//for (GameState gameState : this.factsObstacles) {
+			//	arr.put(gameState.getClass().getSimpleName());
+			//}
+    		//json.put("obstacles",arr);
+    		return json.toString();
+
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-    	return "{\"speed\":\"100\",\"nextRoadPiece\":\"left\",\"inv\":\"mine\"}";
+    	return "";
     }
 
     @Override
     public void evaluateBehavior(MqttService mqtt) throws MqttException {
+    	
 
-    	List<GameState> factsForVehicle = this.facts;
     	String topic = this.name;
     	String message ="{\"speed\":\"100\",\"nextRoadPiece\":\"left\",\"inv\":\"mine\"}";
     	// generate Message from facts
-    	String messageToSend = generateMessageFromFacts(factsForVehicle);
-    	mqtt.publish(topic, message);
+    	String messageToSend = convertFactsToMessage();
+    	//mqtt.publish(topic, message);
+    	mqtt.publish(topic, messageToSend);
     }
 
     @Override
