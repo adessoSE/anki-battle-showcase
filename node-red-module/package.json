@@ -14,7 +14,8 @@
 			"Schild": "commands/use-shield.js",
 			"U Turn": "commands/u-turn.js", 
 			"roadLogic" :"logic/curve.js",
-			"inventarLogic" :"logic/inv.js"
+			"inventarLogic" :"logic/inv.js",
+			"Rundenzeit" : "lap-time.js"
         }
     }
 }
