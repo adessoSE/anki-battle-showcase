@@ -10,6 +10,10 @@ module.exports = function(RED) {
 			else if (msg.payload.nextRoadPiece[0] == "RightCurveAhead"){
 				var newMsg = {"fact":"Rechtskurve"};
 			}
+			else if (msg.payload.nextRoadPiece[0] == "StraightPieceAhead"){
+				var newMsg = {"fact":"straightPiece"};
+			}
+			
 			node.send(newMsg);
         });
     }
