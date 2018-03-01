@@ -16,7 +16,8 @@
 			"roadLogic" :"logic/curve.js",
 			"inventarLogic" :"logic/inv.js",
 			"Gerade" : "logic/straight.js",
-			"Rundenzeit" : "lap-time.js"
+			"Rundenzeit" : "lap-time.js",
+			"Umwelt" : "logic/obstacle.js"
         }
     }
 }

@@ -3,8 +3,20 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,config);
         var node = this;
         node.on('input', function(msg) {
-            msg.payload = msg.payload.toLowerCase();
-            node.send(msg);
+            if (msg.payload.obstacles.includes("MineInFront")){
+				var msg1 = {"fact": "MineFront"};
+			}
+			if (msg.payload.obstacles.includes("ObjectInFront")){
+				var msg2 = {"fact":"ObjectInFront"};
+			}
+			if (msg.payload.obstacles.includes("VehicleInFront")){
+				var msg3 = {"fact":"VehicleFront"};
+			}
+			if (msg.payload.obstacles.includes("RocketBehind")){
+				var msg4 = {"fact": "RocketBehind"}
+			}
+			//return  [ msg1, msg2, msg3 ,msg4] ;
+			node.send([[ msg1, msg2, msg3 ,msg4]]);
         });
     }
     RED.nodes.registerType("Umgebungsfakten",EnvironmentFacts);
