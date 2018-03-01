@@ -25,12 +25,6 @@ export default class VisualizationPanel extends React.Component {
   var worldMapElem = document.getElementById('world_map');
   if(this.props.roadmap != null && this.props.roadmap.roadpieces != null){
 
-    if(this.props.vehicles != null){
-      var vehicleNodes = this.props.vehicles.map( (v ,index) =>       
-        <Vehicle key={index} index={v.index} posX={v.posX+1120} posY={v.posY+560} direction={v.direction} color={v.color} />        
-      );
-    }
-
   var minX = 0, minY = 0, maxX = 0, maxY = 0;
   this.props.roadmap.roadpieces.forEach( tile => {
     if (tile.position.x > maxX)
@@ -44,26 +38,26 @@ export default class VisualizationPanel extends React.Component {
   });
   
   var offX = minX - 280;
-  var offY = minY - 280;
+  var offY = maxY + 280;
   
-  if(this.props.vehicles != null){
-    var vehicleNodes = this.props.vehicles.map( (v, index) => 
-      <Vehicle key={index} index={v.index} posX={v.posX - offX} posY={v.posY - offY} direction={v.direction} color={v.color} />
+  if(this.props.bodies != null){
+    var bodyNodes = this.props.bodies.map( (v, index) =>
+      <Vehicle key={index} index={v.index} posX={v.position.x - offX} posY={offY - v.position.y} direction={v.position.angle} color={v.color} />
     );
   }
 
     var roadNodes = this.props.roadmap.roadpieces.map( (tile, index) => {
             switch(tile.type){
                 case "StraightRoadpiece":
-                    return (<StraightRoadpiece key={index} rotation={tile.position.angle} posX={tile.position.x - offX} posY={tile.position.y - offY} />)
+                    return (<StraightRoadpiece key={index} rotation={tile.position.angle} posX={tile.position.x - offX} posY={-tile.position.y + offY} />)
                 case "CurvedRoadpiece":
-                    return (<CurveRoadpiece key={index} rotation={tile.position.angle} posX={tile.position.x - offX} posY={tile.position.y - offY} />)
+                    return (<CurveRoadpiece key={index} rotation={tile.position.angle} posX={tile.position.x - offX + 280} posY={-tile.position.y + offY + 280} />)
                 case "IntersectionRoadpiece":
-                    return (<IntersectionRoadpiece key={index} rotation={tile.position.angle} posX={tile.position.x - offX} posY={tile.position.y - offY} />)
+                    return (<IntersectionRoadpiece key={index} rotation={tile.position.angle} posX={tile.position.x - offX} posY={-tile.position.y + offY} />)
                 case "StartRoadpiece":
-                    return (<StartRoadpiece key={index} rotation={tile.position.angle} posX={tile.position.x - offX} posY={tile.position.y - offY} />)
+                    return (<StartRoadpiece key={index} rotation={tile.position.angle} posX={tile.position.x - offX} posY={-tile.position.y + offY} />)
                 case "FinishRoadpiece":
-                    return (<FinishRoadpiece key={index} rotation={tile.position.angle} posX={tile.position.x - offX} posY={tile.position.y - offY} />)
+                    return (<FinishRoadpiece key={index} rotation={tile.position.angle} posX={tile.position.x - offX} posY={-tile.position.y + offY} />)
             }         
     });
     
@@ -73,7 +67,7 @@ export default class VisualizationPanel extends React.Component {
             <div id="world_map" style={{width: maxX - minX + 560, height: maxY - minY + 560}} data-width={maxX - minX + 560} data-height={maxY - minY + 560}>
                 {roadNodes}
                 <div id="vehicles">
-                    {vehicleNodes}
+                    {bodyNodes}
                 </div>
             </div>
       </div>

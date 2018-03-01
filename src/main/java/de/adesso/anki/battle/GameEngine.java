@@ -1,9 +1,6 @@
 package de.adesso.anki.battle;
 
 import com.states.GameState;
-import com.states.InventoryRocket;
-import com.states.ObjectInFront;
-
 import de.adesso.anki.battle.providers.VehicleStateProvider;
 import de.adesso.anki.battle.renderers.Renderer;
 import de.adesso.anki.battle.world.Body;
@@ -38,7 +35,7 @@ public class GameEngine {
         running = true;
     }
 
-    @Scheduled(fixedRate = 200)
+    @Scheduled(fixedRate = 50)
     public void gameLoop() {
     	VehicleStateProvider vehicleStateProvider = new VehicleStateProvider();
         if (running) {
@@ -72,7 +69,7 @@ public class GameEngine {
             List<DynamicBody> dynBodies = world.getDynamicBodies();
             
             for (DynamicBody body : dynBodies) {
-            	log.debug(body.toString());
+            	//log.debug(body.toString());
             	if (!(body instanceof Vehicle))
             	{
             		continue;

@@ -1463,62 +1463,6 @@ module.exports = ReactComponentTreeHook;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function () {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		var result = [];
-		for (var i = 0; i < this.length; i++) {
-			var item = this[i];
-			if (item[2]) {
-				result.push("@media " + item[2] + "{" + item[1] + "}");
-			} else {
-				result.push(item[1]);
-			}
-		}
-		return result.join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function (modules, mediaQuery) {
-		if (typeof modules === "string") modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for (var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if (typeof id === "number") alreadyImportedModules[id] = true;
-		}
-		for (i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if (typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if (mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if (mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright (c) 2016-present, Facebook, Inc.
  *
@@ -1543,7 +1487,7 @@ module.exports = { debugTool: debugTool };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1597,7 +1541,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports) {
 
 /*
@@ -1847,6 +1791,62 @@ function updateLink(linkElement, obj) {
 		URL.revokeObjectURL(oldSrc);
 }
 
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function () {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		var result = [];
+		for (var i = 0; i < this.length; i++) {
+			var item = this[i];
+			if (item[2]) {
+				result.push("@media " + item[2] + "{" + item[1] + "}");
+			} else {
+				result.push(item[1]);
+			}
+		}
+		return result.join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function (modules, mediaQuery) {
+		if (typeof modules === "string") modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for (var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if (typeof id === "number") alreadyImportedModules[id] = true;
+		}
+		for (i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if (typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if (mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if (mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
 
 /***/ }),
 /* 17 */
@@ -4410,7 +4410,7 @@ module.exports = DOMLazyTree;
 
 
 var ReactRef = __webpack_require__(169);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(13);
 
 var warning = __webpack_require__(2);
 
@@ -4750,7 +4750,7 @@ module.exports = reactProdInvariant;
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var inherits = __webpack_require__(3),
-    urlUtils = __webpack_require__(15),
+    urlUtils = __webpack_require__(14),
     SenderReceiver = __webpack_require__(118);
 
 var debug = function debug() {};
@@ -6964,7 +6964,7 @@ module.exports = XHRCorsObject;
 var DOMLazyTree = __webpack_require__(28);
 var Danger = __webpack_require__(132);
 var ReactDOMComponentTree = __webpack_require__(5);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(13);
 
 var createMicrosoftUnsafeLocalFunction = __webpack_require__(59);
 var setInnerHTML = __webpack_require__(47);
@@ -7784,7 +7784,7 @@ var _prodInvariant = __webpack_require__(4);
 
 var ReactCurrentOwner = __webpack_require__(19);
 var ReactInstanceMap = __webpack_require__(36);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(13);
 var ReactUpdates = __webpack_require__(17);
 
 var invariant = __webpack_require__(1);
@@ -8922,7 +8922,7 @@ var EventEmitter = __webpack_require__(10).EventEmitter,
     inherits = __webpack_require__(3),
     eventUtils = __webpack_require__(25),
     browser = __webpack_require__(40),
-    urlUtils = __webpack_require__(15);
+    urlUtils = __webpack_require__(14);
 
 var debug = function debug() {};
 if (process.env.NODE_ENV !== 'production') {
@@ -18764,7 +18764,7 @@ module.exports = PooledClass.addPoolingTo(CallbackQueue);
 
 var DOMProperty = __webpack_require__(24);
 var ReactDOMComponentTree = __webpack_require__(5);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(13);
 
 var quoteAttributeValueForBrowser = __webpack_require__(195);
 var warning = __webpack_require__(2);
@@ -19494,7 +19494,7 @@ var ReactDOMContainerInfo = __webpack_require__(142);
 var ReactDOMFeatureFlags = __webpack_require__(144);
 var ReactFeatureFlags = __webpack_require__(80);
 var ReactInstanceMap = __webpack_require__(36);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(13);
 var ReactMarkupChecksum = __webpack_require__(164);
 var ReactReconciler = __webpack_require__(29);
 var ReactUpdateQueue = __webpack_require__(58);
@@ -21836,7 +21836,7 @@ module.exports = global.location || {
 var EventEmitter = __webpack_require__(10).EventEmitter,
     inherits = __webpack_require__(3),
     utils = __webpack_require__(25),
-    urlUtils = __webpack_require__(15),
+    urlUtils = __webpack_require__(14),
     XHR = global.XMLHttpRequest;
 
 var debug = function debug() {};
@@ -22116,7 +22116,7 @@ var inherits = __webpack_require__(3),
     JSON3 = __webpack_require__(23),
     EventEmitter = __webpack_require__(10).EventEmitter,
     version = __webpack_require__(121),
-    urlUtils = __webpack_require__(15),
+    urlUtils = __webpack_require__(14),
     iframeUtils = __webpack_require__(41),
     eventUtils = __webpack_require__(25),
     random = __webpack_require__(33);
@@ -22247,7 +22247,7 @@ module.exports = IframeTransport;
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var inherits = __webpack_require__(3),
-    urlUtils = __webpack_require__(15),
+    urlUtils = __webpack_require__(14),
     BufferedSender = __webpack_require__(242),
     Polling = __webpack_require__(243);
 
@@ -23397,7 +23397,7 @@ var Application = function (_React$Component) {
     _this.stompBluetoothLogsReceived = _this.stompBluetoothLogsReceived.bind(_this);
     _this.stompStateReceived = _this.stompStateReceived.bind(_this);
     _this.state = {
-      vehicles: [],
+      bodies: [],
       roadmap: { roadpieces: [] },
       log: [],
       ws: [],
@@ -23424,7 +23424,7 @@ var Application = function (_React$Component) {
             _react2.default.createElement(
               'span',
               { className: 'mdl-layout__title' },
-              'InVerSiV-Showcase'
+              'Anki-Battle-Showcase'
             )
           )
         ),
@@ -23437,12 +23437,12 @@ var Application = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { id: 'visualization_panel', className: 'mdl-cell mdl-cell--9-col mdl-cell--8-col-tablet' },
-              _react2.default.createElement(_VisualizationPanel2.default, { stomp: this.stomp, vehicles: this.state.vehicles, roadmap: this.state.roadmap })
+              _react2.default.createElement(_VisualizationPanel2.default, { stomp: this.stomp, bodies: this.state.bodies, roadmap: this.state.roadmap })
             ),
             _react2.default.createElement(
               'div',
               { className: 'mdl-cell mdl-cell--3-col mdl-cell--8-col-tablet' },
-              _react2.default.createElement(_CardPanel2.default, { stomp: this.stomp, vehicles: this.state.vehicles, roadmap: this.state.roadmap, state: this.state.state })
+              _react2.default.createElement(_CardPanel2.default, { stomp: this.stomp, bodies: this.state.bodies, roadmap: this.state.roadmap, state: this.state.state })
             )
           )
         ),
@@ -23460,7 +23460,7 @@ var Application = function (_React$Component) {
   }, {
     key: 'connect',
     value: function connect() {
-      this.socket = new _sockjsClient2.default('http://localhost:8081/inversiv');
+      this.socket = new _sockjsClient2.default('http://localhost:8080/inversiv');
       this.stomp = Stomp.over(this.socket);
       this.stomp.debug = null;
       console.log("Try connect...");
@@ -23470,7 +23470,7 @@ var Application = function (_React$Component) {
     key: 'stompConnected',
     value: function stompConnected(frame) {
       console.log('Connected: ' + frame);
-      this.stomp.subscribe('/topic/vehicles', this.stompDataReceived);
+      this.stomp.subscribe('/topic/bodies', this.stompDataReceived);
       this.stomp.subscribe('/topic/roadmap', this.stompRoadmapReceived);
       this.stomp.subscribe('/topic/logs/ws', this.stompWebsocketLogsReceived);
       this.stomp.subscribe('/topic/logs/log', this.stompLogsReceived);
@@ -23482,7 +23482,7 @@ var Application = function (_React$Component) {
     value: function stompDisconnected() {
       console.log("Socket closed. Starte reconnect...");
       document.getElementById('audioLogoff').play();
-      this.setState({ vehicles: [] });
+      this.setState({ bodies: [] });
       this.setState({ roadmap: [] });
       this.setState({ log: [] });
       this.setState({ ws: [] });
@@ -23493,11 +23493,11 @@ var Application = function (_React$Component) {
   }, {
     key: 'stompDataReceived',
     value: function stompDataReceived(data) {
-      var vehicles = JSON.parse(data.body);
-      for (var i = 0; i < vehicles.length; i++) {
-        vehicles[i].index = i;
+      var bodies = JSON.parse(data.body);
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].index = i;
       }
-      this.setState({ vehicles: vehicles });
+      this.setState({ bodies: bodies });
     }
   }, {
     key: 'stompRoadmapReceived',
@@ -24050,7 +24050,7 @@ module.exports = BeforeInputEventPlugin;
 
 var CSSProperty = __webpack_require__(74);
 var ExecutionEnvironment = __webpack_require__(9);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(13);
 
 var camelizeStyleName = __webpack_require__(198);
 var dangerousStyleValue = __webpack_require__(188);
@@ -25298,7 +25298,7 @@ var ReactComponentEnvironment = __webpack_require__(56);
 var ReactCurrentOwner = __webpack_require__(19);
 var ReactErrorUtils = __webpack_require__(57);
 var ReactInstanceMap = __webpack_require__(36);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(13);
 var ReactNodeTypes = __webpack_require__(84);
 var ReactReconciler = __webpack_require__(29);
 
@@ -26281,7 +26281,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 if (process.env.NODE_ENV !== 'production') {
-  var ReactInstrumentation = __webpack_require__(14);
+  var ReactInstrumentation = __webpack_require__(13);
   var ReactDOMUnknownPropertyHook = __webpack_require__(154);
   var ReactDOMNullInputValuePropHook = __webpack_require__(148);
   var ReactDOMInvalidARIAHook = __webpack_require__(147);
@@ -26331,7 +26331,7 @@ var ReactDOMInput = __webpack_require__(146);
 var ReactDOMOption = __webpack_require__(149);
 var ReactDOMSelect = __webpack_require__(78);
 var ReactDOMTextarea = __webpack_require__(152);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(13);
 var ReactMultiChild = __webpack_require__(165);
 var ReactServerRenderingTransaction = __webpack_require__(170);
 
@@ -29764,7 +29764,7 @@ var _prodInvariant = __webpack_require__(4);
 
 var ReactComponentEnvironment = __webpack_require__(56);
 var ReactInstanceMap = __webpack_require__(36);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(13);
 
 var ReactCurrentOwner = __webpack_require__(19);
 var ReactReconciler = __webpack_require__(29);
@@ -30342,7 +30342,7 @@ var CallbackQueue = __webpack_require__(75);
 var PooledClass = __webpack_require__(26);
 var ReactBrowserEventEmitter = __webpack_require__(43);
 var ReactInputSelection = __webpack_require__(82);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(13);
 var Transaction = __webpack_require__(45);
 var ReactUpdateQueue = __webpack_require__(58);
 
@@ -30616,7 +30616,7 @@ var _assign = __webpack_require__(8);
 
 var PooledClass = __webpack_require__(26);
 var Transaction = __webpack_require__(45);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(13);
 var ReactServerUpdateQueue = __webpack_require__(171);
 
 /**
@@ -36626,7 +36626,7 @@ module.exports = FacadeJS;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var urlUtils = __webpack_require__(15),
+var urlUtils = __webpack_require__(14),
     eventUtils = __webpack_require__(25),
     JSON3 = __webpack_require__(23),
     FacadeJS = __webpack_require__(233),
@@ -36808,7 +36808,7 @@ module.exports = InfoIframe;
 
 var EventEmitter = __webpack_require__(10).EventEmitter,
     inherits = __webpack_require__(3),
-    urlUtils = __webpack_require__(15),
+    urlUtils = __webpack_require__(14),
     XDR = __webpack_require__(71),
     XHRCors = __webpack_require__(50),
     XHRLocal = __webpack_require__(39),
@@ -36907,7 +36907,7 @@ var URL = __webpack_require__(122),
     JSON3 = __webpack_require__(23),
     random = __webpack_require__(33),
     escape = __webpack_require__(253),
-    urlUtils = __webpack_require__(15),
+    urlUtils = __webpack_require__(14),
     eventUtils = __webpack_require__(25),
     transport = __webpack_require__(255),
     objectUtils = __webpack_require__(72),
@@ -38035,7 +38035,7 @@ module.exports = EventSourceReceiver;
 
 var inherits = __webpack_require__(3),
     iframeUtils = __webpack_require__(41),
-    urlUtils = __webpack_require__(15),
+    urlUtils = __webpack_require__(14),
     EventEmitter = __webpack_require__(10).EventEmitter,
     random = __webpack_require__(33);
 
@@ -38128,7 +38128,7 @@ module.exports = HtmlfileReceiver;
 var utils = __webpack_require__(41),
     random = __webpack_require__(33),
     browser = __webpack_require__(40),
-    urlUtils = __webpack_require__(15),
+    urlUtils = __webpack_require__(14),
     inherits = __webpack_require__(3),
     EventEmitter = __webpack_require__(10).EventEmitter;
 
@@ -38314,7 +38314,7 @@ module.exports = JsonpReceiver;
 /* WEBPACK VAR INJECTION */(function(process, global) {
 
 var random = __webpack_require__(33),
-    urlUtils = __webpack_require__(15);
+    urlUtils = __webpack_require__(14);
 
 var debug = function debug() {};
 if (process.env.NODE_ENV !== 'production') {
@@ -38448,7 +38448,7 @@ module.exports = XHRFake;
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(25),
-    urlUtils = __webpack_require__(15),
+    urlUtils = __webpack_require__(14),
     inherits = __webpack_require__(3),
     EventEmitter = __webpack_require__(10).EventEmitter,
     WebsocketDriver = __webpack_require__(240);
@@ -39751,7 +39751,7 @@ var CardPanel = function (_React$Component) {
 
       this.stomp = this.props.stomp;
       this.state = this.props.state;
-      var cardElements = this.props.vehicles.map(function (vehicle, index) {
+      var cardElements = this.props.bodies.map(function (vehicle, index) {
         return _react2.default.createElement(_Card2.default, { key: index, stomp: _this2.stomp, vehicle: vehicle, state: _this2.state });
       });
       var style = {
@@ -40112,7 +40112,7 @@ var CurvedRoadpiece = function (_React$Component) {
   _createClass(CurvedRoadpiece, [{
     key: 'render',
     value: function render() {
-      var transform = { transform: 'translate(' + this.props.posX + 'px, ' + this.props.posY + 'px)' + ' rotate(-' + this.props.rotation + 'deg)' };
+      var transform = { transform: 'translate(' + this.props.posX + 'px, ' + this.props.posY + 'px)' + ' rotate(' + -this.props.rotation + 'deg)' };
 
       return _react2.default.createElement('div', { className: 'curve', style: transform });
     }
@@ -40164,7 +40164,7 @@ var FinishRoadpiece = function (_React$Component) {
   _createClass(FinishRoadpiece, [{
     key: 'render',
     value: function render() {
-      var transform = { transform: 'translate(' + this.props.posX + 'px, ' + this.props.posY + 'px)' + ' rotate(-' + this.props.rotation + 'deg)' };
+      var transform = { transform: 'translate(' + this.props.posX + 'px, ' + this.props.posY + 'px)' + ' rotate(' + this.props.rotation + 'deg)' };
 
       return _react2.default.createElement('div', { className: 'finish', style: transform });
     }
@@ -40216,7 +40216,7 @@ var IntersectionRoadpiece = function (_React$Component) {
   _createClass(IntersectionRoadpiece, [{
     key: 'render',
     value: function render() {
-      var transform = { transform: 'translate(' + this.props.posX + 'px, ' + this.props.posY + 'px)' + ' rotate(-' + this.props.rotation + 'deg)' };
+      var transform = { transform: 'translate(' + this.props.posX + 'px, ' + this.props.posY + 'px)' + ' rotate(' + this.props.rotation + 'deg)' };
 
       return _react2.default.createElement(
         'div',
@@ -40275,7 +40275,7 @@ var StartRoadpiece = function (_React$Component) {
   _createClass(StartRoadpiece, [{
     key: 'render',
     value: function render() {
-      var transform = { transform: 'translate(' + this.props.posX + 'px, ' + this.props.posY + 'px)' + ' rotate(-' + this.props.rotation + 'deg)' };
+      var transform = { transform: 'translate(' + this.props.posX + 'px, ' + this.props.posY + 'px)' + ' rotate(' + this.props.rotation + 'deg)' };
 
       return _react2.default.createElement('div', { className: 'start', style: transform });
     }
@@ -40327,7 +40327,7 @@ var StraightRoadpiece = function (_React$Component) {
   _createClass(StraightRoadpiece, [{
     key: 'render',
     value: function render() {
-      var transform = { transform: 'translate(' + this.props.posX + 'px, ' + this.props.posY + 'px)' + ' rotate(-' + this.props.rotation + 'deg)' };
+      var transform = { transform: 'translate(' + this.props.posX + 'px, ' + this.props.posY + 'px)' + ' rotate(' + this.props.rotation + 'deg)' };
 
       return _react2.default.createElement('div', { className: 'straight', style: transform });
     }
@@ -40490,12 +40490,6 @@ var VisualizationPanel = function (_React$Component) {
       var worldMapElem = document.getElementById('world_map');
       if (this.props.roadmap != null && this.props.roadmap.roadpieces != null) {
 
-        if (this.props.vehicles != null) {
-          var vehicleNodes = this.props.vehicles.map(function (v, index) {
-            return _react2.default.createElement(_Vehicle2.default, { key: index, index: v.index, posX: v.posX + 1120, posY: v.posY + 560, direction: v.direction, color: v.color });
-          });
-        }
-
         var minX = 0,
             minY = 0,
             maxX = 0,
@@ -40508,26 +40502,26 @@ var VisualizationPanel = function (_React$Component) {
         });
 
         var offX = minX - 280;
-        var offY = minY - 280;
+        var offY = maxY + 280;
 
-        if (this.props.vehicles != null) {
-          var vehicleNodes = this.props.vehicles.map(function (v, index) {
-            return _react2.default.createElement(_Vehicle2.default, { key: index, index: v.index, posX: v.posX - offX, posY: v.posY - offY, direction: v.direction, color: v.color });
+        if (this.props.bodies != null) {
+          var bodyNodes = this.props.bodies.map(function (v, index) {
+            return _react2.default.createElement(_Vehicle2.default, { key: index, index: v.index, posX: v.position.x - offX, posY: offY - v.position.y, direction: v.position.angle, color: v.color });
           });
         }
 
         var roadNodes = this.props.roadmap.roadpieces.map(function (tile, index) {
           switch (tile.type) {
             case "StraightRoadpiece":
-              return _react2.default.createElement(_StraightRoadpiece2.default, { key: index, rotation: tile.position.angle, posX: tile.position.x - offX, posY: tile.position.y - offY });
+              return _react2.default.createElement(_StraightRoadpiece2.default, { key: index, rotation: tile.position.angle, posX: tile.position.x - offX, posY: -tile.position.y + offY });
             case "CurvedRoadpiece":
-              return _react2.default.createElement(_CurvedRoadpiece2.default, { key: index, rotation: tile.position.angle, posX: tile.position.x - offX, posY: tile.position.y - offY });
+              return _react2.default.createElement(_CurvedRoadpiece2.default, { key: index, rotation: tile.position.angle, posX: tile.position.x - offX + 280, posY: -tile.position.y + offY + 280 });
             case "IntersectionRoadpiece":
-              return _react2.default.createElement(_IntersectionRoadpiece2.default, { key: index, rotation: tile.position.angle, posX: tile.position.x - offX, posY: tile.position.y - offY });
+              return _react2.default.createElement(_IntersectionRoadpiece2.default, { key: index, rotation: tile.position.angle, posX: tile.position.x - offX, posY: -tile.position.y + offY });
             case "StartRoadpiece":
-              return _react2.default.createElement(_StartRoadpiece2.default, { key: index, rotation: tile.position.angle, posX: tile.position.x - offX, posY: tile.position.y - offY });
+              return _react2.default.createElement(_StartRoadpiece2.default, { key: index, rotation: tile.position.angle, posX: tile.position.x - offX, posY: -tile.position.y + offY });
             case "FinishRoadpiece":
-              return _react2.default.createElement(_FinishRoadpiece2.default, { key: index, rotation: tile.position.angle, posX: tile.position.x - offX, posY: tile.position.y - offY });
+              return _react2.default.createElement(_FinishRoadpiece2.default, { key: index, rotation: tile.position.angle, posX: tile.position.x - offX, posY: -tile.position.y + offY });
           }
         });
 
@@ -40541,7 +40535,7 @@ var VisualizationPanel = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { id: 'vehicles' },
-              vehicleNodes
+              bodyNodes
             )
           )
         );
@@ -40603,7 +40597,7 @@ _reactDom2.default.render(_react2.default.createElement(_Application2.default, n
 /* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(13)();
+exports = module.exports = __webpack_require__(16)();
 // imports
 
 
@@ -40617,7 +40611,7 @@ exports.push([module.i, "html, body {\n  font-family: 'Roboto', 'Helvetica', san
 /* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(13)();
+exports = module.exports = __webpack_require__(16)();
 // imports
 
 
@@ -40631,7 +40625,7 @@ exports.push([module.i, "", ""]);
 /* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(13)();
+exports = module.exports = __webpack_require__(16)();
 // imports
 
 
@@ -40645,7 +40639,7 @@ exports.push([module.i, "", ""]);
 /* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(13)();
+exports = module.exports = __webpack_require__(16)();
 // imports
 
 
@@ -40659,7 +40653,7 @@ exports.push([module.i, "              .mdl-select {\r\n          position: rela
 /* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(13)();
+exports = module.exports = __webpack_require__(16)();
 // imports
 
 
@@ -40673,12 +40667,12 @@ exports.push([module.i, "", ""]);
 /* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(13)();
+exports = module.exports = __webpack_require__(16)();
 // imports
 
 
 // module
-exports.push([module.i, ".curve{\r\n  top : -285px;\r\n  left: -285px;\r\n  width: 395px ; /* Au�enradius der Kurve */\r\n  height: 395px; /* Au�enradius der Kurve */\r\n  border-bottom-right-radius: 395px; /* Au�enradius der Kurve */\r\n  border-bottom: 220px solid black; /* Breite der Stra�e */\r\n  border-right: 220px solid black; /* Breite der Stra�e */\r\n  box-sizing: border-box;\r\n  position: absolute;\r\n  display: inline-block;\r\n  transform-origin: 285px 285px;\r\n}", ""]);
+exports.push([module.i, ".curve{\r\n  top : -285px;\r\n  left: -285px;\r\n  width: 395px ; /* Au�enradius der Kurve */\r\n  height: 395px; /* Au�enradius der Kurve */\r\n  border-bottom-right-radius: 395px; /* Au�enradius der Kurve */\r\n  border-bottom: 220px solid black; /* Breite der Stra�e */\r\n  border-right: 220px solid black; /* Breite der Stra�e */\r\n  box-sizing: border-box;\r\n  position: absolute;\r\n  display: inline-block;\r\n  transform-origin: 5px 5px;\r\n}\r\n", ""]);
 
 // exports
 
@@ -40687,7 +40681,7 @@ exports.push([module.i, ".curve{\r\n  top : -285px;\r\n  left: -285px;\r\n  widt
 /* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(13)();
+exports = module.exports = __webpack_require__(16)();
 // imports
 
 
@@ -40701,7 +40695,7 @@ exports.push([module.i, ".finish {\r\n  top: -110px;\r\n  left: -172px;\r\n  hei
 /* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(13)();
+exports = module.exports = __webpack_require__(16)();
 // imports
 
 
@@ -40715,7 +40709,7 @@ exports.push([module.i, ".intersection {\r\n  top: -282px;\r\n  left: -282px;\r\
 /* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(13)();
+exports = module.exports = __webpack_require__(16)();
 // imports
 
 
@@ -40729,7 +40723,7 @@ exports.push([module.i, ".start {\r\n  top: -110px;\r\n  left: -112px;\r\n  heig
 /* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(13)();
+exports = module.exports = __webpack_require__(16)();
 // imports
 
 
@@ -40743,7 +40737,7 @@ exports.push([module.i, ".straight{\r\n  top: -110px;\r\n  left: -282px;\r\n  he
 /* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(13)();
+exports = module.exports = __webpack_require__(16)();
 // imports
 
 
@@ -40757,7 +40751,7 @@ exports.push([module.i, ".vehicle {\r\n  width: 85px;\r\n  height: 45px;\r\n  ba
 /* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(13)();
+exports = module.exports = __webpack_require__(16)();
 // imports
 
 
@@ -40777,7 +40771,7 @@ exports.push([module.i, "#world_map {\r\n  position: relative;\r\n  display: blo
 var content = __webpack_require__(272);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(16)(content, {});
+var update = __webpack_require__(15)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -40803,7 +40797,7 @@ if(false) {
 var content = __webpack_require__(273);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(16)(content, {});
+var update = __webpack_require__(15)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -40829,7 +40823,7 @@ if(false) {
 var content = __webpack_require__(274);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(16)(content, {});
+var update = __webpack_require__(15)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -40855,7 +40849,7 @@ if(false) {
 var content = __webpack_require__(275);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(16)(content, {});
+var update = __webpack_require__(15)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -40881,7 +40875,7 @@ if(false) {
 var content = __webpack_require__(276);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(16)(content, {});
+var update = __webpack_require__(15)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -40907,7 +40901,7 @@ if(false) {
 var content = __webpack_require__(277);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(16)(content, {});
+var update = __webpack_require__(15)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -40933,7 +40927,7 @@ if(false) {
 var content = __webpack_require__(278);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(16)(content, {});
+var update = __webpack_require__(15)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -40959,7 +40953,7 @@ if(false) {
 var content = __webpack_require__(279);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(16)(content, {});
+var update = __webpack_require__(15)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -40985,7 +40979,7 @@ if(false) {
 var content = __webpack_require__(280);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(16)(content, {});
+var update = __webpack_require__(15)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -41011,7 +41005,7 @@ if(false) {
 var content = __webpack_require__(281);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(16)(content, {});
+var update = __webpack_require__(15)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -41037,7 +41031,7 @@ if(false) {
 var content = __webpack_require__(282);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(16)(content, {});
+var update = __webpack_require__(15)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -41063,7 +41057,7 @@ if(false) {
 var content = __webpack_require__(283);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(16)(content, {});
+var update = __webpack_require__(15)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {

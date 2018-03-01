@@ -12,7 +12,7 @@ module.exports = {
   
   module: {
     rules: [
-      { test: /\.jsx?$/, loader: 'babel-loader', options: { presets: ['latest', 'react'] } },
+      { test: /\.jsx?$/, loader: 'babel-loader', options: { presets: ['env', 'react'] } },
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] }
     ]

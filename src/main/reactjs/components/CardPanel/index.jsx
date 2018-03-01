@@ -22,7 +22,7 @@ export default class CardPanel extends React.Component {
   render() {
       this.stomp = this.props.stomp;
       this.state = this.props.state;
-      var cardElements = this.props.vehicles.map( (vehicle, index) => 
+      var cardElements = this.props.bodies.map( (vehicle, index) =>
         <Card key={index} stomp={this.stomp} vehicle={vehicle} state={this.state}/>
       );
         var style = {      
