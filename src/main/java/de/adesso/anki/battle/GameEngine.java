@@ -33,13 +33,15 @@ public class GameEngine {
     private boolean running = false;
     private long lastStep;
 
-    
+    private int stepCount = 0;
+
+
     public void start() {
         lastStep = System.nanoTime();
         running = true;
     }
 
-    @Scheduled(fixedRate = 200)
+    @Scheduled(fixedRate = 50)
     public void gameLoop() {
     	VehicleStateProvider vehicleStateProvider = new VehicleStateProvider();
         if (running) {
@@ -53,8 +55,10 @@ public class GameEngine {
             
             // Step 1: Synchronize with real world
             // TODO: Synchronize with Anki vehicles
-            for (DynamicBody body : world.getDynamicBodies()) {
-                anki.synchronizeState((Vehicle) body);
+            if (stepCount == 0) {
+                for (DynamicBody body : world.getDynamicBodies()) {
+                    anki.synchronizeState((Vehicle) body);
+                }
             }
 
             
@@ -71,45 +75,52 @@ public class GameEngine {
             
             
             //Roadmap map =  world.getRoadmap();
-     
-            List<DynamicBody> dynBodies = world.getDynamicBodies();
-            
-            for (DynamicBody body : dynBodies) {
-            	log.debug(body.toString());
-            	if (!(body instanceof Vehicle))
-            	{
-            		continue;
-            	}
-            	List <GameState> allFacts = new ArrayList<>();
-            	List<GameState> factsRoad = vehicleStateProvider.getRoadFacts((Vehicle) body);
-            	//List<GameState> factsInventory = vehicleStateProvider.getInventoryFacts((Vehicle)body);
-            	List<GameState> factsObstacles = vehicleStateProvider.getObstacleFacts((Vehicle)body);
-   
-            	
-            	allFacts.addAll(factsRoad);
-            	//allFacts.clear();
-            	//allFacts.addAll(factsInventory);
-            	allFacts.addAll(factsObstacles);
-                body.setFacts(allFacts);
+
+            stepCount++;
+            if (stepCount > 3) {
+                produceFacts(vehicleStateProvider);
+                evaluateBehavior();
+                stepCount = 0;
             }
-           
-            evaluateBehavior();
 
-            
-            
+
+
  /*           ArrayList<GameState> facts = new ArrayList<>();
-            RightCurveAhead rCurve = new RightCurveAhead(150); 
-            facts.add(rCurve);  
+            RightCurveAhead rCurve = new RightCurveAhead(150);
+            facts.add(rCurve);
 
-            RightCurveAhead rCurve2 = new RightCurveAhead(150); 
-            facts.add(rCurve2);  
-              
+            RightCurveAhead rCurve2 = new RightCurveAhead(150);
+            facts.add(rCurve2);
+
             setFacts(facts);
             evaluateBehavior();
             */
 
             // Step 5: Render world
             renderWorld();
+        }
+    }
+
+    private void produceFacts(VehicleStateProvider vehicleStateProvider) {
+        List<DynamicBody> dynBodies = world.getDynamicBodies();
+
+        for (DynamicBody body : dynBodies) {
+            //log.debug(body.toString());
+            if (!(body instanceof Vehicle))
+            {
+                continue;
+            }
+            List <GameState> allFacts = new ArrayList<>();
+            List<GameState> factsRoad = vehicleStateProvider.getRoadFacts((Vehicle) body);
+            //List<GameState> factsInventory = vehicleStateProvider.getInventoryFacts((Vehicle)body);
+            List<GameState> factsObstacles = vehicleStateProvider.getObstacleFacts((Vehicle)body);
+
+
+            allFacts.addAll(factsRoad);
+            //allFacts.clear();
+            //allFacts.addAll(factsInventory);
+            allFacts.addAll(factsObstacles);
+            body.setFacts(allFacts);
         }
     }
 
