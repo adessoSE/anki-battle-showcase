@@ -40409,7 +40409,7 @@ var Vehicle = function (_React$Component) {
 exports.default = Vehicle;
 
 
-Vehicle.defaultProps = { posX: 100, posY: 100, color: '#000' };
+Vehicle.defaultProps = { posX: 100, posY: 100, color: '#f00' };
 
 /***/ }),
 /* 270 */
@@ -40506,7 +40506,7 @@ var VisualizationPanel = function (_React$Component) {
 
         if (this.props.bodies != null) {
           var bodyNodes = this.props.bodies.map(function (v, index) {
-            return _react2.default.createElement(_Vehicle2.default, { key: index, index: v.index, posX: v.position.x - offX, posY: offY - v.position.y, direction: v.position.angle, color: v.color });
+            return _react2.default.createElement(_Vehicle2.default, { key: index, index: v.index, posX: v.position.x - offX, posY: offY - v.position.y, direction: v.position.angle, color: "#f00" });
           });
         }
 
@@ -40742,7 +40742,7 @@ exports = module.exports = __webpack_require__(16)();
 
 
 // module
-exports.push([module.i, ".vehicle {\r\n  width: 85px;\r\n  height: 45px;\r\n  background: #f00;\r\n  position: absolute;\r\n}", ""]);
+exports.push([module.i, ".vehicle {\r\n  width: 85px;\r\n  height: 45px;\r\n  background: #f00;\r\n  position: absolute;\r\n}\r\n", ""]);
 
 // exports
 

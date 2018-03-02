@@ -25,4 +25,4 @@ export default class Vehicle extends React.Component {
   }
 }
 
-Vehicle.defaultProps = { posX: 100, posY: 100, color: '#000' };
+Vehicle.defaultProps = { posX: 100, posY: 100, color: '#f00' };

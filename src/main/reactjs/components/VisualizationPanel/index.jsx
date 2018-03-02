@@ -42,7 +42,7 @@ export default class VisualizationPanel extends React.Component {
   
   if(this.props.bodies != null){
     var bodyNodes = this.props.bodies.map( (v, index) =>
-      <Vehicle key={index} index={v.index} posX={v.position.x - offX} posY={offY - v.position.y} direction={v.position.angle} color={v.color} />
+      <Vehicle key={index} index={v.index} posX={v.position.x - offX} posY={offY - v.position.y} direction={v.position.angle} color={"#f00"} />
     );
   }
 
