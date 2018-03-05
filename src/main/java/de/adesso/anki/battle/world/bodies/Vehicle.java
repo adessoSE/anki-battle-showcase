@@ -175,7 +175,8 @@ public class Vehicle extends DynamicBody {
             }
         }
 
-        currentRoadpiece = oldRoadpiece;
+        if (ankiReference != null)
+        	currentRoadpiece = oldRoadpiece;
 	}
 
     @Override
