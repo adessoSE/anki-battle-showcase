@@ -13,16 +13,25 @@ public class Mine extends DynamicBody {
 	public Mine(){
 	}
 
-	@Override
-	public void evaluateBehavior(MqttService mqtt) throws MqttException {
+
+	//@Override
+	public void setFacts(List<GameState> facts) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	//@Override
+	public void evaluateBehavior() {
+		// TODO Auto-generated method stub
 
 	}
 
 
 	@Override
-	public void setFacts(List<GameState> facts) {
+	public void evaluateBehavior(MqttService mqtt) throws MqttException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 

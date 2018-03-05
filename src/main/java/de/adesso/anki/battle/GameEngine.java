@@ -158,7 +158,9 @@ public class GameEngine {
 
     
 
-    
+    private void collisionHandling() {
+    	// TODO 
+    }
     
   /*
     private void setFacts(List<GameState> facts) {
