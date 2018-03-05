@@ -12,7 +12,7 @@ public class AccelerateCommand extends Command {
 	
 	@Override
 	public void execute(Vehicle vehicle){
-		vehicle.setSpeed(this.desiredSpeed);
+		vehicle.setTargetSpeed(desiredSpeed);
 	}
 	
 }
