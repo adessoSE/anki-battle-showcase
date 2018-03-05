@@ -1,14 +1,9 @@
 package de.adesso.anki.battle.providers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.states.*;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.Body;
 import de.adesso.anki.battle.world.World;
-import de.adesso.anki.battle.world.bodies.Mine;
-import de.adesso.anki.battle.world.bodies.Rocket;
 import de.adesso.anki.battle.world.bodies.Vehicle;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
 import lombok.extern.slf4j.Slf4j;
@@ -91,7 +86,6 @@ public class VehicleStateProvider {
 			}
 			ObjectInFront test1 = new ObjectInFront(distance, obstacleType);
 			ObjectBehind test2 = new ObjectBehind(distance, obstacleType);
-			System.out.println(distance);
 		}
 		return facts;
 	}

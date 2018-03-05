@@ -70,7 +70,8 @@ public class GameEngine {
             // TODO: Synchronize with Anki vehicles
             if (stepCount == 0) {
                 for (DynamicBody body : world.getDynamicBodies()) {
-                    anki.synchronizeState((Vehicle) body);
+                    if (body instanceof Vehicle)
+                        anki.synchronizeState((Vehicle) body);
                 }
             }
 
