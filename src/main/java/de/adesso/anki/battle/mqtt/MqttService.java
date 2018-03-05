@@ -5,6 +5,7 @@ import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.World;
 import de.adesso.anki.battle.world.bodies.Vehicle;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.json.JSONObject;
@@ -68,11 +69,15 @@ public class MqttService {
                     	case("accelerate"): 
                     		speed = Integer.parseInt((String)  json.get("velocity"));
                     		command = new AccelerateCommand(speed) ;
-                    		break;
-                    	case("brake"): 
-                    		speed = Integer.parseInt((String)  json.get("velocity"));
-                    		command = new BrakeCommand(speed) ;
-                    		break;
+                            break;
+                        case("brake"):
+                            speed = Integer.parseInt((String)  json.get("velocity"));
+                            command = new BrakeCommand(speed) ;
+                            break;
+                        case("change track"):
+                            val lane = Double.parseDouble((String)  json.get("track"));
+                            command = new ChangeLaneCommand(lane);
+                            break;
                     	case("uTurn"): 
                     		command = new UTurnCommand() ;
                     		break;
