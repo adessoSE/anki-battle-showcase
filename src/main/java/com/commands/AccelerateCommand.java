@@ -5,7 +5,7 @@ import de.adesso.anki.battle.world.bodies.Vehicle;
 public class AccelerateCommand extends Command {
 	private int desiredSpeed;
 	
-	public AccelerateCommand() {
+	public AccelerateCommand(int desiredSpeed) {
 		this.desiredSpeed = desiredSpeed;
 	}
 	

@@ -1,26 +1,36 @@
 package de.adesso.anki.battle.world.bodies;
 
 import com.commands.Command;
-import com.domain.RuleEngine;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.states.GameState;
+import de.adesso.anki.battle.mqtt.MqttService;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
 import de.adesso.anki.sdk.AnkiVehicle;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
 @Slf4j
 public class Vehicle extends DynamicBody {
 
-	private Roadpiece currentRoadpiece;
-	private RuleEngine re ;
-	private List<GameState> facts;
-	private int track =3 ; 			// 0-6 (l nach r)
+	private String name;
+    private Roadpiece currentRoadpiece;
+
+
+    //TODO: Bei Gelegenheit in 3 Pakete unterteilen
+	private List<GameState> factsRoad;
+	private List<GameState> factsInventory;
+	private List<GameState> factsObstacles;
+
+	private int track ; 		
 	private Command nextCommand;
 	private boolean rocketReady;
 	private boolean mineReady;
@@ -38,7 +48,14 @@ public class Vehicle extends DynamicBody {
 
 	private double horizontalSpeed = 80;
 
-    public boolean isMineReady() {
+	public String getName() {
+		return this.name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean isMineReady() {
 		return mineReady;
 	}
 
@@ -72,15 +89,6 @@ public class Vehicle extends DynamicBody {
 
 	public Vehicle() {	
 	}
-	
-	public Vehicle(String pathDRL) {
-		this.re = new RuleEngine(pathDRL);		
-	}
-	
-	public void setRuleEngine(String pathDRL) {
-		this.re = new RuleEngine(pathDRL);
-	}
-	
 
 	public int getTrack() {
 		return this.track;
@@ -170,38 +178,61 @@ public class Vehicle extends DynamicBody {
         currentRoadpiece = oldRoadpiece;
 	}
 
-	@Override
-    public void setFacts(List <GameState> facts)
+    @Override
+    public void setFacts(List <GameState> factsRoad, List <GameState> factsInventory,
+    											List <GameState> factsObstacles)
     {
-    	
-    	this.facts = facts;
-    	this.re.insertFacts(facts);
+    	this.factsRoad = factsRoad ;
+    	this.factsInventory =factsInventory ;
+    	this.factsObstacles = factsObstacles;
+
     }
 
+    public String convertFactsToMessage() {
+    	ObjectMapper objMapper = new ObjectMapper();
 
-	@Override
-	public void evaluateBehavior() {
-		Collection<? extends Command> allCommands = this.re.evaluateRules();
-		//Command command = allCommands.iterator().next();
-		//if (command != null ){
-		//	command.execute(this);
-		//}
-		for (Command command : allCommands) {
-			if (command != null) {
-				command.execute(this);
-			} else {
-				log.debug("No Command");
+		JSONObject json = new JSONObject();
+		JSONArray arr = new JSONArray();
+    	try {
+			json.put("speed", this.speed);
+			for (GameState gameState : this.factsRoad) {
+	    		arr.put(gameState.getClass().getSimpleName());
 			}
-		}
-		//clean Ruleengine after execution of Command
-		for (Object fact : facts) {
-			this.re.retractFact(fact);
-		}
-		for (Object commands : allCommands) {
-			this.re.retractFact(commands);
-		}
+			json.put("nextRoadPiece", arr);
 
-	}
+
+			arr = new JSONArray();
+			for (GameState gameState : this.factsInventory) {
+				arr.put(gameState.getClass().getSimpleName());
+			}
+    		json.put("inv",arr);
+
+
+			//arr = new JSONArray();
+			//for (GameState gameState : this.factsObstacles) {
+			//	arr.put(gameState.getClass().getSimpleName());
+			//}
+    		//json.put("obstacles",arr);
+    		return json.toString();
+
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return "";
+    }
+
+    @Override
+    public void evaluateBehavior(MqttService mqtt) throws MqttException {
+    	
+
+    	String topic = this.name;
+    	String message ="{\"speed\":\"100\",\"nextRoadPiece\":\"left\",\"inv\":\"mine\"}";
+    	// generate Message from facts
+    	String messageToSend = convertFactsToMessage();
+    	//mqtt.publish(topic, message);
+    	mqtt.publish(topic, messageToSend);
+    }
 
     @Override
     public String toString() {
