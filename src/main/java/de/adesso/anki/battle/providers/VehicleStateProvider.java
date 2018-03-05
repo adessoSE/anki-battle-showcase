@@ -1,29 +1,19 @@
 package de.adesso.anki.battle.providers;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.states.GameState;
-import com.states.InventoryMine;
-import com.states.InventoryReflector;
-import com.states.InventoryRocket;
-import com.states.InventoryShield;
-import com.states.LeftCurveAhead;
-import com.states.ObjectBehind;
-import com.states.ObjectInFront;
-import com.states.RightCurveAhead;
-import com.states.RocketInFront;
-
+import com.states.*;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.Body;
-import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.World;
 import de.adesso.anki.battle.world.bodies.Mine;
-import de.adesso.anki.battle.world.bodies.Roadmap;
 import de.adesso.anki.battle.world.bodies.Rocket;
 import de.adesso.anki.battle.world.bodies.Vehicle;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Slf4j
 public class VehicleStateProvider {
 	
 	
@@ -90,7 +80,7 @@ public class VehicleStateProvider {
 			Position position1 = vehicle.getPosition();
 			Position position2 = body.getPosition();
 			double distance = position1.distance(position2);
-			System.out.println(distance);
+			log.debug("distance="+distance);
 			double angle = position1.angle();
 			if( angle < 180 ) {
 				ObjectInFront objInFront = new ObjectInFront(distance, "type");

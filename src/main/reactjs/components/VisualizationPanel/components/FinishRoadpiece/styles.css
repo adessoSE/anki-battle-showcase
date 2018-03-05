@@ -1,0 +1,10 @@
+.finish {
+  top: -110px;
+  left: -172px;
+  height: 220px;
+  width: 344px;
+  background: #000;
+  position: absolute;
+  border-right: 20px dotted white;
+  box-sizing: border-box;
+}

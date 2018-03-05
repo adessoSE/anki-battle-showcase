@@ -17,12 +17,12 @@ public class ReverseRoadpiece extends Roadpiece {
 
     @Override
     public Roadpiece getNext() {
-        return original.getPrev().reverse();
+        return original.getPrev() != null ? original.getPrev().reverse() : null;
     }
 
     @Override
     public Roadpiece getPrev() {
-        return original.getNext().reverse();
+        return original.getNext() != null ? original.getNext().reverse() : null;
     }
 
     @Override
@@ -80,4 +80,15 @@ public class ReverseRoadpiece extends Roadpiece {
     public boolean isLeftCurved() { return original.isRightCurved(); }
     public boolean isRightCurved() { return original.isLeftCurved(); }
 
+    @Override
+    public boolean equals(Object other) {
+        if (this == other)
+            return true;
+        if (other == null)
+            return false;
+        if (this.getClass() != other.getClass())
+            return false;
+
+        return this.original == ((ReverseRoadpiece) other).original;
+    }
 }

@@ -1,0 +1,39 @@
+.intersection {
+  top: -282px;
+  left: -282px;
+  background: #000;
+  position: absolute;
+  width: 564px;
+  height: 564px;
+}
+
+.block {
+  width: 176px;
+  height: 176px;
+  background: #E8E4E1;
+  position: absolute;
+}
+
+.block-nw {
+  top: -4px;
+  left: -4px;
+  border-bottom-right-radius: 18px;
+}
+
+.block-ne {
+  top: -4px;
+  right: -4px;
+  border-bottom-left-radius: 18px;
+}
+
+.block-sw {
+  bottom: -4px;
+  left: -4px;
+  border-top-right-radius: 18px;
+}
+
+.block-se {
+  bottom: -4px;
+  right: -4px;
+  border-top-left-radius: 18px;
+}
