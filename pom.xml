@@ -74,8 +74,16 @@
 			<artifactId>ble-gateway</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-
-
+		<dependency>
+			<groupId>org.eclipse.paho</groupId>
+			<artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180130</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -109,7 +117,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<nodeVersion>v4.6.0</nodeVersion>
+					<nodeVersion>v6.11.3</nodeVersion>
 				</configuration>
             </plugin>
 		</plugins>

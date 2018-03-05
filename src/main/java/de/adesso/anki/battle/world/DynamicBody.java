@@ -58,6 +58,10 @@ public abstract class DynamicBody extends Body {
         this.acceleration = acceleration;
     }
     
-    public abstract void setFacts(List<GameState> facts);
+
+	public void setFacts(List<GameState> factsRoad, List<GameState> factsInventory, List<GameState> factsObstacles) {
+		// TODO Auto-generated method stub
+
+	}
 
 }

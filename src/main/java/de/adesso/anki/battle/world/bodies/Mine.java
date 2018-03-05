@@ -1,11 +1,11 @@
 package de.adesso.anki.battle.world.bodies;
 
-import java.util.List;
-
-import com.commands.Command;
 import com.states.GameState;
-
+import de.adesso.anki.battle.mqtt.MqttService;
 import de.adesso.anki.battle.world.DynamicBody;
+import org.eclipse.paho.client.mqttv3.MqttException;
+
+import java.util.List;
 
 public class Mine extends DynamicBody {
 
@@ -14,17 +14,24 @@ public class Mine extends DynamicBody {
 	}
 
 
-	@Override
+	//@Override
 	public void setFacts(List<GameState> facts) {
 		// TODO Auto-generated method stub
 		
 	}
 
 
-	@Override
+	//@Override
 	public void evaluateBehavior() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+
+	@Override
+	public void evaluateBehavior(MqttService mqtt) throws MqttException {
+		// TODO Auto-generated method stub
+
 	}
 
 

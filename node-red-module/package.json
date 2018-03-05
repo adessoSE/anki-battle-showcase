@@ -1,0 +1,23 @@
+
+{
+    "name" : "node-red-anki",
+    "node-red" : {
+        "nodes": {
+            "Streckenfakten": "facts/road-facts.js",
+			"Inventarfakten" : "facts/inventar-facts.js",
+			"Umgebungsfakten" : "facts/env-facts.js",
+			"Rakete feuern" : "commands/fire-rocket.js",
+			"Mine legen" : "commands/put-mine.js",
+			"Spur wechseln": "commands/change-lane.js",
+			"Beschleunigen": "commands/accelerate.js",
+			"Bremsen": "commands/brake.js",
+			"Schild": "commands/use-shield.js",
+			"U Turn": "commands/u-turn.js", 
+			"roadLogic" :"logic/curve.js",
+			"inventarLogic" :"logic/inv.js",
+			"Gerade" : "logic/straight.js",
+			"Rundenzeit" : "lap-time.js",
+			"Umwelt" : "logic/obstacle.js"
+        }
+    }
+}

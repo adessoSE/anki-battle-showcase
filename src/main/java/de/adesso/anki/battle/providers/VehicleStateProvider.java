@@ -4,8 +4,6 @@ import com.states.*;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.Body;
 import de.adesso.anki.battle.world.World;
-import de.adesso.anki.battle.world.bodies.Mine;
-import de.adesso.anki.battle.world.bodies.Rocket;
 import de.adesso.anki.battle.world.bodies.Vehicle;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +29,10 @@ public class VehicleStateProvider {
 		if (nextPiece.isLeftCurved()) {
 			LeftCurveAhead lCurve = new LeftCurveAhead(150) ; 
 			facts.add(lCurve); 
+		}
+		if (nextPiece.isStraight()) {
+			StraightPieceAhead straight = new StraightPieceAhead();
+			facts.add(straight);
 		}
 		return facts;
 	}
@@ -67,29 +69,23 @@ public class VehicleStateProvider {
 			if (vehicle == body) {
 				continue;
 			}
-			String type = "";
-			if ( body instanceof Rocket) {
-				type = "Rocket";
-			}
-			if ( body instanceof Mine) {
-				type = "Mine";
-			}
-			if (body instanceof Vehicle) {
-				type = "Vehicle";
-			}
+
+			String obstacleType = body.getClass().getSimpleName() ;
 			Position position1 = vehicle.getPosition();
 			Position position2 = body.getPosition();
 			double distance = position1.distance(position2);
-			log.debug("distance="+distance);
-			double angle = position1.angle();
-			if( angle < 180 ) {
-				ObjectInFront objInFront = new ObjectInFront(distance, "type");
-				facts.add(objInFront);
+			double angle1 = position1.angle();
+			double angle2 = position2.angle();
+			String direction = "";
+
+			if ( obstacleType.equals( "Rocket")) {
 			}
-			else {
-				ObjectBehind objBehind = new ObjectBehind(distance, "type");
-				facts.add(objBehind);
+			if (obstacleType.equals( "Mine")) {
 			}
+			if (obstacleType.equals( "Vehicle")) {
+			}
+			ObjectInFront test1 = new ObjectInFront(distance, obstacleType);
+			ObjectBehind test2 = new ObjectBehind(distance, obstacleType);
 		}
 		return facts;
 	}

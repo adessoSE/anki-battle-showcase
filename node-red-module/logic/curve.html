@@ -1,0 +1,35 @@
+<script type="text/javascript">
+    RED.nodes.registerType('Kurve',{
+        category: 'Logik',
+        color: '#87A980',
+        defaults: {
+            name: {value:""},
+			art: {value: "left"}
+		//art:{options:["l","r"]},
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        label: function() {
+            return this.name||"Kurve";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="Kurve">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+ 	<div class="form-row">
+     <label for="node-input-art"><i class="icon-tag"></i>art</label>
+	 <select value= "" id ="node-input-art" placeholder= "Kurvenart">
+  <option value="Linkskurve">Links</option> 
+    <option value="Rechtskurve">Rechts</option> 
+ </select>
+ </div>
+</script>
+
+<script type="text/x-red" data-help-name="Kurve">
+    <p> Node that puts mine</p>
+</script>

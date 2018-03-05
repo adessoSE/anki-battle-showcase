@@ -4,12 +4,10 @@ import de.adesso.anki.battle.world.World;
 import de.adesso.anki.battle.world.bodies.Mine;
 import de.adesso.anki.battle.world.bodies.Vehicle;
 
-public class PutMineCommand {
-	private int track; 
+public class PutMineCommand extends Command {
 	
 	
-	public PutMineCommand (int track) {
-		this.track = track;
+	public PutMineCommand () {
 	}
 	
 	public void execute(Vehicle vehicle) {

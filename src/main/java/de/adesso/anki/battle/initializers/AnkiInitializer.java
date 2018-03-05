@@ -157,7 +157,7 @@ public class AnkiInitializer implements ApplicationRunner {
     private void startEngine() {
         myVehicle.setCurrentRoadpiece(world.getRoadmap().getAnchor().getPrev());
         myVehicle.setTargetSpeed(500);
-        myVehicle.setRuleEngine("factsModel");
+        myVehicle.setName("vehicle1");
         sync.setupHandlers(myVehicle);
         engine.start();
     }
