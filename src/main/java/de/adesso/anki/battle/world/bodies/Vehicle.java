@@ -145,17 +145,17 @@ public class Vehicle extends DynamicBody {
 	}
 
 	private void updateForwardPosition(long deltaNanos) {
-		/*/
-    	if (speed < targetSpeed) {
-            speed += acceleration * deltaNanos / 1_000_000_000;
-            speed = Math.min(speed, targetSpeed);
-        }
+		if (ankiReference == null) {
+			if (speed < targetSpeed) {
+				speed += acceleration * deltaNanos / 1_000_000_000;
+				speed = Math.min(speed, targetSpeed);
+			}
 
-		if (speed > targetSpeed) {
-            speed -= acceleration * deltaNanos / 1_000_000_000;
-            speed = Math.max(speed, targetSpeed);
-        }
-        /**/
+			if (speed > targetSpeed) {
+				speed -= acceleration * deltaNanos / 1_000_000_000;
+				speed = Math.max(speed, targetSpeed);
+			}
+		}
 
 		double travel = speed * deltaNanos / 1_000_000_000;
 
