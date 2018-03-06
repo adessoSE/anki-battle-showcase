@@ -1,0 +1,138 @@
+[
+    {
+        "id": "21e2dd7.acbb722",
+        "type": "tab",
+        "label": "Flow 1"
+    },
+    {
+        "id": "195156ed.d56f09",
+        "type": "mqtt-broker",
+        "z": "",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "8ddda9e0.0e2988",
+        "type": "Streckenfakten",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "x": 477.0000915527344,
+        "y": 304,
+        "wires": [
+            [
+                "8b1cff9b.c202d",
+                "4c1b8fcf.f0067"
+            ]
+        ]
+    },
+    {
+        "id": "8b1cff9b.c202d",
+        "type": "Kurve",
+        "z": "21e2dd7.acbb722",
+        "name": "Linkskurve?",
+        "art": "Linkskurve",
+        "x": 671.1001052856445,
+        "y": 272.00002670288086,
+        "wires": [
+            [
+                "be8efba.d98f008"
+            ]
+        ]
+    },
+    {
+        "id": "be8efba.d98f008",
+        "type": "Spur wechseln",
+        "z": "21e2dd7.acbb722",
+        "name": "Fahre nach links",
+        "track": "-67.5",
+        "x": 869.10009765625,
+        "y": 272,
+        "wires": [
+            [
+                "7b7cb3a3.60d99c"
+            ]
+        ]
+    },
+    {
+        "id": "5b86c095.5d2d1",
+        "type": "mqtt in",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "topic": "vehicle1",
+        "qos": "2",
+        "broker": "195156ed.d56f09",
+        "x": 134.00000762939453,
+        "y": 306,
+        "wires": [
+            [
+                "e53f2641.c382b8"
+            ]
+        ]
+    },
+    {
+        "id": "e53f2641.c382b8",
+        "type": "json",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "pretty": false,
+        "x": 297.1000061035156,
+        "y": 306,
+        "wires": [
+            [
+                "8ddda9e0.0e2988"
+            ]
+        ]
+    },
+    {
+        "id": "7b7cb3a3.60d99c",
+        "type": "mqtt out",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "topic": "vehicle1_sub",
+        "qos": "",
+        "retain": "",
+        "broker": "195156ed.d56f09",
+        "x": 1080.10009765625,
+        "y": 299,
+        "wires": []
+    },
+    {
+        "id": "4c1b8fcf.f0067",
+        "type": "Kurve",
+        "z": "21e2dd7.acbb722",
+        "name": "Rechtskurve?",
+        "art": "Rechtskurve",
+        "x": 681.0000076293945,
+        "y": 330.99999618530273,
+        "wires": [
+            [
+                "f3652f5f.f752c"
+            ]
+        ]
+    },
+    {
+        "id": "f3652f5f.f752c",
+        "type": "Spur wechseln",
+        "z": "21e2dd7.acbb722",
+        "name": "Fahre nach rechts",
+        "track": "67.5",
+        "x": 874,
+        "y": 332,
+        "wires": [
+            [
+                "7b7cb3a3.60d99c"
+            ]
+        ]
+    }
+]
