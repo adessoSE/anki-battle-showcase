@@ -6,7 +6,9 @@ import com.states.GameState;
 import de.adesso.anki.battle.mqtt.MqttService;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.DynamicBody;
+import de.adesso.anki.battle.world.bodies.roadpieces.FinishRoadpiece;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
+import de.adesso.anki.battle.world.bodies.roadpieces.StartRoadpiece;
 import de.adesso.anki.sdk.AnkiVehicle;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -17,6 +19,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Vehicle extends DynamicBody {
@@ -24,8 +27,15 @@ public class Vehicle extends DynamicBody {
 	private String name;
     private Roadpiece currentRoadpiece;
 
+    private Long startLapTime = System.currentTimeMillis();
+    private Long currentlapTime;
+    private Long bestLapTime = 1111111111111111L;  // TODO maximum 
+    // System.nanoTime(
+    
 
-    //TODO: Bei Gelegenheit in 3 Pakete unterteilen
+
+
+	//TODO: Bei Gelegenheit in 3 Pakete unterteilen
 	private List<GameState> factsRoad;
 	private List<GameState> factsInventory;
 	private List<GameState> factsObstacles;
@@ -70,6 +80,13 @@ public class Vehicle extends DynamicBody {
 	public void setShieldReady(boolean shieldReady) {
 		this.shieldReady = shieldReady;
 	}
+	
+	public Long getCurrentlapTime() {
+		return currentlapTime;
+	}
+	public void setCurrentlapTime(Long currentlapTime) {
+		this.currentlapTime = currentlapTime;
+	}
 
 	public boolean isReflectorReady() {
 		return reflectorReady;
@@ -98,6 +115,15 @@ public class Vehicle extends DynamicBody {
 	public void setTrack (int track) {
 		this.track = track;
 	}
+	
+    public Long getstartLapTime() {
+		return startLapTime;
+	}
+	public void setstartLapTime(Long lapTime) {
+		this.startLapTime = lapTime;
+	}
+	
+	
 
 	public void setTargetOffset(double offsetFromCenter) {
 		targetOffset = offsetFromCenter;
@@ -268,5 +294,30 @@ public class Vehicle extends DynamicBody {
 
 	public double getHorizontalSpeed() {
 		return horizontalSpeed;
+	}
+	public void updateLapTime() {
+		if (this.currentRoadpiece.toString().equals("S!"))   {
+			this.startLapTime = System.currentTimeMillis(); 
+			System.out.println("Start");
+		}
+		Long currentTime = System.currentTimeMillis(); 
+		this.currentlapTime = currentTime - this.startLapTime  ;
+		if (currentRoadpiece.toString().equals( "F!")) {
+			this.startLapTime = System.currentTimeMillis(); 
+			if (this.currentlapTime < bestLapTime) {
+				this.bestLapTime  = this.currentlapTime;
+			}
+			log.debug("finish");
+		}
+		Long lapTime = this.currentlapTime ; 
+		int minute =  (int) (lapTime / 1000 / 60);  
+		lapTime = lapTime - TimeUnit.MINUTES.toMillis(minute);
+		int seconds = (int) (this.currentlapTime /1000) ; 
+		lapTime  = lapTime - TimeUnit.SECONDS.toMillis(seconds);
+		Long ms  = lapTime;
+		log.debug(String.format("min:%02d ,sec:%02d ,ms:%02d", 
+				minute,seconds, ms	)
+			);
+		
 	}
 }

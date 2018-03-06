@@ -108,7 +108,7 @@ public class GameEngine {
                     body.setFacts(factsRoad, factsInventory, factsObstacles);
                 }
                 try {
-                    evaluateBehavior();
+                    //evaluateBehavior();
                 } catch (Exception e) {
                     // TODO: handle exception
                     e.printStackTrace();
@@ -139,10 +139,19 @@ public class GameEngine {
 
             // Step 5: Render world
             renderWorld();
+            calculateLaptime();
         }
     }
 
-    private void subscribeAllVehicles() throws MqttException {
+    private void calculateLaptime() {
+		for(DynamicBody body : world.getDynamicBodies()) {
+			if (body instanceof Vehicle) {
+				((Vehicle)body).updateLapTime();
+			}
+		}
+	}
+
+	private void subscribeAllVehicles() throws MqttException {
         for (DynamicBody body : world.getDynamicBodies()) {
         	if (body instanceof Vehicle)
         	{
