@@ -120,6 +120,58 @@
 					<nodeVersion>v6.11.3</nodeVersion>
 				</configuration>
             </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.5.1</version>
+				<executions>
+					<execution>
+						<id>install ble-gateway</id>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>de.adesso.anki</groupId>
+							<artifactId>ble-gateway</artifactId>
+							<version>1.0.0</version>
+							<packaging>jar</packaging>
+							<file>${basedir}/lib/ble-gateway.jar</file>
+							<generatePom>true</generatePom>
+						</configuration>
+						<phase>initialize</phase>
+					</execution>
+					<execution>
+						<id>install anki-control-java</id>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>de.adesso.anki</groupId>
+							<artifactId>anki-control-java</artifactId>
+							<version>1.0.0</version>
+							<packaging>jar</packaging>
+							<file>${basedir}/lib/anki-control-java.jar</file>
+							<generatePom>true</generatePom>
+						</configuration>
+						<phase>initialize</phase>
+					</execution>
+					<execution>
+						<id>install anki-sdk-java</id>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>de.adesso.anki</groupId>
+							<artifactId>anki-sdk-java</artifactId>
+							<version>1.0.0</version>
+							<packaging>jar</packaging>
+							<file>${basedir}/lib/anki-sdk-java.jar</file>
+							<generatePom>true</generatePom>
+						</configuration>
+						<phase>initialize</phase>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
