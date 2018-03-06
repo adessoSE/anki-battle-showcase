@@ -372,6 +372,23 @@
     }
    }
   },
+  "node-red-contrib-mqtt-broker": {
+   "name": "node-red-contrib-mqtt-broker",
+   "version": "0.2.2",
+   "local": false,
+   "nodes": {
+    "mosca-mqtt-broker": {
+     "name": "mosca-mqtt-broker",
+     "types": [
+      "mosca in"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-mqtt-broker",
+     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-contrib-mqtt-broker\\mosca.js"
+    }
+   }
+  },
   "node-red-node-rbe": {
    "name": "node-red-node-rbe",
    "version": "0.2.1",
@@ -386,6 +403,163 @@
      "local": false,
      "module": "node-red-node-rbe",
      "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-node-rbe\\rbe.js"
+    }
+   }
+  },
+  "node-red-contrib-anki": {
+   "name": "node-red-contrib-anki",
+   "version": "0.0.1",
+   "local": false,
+   "nodes": {
+    "Streckenfakten": {
+     "name": "Streckenfakten",
+     "types": [
+      "Streckenfakten"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-anki",
+     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-contrib-anki\\facts\\road-facts.js"
+    },
+    "Inventarfakten": {
+     "name": "Inventarfakten",
+     "types": [
+      "Inventarfakten"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-anki",
+     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-contrib-anki\\facts\\inventar-facts.js"
+    },
+    "Umgebungsfakten": {
+     "name": "Umgebungsfakten",
+     "types": [
+      "Umgebungsfakten"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-anki",
+     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-contrib-anki\\facts\\env-facts.js"
+    },
+    "Rakete feuern": {
+     "name": "Rakete feuern",
+     "types": [
+      "Rakete feuern"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-anki",
+     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-contrib-anki\\commands\\fire-rocket.js"
+    },
+    "Mine legen": {
+     "name": "Mine legen",
+     "types": [
+      "Mine legen"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-anki",
+     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-contrib-anki\\commands\\put-mine.js"
+    },
+    "Spur wechseln": {
+     "name": "Spur wechseln",
+     "types": [
+      "Spur wechseln"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-anki",
+     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-contrib-anki\\commands\\change-lane.js"
+    },
+    "Beschleunigen": {
+     "name": "Beschleunigen",
+     "types": [
+      "Beschleunigen"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-anki",
+     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-contrib-anki\\commands\\accelerate.js"
+    },
+    "Bremsen": {
+     "name": "Bremsen",
+     "types": [
+      "Bremsen"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-anki",
+     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-contrib-anki\\commands\\brake.js"
+    },
+    "Schild": {
+     "name": "Schild",
+     "types": [
+      "Schild"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-anki",
+     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-contrib-anki\\commands\\use-shield.js"
+    },
+    "U Turn": {
+     "name": "U Turn",
+     "types": [
+      "U Turn"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-anki",
+     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-contrib-anki\\commands\\u-turn.js"
+    },
+    "roadLogic": {
+     "name": "roadLogic",
+     "types": [
+      "Kurve"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-anki",
+     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-contrib-anki\\logic\\curve.js"
+    },
+    "inventarLogic": {
+     "name": "inventarLogic",
+     "types": [
+      "Inventar"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-anki",
+     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-contrib-anki\\logic\\inv.js"
+    },
+    "Gerade": {
+     "name": "Gerade",
+     "types": [
+      "Gerade"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-anki",
+     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-contrib-anki\\logic\\straight.js"
+    },
+    "Rundenzeit": {
+     "name": "Rundenzeit",
+     "types": [
+      "Rundenzeit"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-anki",
+     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-contrib-anki\\lap-time.js"
+    },
+    "Umwelt": {
+     "name": "Umwelt",
+     "types": [
+      "Umwelt"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-anki",
+     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-contrib-anki\\logic\\obstacle.js"
     }
    }
   },
@@ -442,196 +616,18 @@
      "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\node_modules\\node-red-node-twitter\\27-twitter.js"
     }
    }
-  },
-  "node-red-contrib-mqtt-broker": {
-   "name": "node-red-contrib-mqtt-broker",
-   "version": "0.2.2",
-   "local": true,
-   "nodes": {
-    "mosca-mqtt-broker": {
-     "name": "mosca-mqtt-broker",
-     "types": [
-      "mosca in"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-mqtt-broker",
-     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\.node-red\\node_modules\\node-red-contrib-mqtt-broker\\mosca.js"
-    }
-   }
-  },
-  "node-red-contrib-anki": {
-   "name": "node-red-contrib-anki",
-   "version": "0.0.1",
-   "local": true,
-   "nodes": {
-    "Streckenfakten": {
-     "name": "Streckenfakten",
-     "types": [
-      "Streckenfakten"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-anki",
-     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\.node-red\\node_modules\\node-red-contrib-anki\\facts\\road-facts.js"
-    },
-    "Inventarfakten": {
-     "name": "Inventarfakten",
-     "types": [
-      "Inventarfakten"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-anki",
-     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\.node-red\\node_modules\\node-red-contrib-anki\\facts\\inventar-facts.js"
-    },
-    "Umgebungsfakten": {
-     "name": "Umgebungsfakten",
-     "types": [
-      "Umgebungsfakten"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-anki",
-     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\.node-red\\node_modules\\node-red-contrib-anki\\facts\\env-facts.js"
-    },
-    "Rakete feuern": {
-     "name": "Rakete feuern",
-     "types": [
-      "Rakete feuern"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-anki",
-     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\.node-red\\node_modules\\node-red-contrib-anki\\commands\\fire-rocket.js"
-    },
-    "Mine legen": {
-     "name": "Mine legen",
-     "types": [
-      "Mine legen"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-anki",
-     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\.node-red\\node_modules\\node-red-contrib-anki\\commands\\put-mine.js"
-    },
-    "Spur wechseln": {
-     "name": "Spur wechseln",
-     "types": [
-      "Spur wechseln"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-anki",
-     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\.node-red\\node_modules\\node-red-contrib-anki\\commands\\change-lane.js"
-    },
-    "Beschleunigen": {
-     "name": "Beschleunigen",
-     "types": [
-      "Beschleunigen"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-anki",
-     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\.node-red\\node_modules\\node-red-contrib-anki\\commands\\accelerate.js"
-    },
-    "Bremsen": {
-     "name": "Bremsen",
-     "types": [
-      "Bremsen"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-anki",
-     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\.node-red\\node_modules\\node-red-contrib-anki\\commands\\brake.js"
-    },
-    "Schild": {
-     "name": "Schild",
-     "types": [
-      "Schild"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-anki",
-     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\.node-red\\node_modules\\node-red-contrib-anki\\commands\\use-shield.js"
-    },
-    "U Turn": {
-     "name": "U Turn",
-     "types": [
-      "U Turn"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-anki",
-     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\.node-red\\node_modules\\node-red-contrib-anki\\commands\\u-turn.js"
-    },
-    "roadLogic": {
-     "name": "roadLogic",
-     "types": [
-      "Kurve"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-anki",
-     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\.node-red\\node_modules\\node-red-contrib-anki\\logic\\curve.js"
-    },
-    "inventarLogic": {
-     "name": "inventarLogic",
-     "types": [
-      "Inventar"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-anki",
-     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\.node-red\\node_modules\\node-red-contrib-anki\\logic\\inv.js"
-    },
-    "Gerade": {
-     "name": "Gerade",
-     "types": [
-      "Gerade"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-anki",
-     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\.node-red\\node_modules\\node-red-contrib-anki\\logic\\straight.js"
-    },
-    "Rundenzeit": {
-     "name": "Rundenzeit",
-     "types": [
-      "Rundenzeit"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-anki",
-     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\.node-red\\node_modules\\node-red-contrib-anki\\lap-time.js"
-    },
-    "Umwelt": {
-     "name": "Umwelt",
-     "types": [
-      "Umwelt"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-anki",
-     "file": "C:\\Users\\yeckey\\IdeaProjects\\anki-battle\\.node-red\\node_modules\\node-red-contrib-anki\\logic\\obstacle.js"
-    }
-   }
   }
  },
- "_credentialSecret": "90a9e175db3f4ee4ff6e48ce5745bf5d401dd55520b18ad70830b2f67df45896",
+ "_credentialSecret": "049c6cd3a580e5d46527e5412e84a79cda6494f995e8cf11d8c9f9c5ac466fd3",
  "users": {
   "_": {
    "editor": {
     "view": {
-     "view-grid-size": "20",
+     "view-grid-size": 20,
      "view-node-status": true,
-     "view-show-tips": true,
-     "view-show-grid": false,
-     "view-snap-grid": false
+     "view-show-tips": true
     }
-   },
-   "menu-deploymenu-item-flow": true,
-   "menu-deploymenu-item-full": false
+   }
   }
  }
 }

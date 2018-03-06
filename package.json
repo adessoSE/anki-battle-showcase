@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "watch": "webpack --watch --colors --progress",
-    "node-red": "node-red -u .node-red"
+    "node-red": "cd .node-red && npm install --no-optional && node-red -u ."
   },
   "babel": {
     "presets": [
