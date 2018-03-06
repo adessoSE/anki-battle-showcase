@@ -28,13 +28,13 @@ public class MqttService {
     private World world ; 
     
     public MqttService() {
-        try {					//test.mosquitto.org   broker.hivemq.com
-            mqttClient = new MqttClient("tcp://broker.hivemq.com:1883", "anki-battle", new MemoryPersistence());
+        try {
+            mqttClient = new MqttClient("tcp://localhost:1883", "anki-battle", new MemoryPersistence());
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setCleanSession(false);
-            log.info("Connecting to broker: HiveMQ");
+            log.info("Connecting to MQTT broker: localhost:1883");
             mqttClient.connect(connOpts);
-            log.info("Connected");
+            log.info("Connected to MQTT broker");
             mqttClient.setCallback(new MqttCallback() {
                 @Override
                 public void connectionLost(Throwable throwable) {

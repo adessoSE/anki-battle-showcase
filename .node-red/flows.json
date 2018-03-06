@@ -1,14 +1,22 @@
 [
     {
+        "id": "f318e467.1a1638",
+        "type": "tab",
+        "label": "MQTT broker",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "21e2dd7.acbb722",
         "type": "tab",
         "label": "Flow 1"
     },
     {
-        "id": "195156ed.d56f09",
+        "id": "35c7aa89.6ce4d6",
         "type": "mqtt-broker",
         "z": "",
-        "broker": "broker.hivemq.com",
+        "name": "Mosca MQTT broker",
+        "broker": "localhost",
         "port": "1883",
         "clientid": "",
         "usetls": false,
@@ -42,8 +50,8 @@
         "z": "21e2dd7.acbb722",
         "name": "Linkskurve?",
         "art": "Linkskurve",
-        "x": 671.1001052856445,
-        "y": 272.00002670288086,
+        "x": 676.10009765625,
+        "y": 273.0000305175781,
         "wires": [
             [
                 "be8efba.d98f008"
@@ -56,8 +64,8 @@
         "z": "21e2dd7.acbb722",
         "name": "Fahre nach links",
         "track": "-67.5",
-        "x": 869.10009765625,
-        "y": 272,
+        "x": 907.10009765625,
+        "y": 269,
         "wires": [
             [
                 "7b7cb3a3.60d99c"
@@ -71,7 +79,7 @@
         "name": "",
         "topic": "vehicle1",
         "qos": "2",
-        "broker": "195156ed.d56f09",
+        "broker": "35c7aa89.6ce4d6",
         "x": 134.00000762939453,
         "y": 306,
         "wires": [
@@ -90,7 +98,8 @@
         "y": 306,
         "wires": [
             [
-                "8ddda9e0.0e2988"
+                "8ddda9e0.0e2988",
+                "23d09044.ef798"
             ]
         ]
     },
@@ -102,9 +111,9 @@
         "topic": "vehicle1_sub",
         "qos": "",
         "retain": "",
-        "broker": "195156ed.d56f09",
-        "x": 1080.10009765625,
-        "y": 299,
+        "broker": "35c7aa89.6ce4d6",
+        "x": 1186.10009765625,
+        "y": 290,
         "wires": []
     },
     {
@@ -127,12 +136,42 @@
         "z": "21e2dd7.acbb722",
         "name": "Fahre nach rechts",
         "track": "67.5",
-        "x": 874,
-        "y": 332,
+        "x": 908,
+        "y": 335,
         "wires": [
             [
                 "7b7cb3a3.60d99c"
             ]
+        ]
+    },
+    {
+        "id": "23d09044.ef798",
+        "type": "debug",
+        "z": "21e2dd7.acbb722",
+        "name": "Debug-Ausgabe",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 491,
+        "y": 147,
+        "wires": []
+    },
+    {
+        "id": "9f28b2d5.fa5e5",
+        "type": "mosca in",
+        "z": "f318e467.1a1638",
+        "mqtt_port": 1883,
+        "mqtt_ws_port": 8080,
+        "name": "",
+        "username": "",
+        "password": "",
+        "dburl": "",
+        "x": 216,
+        "y": 114,
+        "wires": [
+            []
         ]
     }
 ]

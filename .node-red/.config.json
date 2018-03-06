@@ -629,7 +629,9 @@
      "view-show-grid": false,
      "view-snap-grid": false
     }
-   }
+   },
+   "menu-deploymenu-item-flow": true,
+   "menu-deploymenu-item-full": false
   }
  }
 }
