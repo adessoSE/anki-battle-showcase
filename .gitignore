@@ -26,3 +26,6 @@ nbdist/
 ### NodeJS ###
 node/
 node_modules/
+
+.node_red/*.backup
+.node_red/.config.json
