@@ -45,21 +45,19 @@ public class GameEngine {
     public void start() {
         lastStep = System.nanoTime();
         running = true;
+        try {
+        	subscribeAllVehicles ();
+        } catch (MqttException e) {
+        	log.debug("Exception during subscription");
+            e.printStackTrace();
+        }
+    	 
     }
 
     @Scheduled(fixedRate = 50)
     public void gameLoop() {
     	VehicleStateProvider vehicleStateProvider = new VehicleStateProvider();
         if (running) {
-
-            try {
-            	subscribeAllVehicles ();
-            	//mqtt.publish("vehicleTest","{\"speed\":\"100\",\"nextRoadPiece\":\"left\",\"inv\":\"mine\"}");
-                //mqtt.subscribe("anki-response");
-            } catch (MqttException e) {
-                e.printStackTrace();
-            }
-        	 
            
             // Step 0: Calculate elapsed nanoseconds since last loop
             long step = System.nanoTime();
@@ -108,7 +106,7 @@ public class GameEngine {
                     body.setFacts(factsRoad, factsInventory, factsObstacles);
                 }
                 try {
-                    //evaluateBehavior();
+                    evaluateBehavior();
                 } catch (Exception e) {
                     // TODO: handle exception
                     e.printStackTrace();
