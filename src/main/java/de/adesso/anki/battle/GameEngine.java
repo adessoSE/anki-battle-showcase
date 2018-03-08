@@ -45,12 +45,8 @@ public class GameEngine {
     public void start() {
         lastStep = System.nanoTime();
         running = true;
-        try {
-        	subscribeAllVehicles ();
-        } catch (MqttException e) {
-        	log.debug("Exception during subscription");
-            e.printStackTrace();
-        }
+        subscribeAllVehicles ();
+
     	 
     }
 
@@ -105,36 +101,17 @@ public class GameEngine {
                     //allFacts.addAll(factsObstacles);
                     body.setFacts(factsRoad, factsInventory, factsObstacles);
                 }
-                try {
-                    evaluateBehavior();
-                } catch (Exception e) {
-                    // TODO: handle exception
-                    e.printStackTrace();
-                }
+
+            
+				evaluateBehavior();
+
 
                 stepCount = 0;
             }
 
             
 
-            /*
-            try {
-            	//{"speed":"100","nextRoadPiece":"left","inv":"mine"}
-            	JSONObject json = new JSONObject();
-            	json.put("speed", 100);
-            	json.put("nextRoadPiece", "left");
-            	json.put("inv", "mine");
-            	//mqtt.publish("vehicleTest",json );
-            	mqtt.publish("vehicleTest","{\"speed\":\"100\",\"nextRoadPiece\":\"left\",\"inv\":\"mine\"}");
-                mqtt.subscribe("anki-response");
-            } catch (MqttException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		*/
-
+  
             // Step 5: Render world
             renderWorld();
             calculateLaptime();
@@ -149,11 +126,16 @@ public class GameEngine {
 		}
 	}
 
-	private void subscribeAllVehicles() throws MqttException {
+	private void subscribeAllVehicles()  {
         for (DynamicBody body : world.getDynamicBodies()) {
         	if (body instanceof Vehicle)
         	{
-        		mqtt.subscribe(((Vehicle) body).getName() + "_sub");
+        		try {
+					mqtt.subscribe(((Vehicle) body).getName() + "_sub");
+				} catch (MqttException e) {
+					mqtt.connect();
+					subscribeAllVehicles();
+				}
         	}
         }
 	}
@@ -179,18 +161,17 @@ public class GameEngine {
     }
     */
     
-    private void evaluateBehavior() {
+    private void evaluateBehavior()  {
     	List<Body> oldBodies= new ArrayList<Body>(world.getBodies());
         for (Body body : oldBodies) {
-            try {
-            	// world needs a get Vehicle Method
-            	if (body instanceof Vehicle) {
-    				body.evaluateBehavior(mqtt);
-            	}
-			} catch (MqttException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            if (body instanceof Vehicle) {
+    			try {
+					body.evaluateBehavior(mqtt);
+				} catch (MqttException e) {
+					mqtt.connect();
+					subscribeAllVehicles();
+				}
+            }
         }
     }
 

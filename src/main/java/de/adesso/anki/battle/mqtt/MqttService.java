@@ -28,7 +28,21 @@ public class MqttService {
     private World world ; 
     
     public MqttService() {
-        try {
+       connect();
+
+    }
+
+    public void publish(String topic, String message) throws MqttException {
+        mqttClient.publish(topic, new MqttMessage(message.getBytes()));
+        log.debug("MQTT message published: topic="+topic+"; message="+message);
+    }
+
+    public void subscribe(String topicFilter) throws MqttException {
+        mqttClient.subscribe(topicFilter);
+    }
+
+    public void connect() {
+    	try {					//test.mosquitto.org   broker.hivemq.com
             mqttClient = new MqttClient("tcp://localhost:1883", "anki-battle", new MemoryPersistence());
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setCleanSession(false);
@@ -104,19 +118,9 @@ public class MqttService {
                 }
             });
         } catch (MqttException e) {
+        	log.debug("exception during initialising service");
             e.printStackTrace();
         }
     }
-
-    public void publish(String topic, String message) throws MqttException {
-        mqttClient.publish(topic, new MqttMessage(message.getBytes()));
-        log.debug("MQTT message published: topic="+topic+"; message="+message);
-    }
-
-    public void subscribe(String topicFilter) throws MqttException {
-        mqttClient.subscribe(topicFilter);
-    }
-
-
 
 }
