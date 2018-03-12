@@ -6,9 +6,7 @@ import com.states.GameState;
 import de.adesso.anki.battle.mqtt.MqttService;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.DynamicBody;
-import de.adesso.anki.battle.world.bodies.roadpieces.FinishRoadpiece;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
-import de.adesso.anki.battle.world.bodies.roadpieces.StartRoadpiece;
 import de.adesso.anki.sdk.AnkiVehicle;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -296,13 +294,13 @@ public class Vehicle extends DynamicBody {
 		return horizontalSpeed;
 	}
 	public void updateLapTime() {
-		if (this.currentRoadpiece.toString().equals("S!"))   {
+		if (this.currentRoadpiece.toString().startsWith("S"))   {
 			this.startLapTime = System.currentTimeMillis(); 
 			System.out.println("Start");
 		}
 		Long currentTime = System.currentTimeMillis(); 
 		this.currentlapTime = currentTime - this.startLapTime  ;
-		if (currentRoadpiece.toString().equals( "F!")) {
+		if (currentRoadpiece.toString().startsWith("F")) {
 			this.startLapTime = System.currentTimeMillis(); 
 			if (this.currentlapTime < bestLapTime) {
 				this.bestLapTime  = this.currentlapTime;
