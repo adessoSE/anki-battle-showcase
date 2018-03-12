@@ -21,7 +21,11 @@ public class VehicleStateProvider {
 	
 	public List<GameState> getRoadFacts(  Vehicle vehicle ){
 		ArrayList<GameState> facts = new ArrayList<>();
-		Roadpiece nextPiece = vehicle.getRoadPiece().getNext() ;
+		if (vehicle.getCurrentRoadpiece() == null)
+			return facts;
+
+		Roadpiece nextPiece = vehicle.getCurrentRoadpiece().getNext();
+
 		if (nextPiece.isRightCurved()){
 	    	RightCurveAhead rCurve = new RightCurveAhead(150); 
 	     	facts.add(rCurve);

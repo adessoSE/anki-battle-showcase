@@ -41,7 +41,7 @@ export default class VisualizationPanel extends React.Component {
   var offY = maxY + 560;
   
   if(this.props.bodies != null){
-    var bodyNodes = this.props.bodies.map( (v, index) =>
+    var bodyNodes = this.props.bodies.filter(v => v.position != null).map( (v, index) =>
       <Vehicle key={index} index={v.index} posX={v.position.x - offX} posY={offY - v.position.y} direction={v.position.angle} color={"#f00"} />
     );
   }

@@ -249,10 +249,6 @@ public class Vehicle extends DynamicBody {
         currentRoadpiece = roadpiece;
     }
 
-    public Roadpiece getRoadPiece () {
-    	return this.currentRoadpiece;
-    }
-
 
     public void setAnkiReference(AnkiVehicle ankiReference) {
         this.ankiReference = ankiReference;
