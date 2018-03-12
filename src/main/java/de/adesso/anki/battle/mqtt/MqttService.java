@@ -44,7 +44,7 @@ public class MqttService {
                 @Override
                 public void messageArrived(String s, MqttMessage mqttMessage) {
                     try {
-                        log.info("MQTT message arrived: topic=" + s + "; message=" + mqttMessage.toString());
+                        log.debug("MQTT message arrived: topic=" + s + "; message=" + mqttMessage.toString());
                         String temp = mqttMessage.toString();
                         byte[] hm = mqttMessage.getPayload();
                         JSONObject json = new JSONObject(mqttMessage.toString());
@@ -110,7 +110,7 @@ public class MqttService {
 
     public void publish(String topic, String message) throws MqttException {
         mqttClient.publish(topic, new MqttMessage(message.getBytes()));
-        log.info("MQTT message published: topic="+topic+"; message="+message);
+        log.debug("MQTT message published: topic="+topic+"; message="+message);
     }
 
     public void subscribe(String topicFilter) throws MqttException {
