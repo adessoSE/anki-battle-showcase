@@ -7,7 +7,7 @@ export default class Card extends React.Component {
   constructor(props) {
     super(props);    
     this.vehicle = props.vehicle;
-    this.hidden = true;
+    this.hidden = false;
     this.lineHeight = 67.5;
     this.state = {
       velocity: 0,
@@ -18,7 +18,8 @@ export default class Card extends React.Component {
     this.handleSpeedChange = this.handleSpeedChange.bind(this);
     this.handleLineChange = this.handleLineChange.bind(this);
     this.handleClickScan = this.handleClickScan.bind(this);
-    this.handleClickTurn = this.handleClickTurn.bind(this);
+      this.handleClickTurn = this.handleClickTurn.bind(this);
+      this.handleBehaviorChange = this.handleBehaviorChange.bind(this);
     this.toggleHidden = this.toggleHidden.bind(this);
     this.state.velocity = this.vehicle.lastKnownSpeed;
     this.state.line = this.vehicle.offsetFromCenter + this.lineHeight;
@@ -93,26 +94,14 @@ export default class Card extends React.Component {
   }
 
   drawBody(){
-    if(this.hidden == false && !this.vehicle.charging && this.vehicle.connected){
+    if(true || this.hidden == false && !this.vehicle.charging && this.vehicle.connected){
       return (
         <div>
-            <div className="mdl-card__supporting-text mdl-card--borde">
-            Aktuelle Geschwindigkeit: {this.speedToKmh(this.vehicle.lastKnownSpeed)}
-            <p>
-              <input id={"speed_d "+this.vehicle.id} type="range" min="0" max="2000" step="1" className="mdl-slider mdl-js-slider" disabled/>
-            </p>
-            Gewünschte Geschwindigkeit: {this.speedToKmh(this.state.velocity)}
-            <p>
-              <input id={"speed "+this.vehicle.id} type="range" min="0" max="2000" defaultValue={this.state.velocity} step="1" className="mdl-slider mdl-js-slider" onChange={this.handleSpeedChange}/>              
-            </p>
-            Aktuelle Spur: {this.vehicle.offsetFromCenter}
-            <p>
-            <input id={"line_d "+this.vehicle.id} type="range" min="0" max="135" step="9" className="mdl-slider mdl-js-slider" disabled/>
-          </p>
-            Gewünschte Spur: {this.state.line - this.lineHeight}
-            <p>
-              <input id={"line "+this.vehicle.id} type="range" min="0" max="135" defaultValue={this.state.line} step="9" className="mdl-slider mdl-js-slider" onChange={this.handleLineChange}/>
-            </p>
+            <div className="mdl-card__supporting-text mdl-card--border">
+                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input className="mdl-textfield__input" type="text" id="username" onChange={this.handleBehaviorChange}/>
+                    <label className="mdl-textfield__label" for="username">Behavior name</label>
+                </div>
           </div>
           <div className="mdl-card__actions">
             {this.stateScanning()}            
@@ -187,6 +176,12 @@ export default class Card extends React.Component {
 
   handleClickTurn(){
     this.stomp.send("/app/commands", {}, '{"command": "turn",  "arg0": "'+this.vehicle.id+'"}');
+  }
+
+  handleBehaviorChange() {
+    this.state.username = document.getElementById("username").value;
+    console.log(this.state.username);
+    this.stomp.send("/app/commands", {}, JSON.stringify({ command: "changeBehavior", arg0: this.vehicle.id, arg1: this.state.username }));
   }
 
   calcBatteryState(){

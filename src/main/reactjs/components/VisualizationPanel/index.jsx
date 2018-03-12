@@ -37,8 +37,8 @@ export default class VisualizationPanel extends React.Component {
       minY = tile.position.y;
   });
   
-  var offX = minX - 280;
-  var offY = maxY + 280;
+  var offX = minX - 560;
+  var offY = maxY + 560;
   
   if(this.props.bodies != null){
     var bodyNodes = this.props.bodies.map( (v, index) =>
@@ -64,7 +64,7 @@ export default class VisualizationPanel extends React.Component {
         
     return (
       <div className="scalebox">
-            <div id="world_map" style={{width: maxX - minX + 560, height: maxY - minY + 560}} data-width={maxX - minX + 560} data-height={maxY - minY + 560}>
+            <div id="world_map" style={{width: maxX - minX + 1120, height: maxY - minY + 1120}} data-width={maxX - minX + 1120} data-height={maxY - minY + 1120}>
                 {roadNodes}
                 <div id="vehicles">
                     {bodyNodes}
