@@ -63,14 +63,13 @@ public class AnkiSynchronization {
         // If position doesn't match internal position
         // set correct roadpiece and set position to null
 
-        /*/
-        if (vehicle.getPosition() == null || vehicle.getCurrentRoadpiece() == null) {
-            val roadmap = world.getRoadmap();
-            Roadpiece piece = roadmap.findRoadpieceByLocation(m.getRoadPieceId(), m.getLocationId(), m.isParsedReverse());
-
+        val roadmap = world.getRoadmap();
+        val piece = roadmap.findRoadpieceByLocation(m.getRoadPieceId(), m.getLocationId(), m.isParsedReverse());
+        log.debug("piece="+piece);
+        if (piece != null && (vehicle.getCurrentRoadpiece() == null || !vehicle.getCurrentRoadpiece().equals(piece))) {
             vehicle.setCurrentRoadpiece(piece);
+            vehicle.setPosition(null);
         }
-        /**/
 
         val ankiPiece = Roadpiece.createFromId(m.getRoadPieceId());
         val segment = ankiPiece.getSegmentByLocation(m.getLocationId(), m.isParsedReverse());
@@ -100,7 +99,8 @@ public class AnkiSynchronization {
                 /**/
             if (vehicle.getPosition() != null)
                 log.info("position adjusted: distance=" + vehicle.getPosition().distance(piece.getExit().transform(Position.at(0, -vehicle.getOffset()))));
-                vehicle.setPosition(piece.getExit().transform(Position.at(0, -vehicle.getOffset())));
+
+            vehicle.setPosition(piece.getExit().transform(Position.at(0, -vehicle.getOffset())));
             //}
 
             vehicle.setCurrentRoadpiece(piece.getNext());

@@ -10,6 +10,8 @@ public abstract class Roadpiece {
 
     private Position position;
 
+    private int roadpieceId;
+
     public abstract Position relativeEntry();
     public abstract Position relativeExit();
 
@@ -84,4 +86,11 @@ public abstract class Roadpiece {
         return getClass().getSimpleName();
     }
 
+    public int getRoadpieceId() {
+        return roadpieceId;
+    }
+
+    public void setRoadpieceId(int roadpieceId) {
+        this.roadpieceId = roadpieceId;
+    }
 }

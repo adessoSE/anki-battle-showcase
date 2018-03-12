@@ -2,6 +2,11 @@ package de.adesso.anki.battle.world.bodies;
 
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.bodies.roadpieces.*;
+import lombok.val;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Roadmap {
 
@@ -30,6 +35,34 @@ public class Roadmap {
 
     public Roadpiece getAnchor() {
         return anchor;
+    }
+
+    public List<Roadpiece> getRoadpieces() {
+        val list = new LinkedList<Roadpiece>();
+        addWithChecks(list, anchor);
+
+        for (Roadpiece i = anchor.getNext(); i.getNext() != null && i != anchor; i = i.getNext()) {
+            addWithChecks(list, i);
+        }
+
+        return list;
+    }
+
+    private void addWithChecks(LinkedList<Roadpiece> list, Roadpiece i) {
+        if (i instanceof ReverseRoadpiece) {
+            list.add(i.reverse());
+        } else {
+            list.add(i);
+        }
+    }
+
+    public Roadpiece findRoadpieceByLocation(int roadpieceId, int locationId, boolean parsedReverse) {
+        val pieces = getRoadpieces();
+        val piece = pieces.stream().filter(x -> x.getRoadpieceId() == roadpieceId).collect(Collectors.toList());
+        if (piece.size() == 1) {
+            return parsedReverse ? piece.get(0).reverse() : piece.get(0);
+        }
+        return null;
     }
 
     public static class RoadmapBuilder {
@@ -113,6 +146,11 @@ public class Roadmap {
 
             addRoadpiece(next);
             return this;
+        }
+
+        public void setRoadpieceId(int roadPieceId) {
+            if (last != null)
+                last.setRoadpieceId(roadPieceId);
         }
     }
 }

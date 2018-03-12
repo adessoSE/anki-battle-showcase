@@ -94,14 +94,19 @@ public class AnkiInitializer implements ApplicationRunner {
 
             if (ankiPiece instanceof StraightRoadpiece) {
                 builder.straight(m.isParsedReverse());
+                builder.setRoadpieceId(m.getRoadPieceId());
             } else if (ankiPiece instanceof CurvedRoadpiece) {
                 builder.curve(m.isParsedReverse());
+                builder.setRoadpieceId(m.getRoadPieceId());
             } else if (ankiPiece instanceof StartRoadpiece) {
                 builder.start(m.isParsedReverse());
+                builder.setRoadpieceId(m.getRoadPieceId());
             } else if (ankiPiece instanceof FinishRoadpiece) {
                 builder.finish(m.isParsedReverse());
+                builder.setRoadpieceId(m.getRoadPieceId());
             } else {
                 builder.straight(m.isParsedReverse());
+                builder.setRoadpieceId(m.getRoadPieceId());
             }
 
             val segment = ankiPiece.getSegmentByLocation(m.getLocationId(), m.isParsedReverse());
