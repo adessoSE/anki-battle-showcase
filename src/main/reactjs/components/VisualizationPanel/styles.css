@@ -1,0 +1,10 @@
+#world_map {
+  position: relative;
+  display: block;
+  height: 1120px;
+  width: 1120px;
+}
+
+.scalebox {
+  position: fixed;
+}

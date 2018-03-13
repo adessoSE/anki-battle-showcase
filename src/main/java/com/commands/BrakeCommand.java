@@ -1,6 +1,6 @@
 package com.commands;
 
-import com.domain.Vehicle;
+import de.adesso.anki.battle.world.bodies.Vehicle;
 
 public class BrakeCommand extends Command {
 	private int desiredSpeed; 
@@ -10,7 +10,7 @@ public class BrakeCommand extends Command {
 	}
 	
 	public void execute(Vehicle vehicle){
-		vehicle.setSpeed(this.desiredSpeed);
+		vehicle.setTargetSpeed(desiredSpeed);
 	}
 	
 }

@@ -1,0 +1,83 @@
+html, body {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+
+.my-layout {
+  background-color: #E8E4E1;
+}
+
+.my-grid--max-width {
+  max-width: 1100px;
+}
+
+.my-layout__logo {
+  height: 32px;
+}
+
+.model-logo {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.mdl-layout__header {
+  background-color: #0071b9;
+  color: #fff;
+}
+
+.mdl-card.mdl-card--nosize {
+  min-height: 0;
+}
+
+.mdl-grid .mdl-grid.mdl-grid--nesting {
+  padding: 0;
+  margin: 0 -8px;
+}
+
+.mdl-slider__container {
+  margin-left: -18px;
+  margin-right: -12px;
+}
+
+.mdl-tabs__panel {
+  font-family: 'Consolas';
+  color: #E8E4E1;
+  padding: 0 5px;
+  white-space: nowrap;
+  overflow: scroll;
+  height: 8em;
+}
+
+.mdl-tabs__panel p {
+  margin: 0;
+}
+
+.mdl-layout__content {
+  height: 100%;
+}
+
+.mdl-grid.mdl-grid--full-height {
+  height: calc(100% - 16px);
+}
+
+#visualization_panel.mdl-cell {
+  height: calc(100% - 16px);
+}
+
+#visualization_panel .scalebox {
+  height: 100%;
+}
+
+
+.slideup, .slidedown {
+    max-height: 0;            
+    overflow-y: hidden;
+    -webkit-transition: max-height 0.5s ease-in-out;
+    -moz-transition: max-height 0.5s ease-in-out;
+    -o-transition: max-height 0.5s ease-in-out;
+    transition: max-height 0.5s ease-in-out;
+}
+.slidedown {            
+    max-height: 999px; ;                    
+}

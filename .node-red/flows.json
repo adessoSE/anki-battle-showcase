@@ -1,0 +1,177 @@
+[
+    {
+        "id": "f318e467.1a1638",
+        "type": "tab",
+        "label": "MQTT broker",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "21e2dd7.acbb722",
+        "type": "tab",
+        "label": "Flow 1"
+    },
+    {
+        "id": "35c7aa89.6ce4d6",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Mosca MQTT broker",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "8ddda9e0.0e2988",
+        "type": "Streckenfakten",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "x": 477.0000915527344,
+        "y": 304,
+        "wires": [
+            [
+                "8b1cff9b.c202d",
+                "4c1b8fcf.f0067"
+            ]
+        ]
+    },
+    {
+        "id": "8b1cff9b.c202d",
+        "type": "Kurve",
+        "z": "21e2dd7.acbb722",
+        "name": "Linkskurve?",
+        "art": "Linkskurve",
+        "x": 676.10009765625,
+        "y": 273.0000305175781,
+        "wires": [
+            [
+                "be8efba.d98f008"
+            ]
+        ]
+    },
+    {
+        "id": "be8efba.d98f008",
+        "type": "Spur wechseln",
+        "z": "21e2dd7.acbb722",
+        "name": "Fahre nach links",
+        "track": "-67.5",
+        "x": 907.10009765625,
+        "y": 269,
+        "wires": [
+            [
+                "7b7cb3a3.60d99c"
+            ]
+        ]
+    },
+    {
+        "id": "5b86c095.5d2d1",
+        "type": "mqtt in",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "topic": "vehicle1",
+        "qos": "2",
+        "broker": "35c7aa89.6ce4d6",
+        "x": 134.00000762939453,
+        "y": 306,
+        "wires": [
+            [
+                "e53f2641.c382b8"
+            ]
+        ]
+    },
+    {
+        "id": "e53f2641.c382b8",
+        "type": "json",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "pretty": false,
+        "x": 297.1000061035156,
+        "y": 306,
+        "wires": [
+            [
+                "8ddda9e0.0e2988",
+                "23d09044.ef798"
+            ]
+        ]
+    },
+    {
+        "id": "7b7cb3a3.60d99c",
+        "type": "mqtt out",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "topic": "vehicle1_sub",
+        "qos": "",
+        "retain": "",
+        "broker": "35c7aa89.6ce4d6",
+        "x": 1186.10009765625,
+        "y": 290,
+        "wires": []
+    },
+    {
+        "id": "4c1b8fcf.f0067",
+        "type": "Kurve",
+        "z": "21e2dd7.acbb722",
+        "name": "Rechtskurve?",
+        "art": "Rechtskurve",
+        "x": 681.0000076293945,
+        "y": 330.99999618530273,
+        "wires": [
+            [
+                "f3652f5f.f752c"
+            ]
+        ]
+    },
+    {
+        "id": "f3652f5f.f752c",
+        "type": "Spur wechseln",
+        "z": "21e2dd7.acbb722",
+        "name": "Fahre nach rechts",
+        "track": "67.5",
+        "x": 908,
+        "y": 335,
+        "wires": [
+            [
+                "7b7cb3a3.60d99c"
+            ]
+        ]
+    },
+    {
+        "id": "23d09044.ef798",
+        "type": "debug",
+        "z": "21e2dd7.acbb722",
+        "name": "Debug-Ausgabe",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 491,
+        "y": 147,
+        "wires": []
+    },
+    {
+        "id": "9f28b2d5.fa5e5",
+        "type": "mosca in",
+        "z": "f318e467.1a1638",
+        "mqtt_port": 1883,
+        "mqtt_ws_port": 8080,
+        "name": "",
+        "username": "",
+        "password": "",
+        "dburl": "",
+        "x": 216,
+        "y": 114,
+        "wires": [
+            []
+        ]
+    }
+]

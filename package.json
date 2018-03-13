@@ -1,0 +1,43 @@
+{
+  "name": "anki-battle",
+  "description": "",
+  "version": "0.2-alpha",
+  "main": "src/main/reactjs/index.jsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch --colors --progress",
+    "node-red": "cd .node-red && npm install --no-optional && node-red -u ."
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adessoAG/anki-battle-showcase"
+  },
+  "author": "adessoAG",
+  "license": "MIT",
+  "dependencies": {
+    "hard-source-webpack-plugin": "^0.5.18",
+    "jquery": "^2.2.4",
+    "node-red": "^0.18.4",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "sockjs-client": "^1.1.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.22.0",
+    "css-loader": "^0.26.1",
+    "node-sass": "^4.5.0",
+    "sass-loader": "^5.0.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^2.2.1"
+  }
+}

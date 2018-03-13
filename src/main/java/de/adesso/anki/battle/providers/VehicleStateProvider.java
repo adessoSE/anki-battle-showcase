@@ -1,29 +1,17 @@
 package de.adesso.anki.battle.providers;
 
+import com.states.*;
+import de.adesso.anki.battle.util.Position;
+import de.adesso.anki.battle.world.Body;
+import de.adesso.anki.battle.world.World;
+import de.adesso.anki.battle.world.bodies.Vehicle;
+import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.states.GameState;
-import com.states.InventoryMine;
-import com.states.InventoryReflector;
-import com.states.InventoryRocket;
-import com.states.InventoryShield;
-import com.states.LeftCurveAhead;
-import com.states.ObjectBehind;
-import com.states.ObjectInFront;
-import com.states.RightCurveAhead;
-import com.states.RocketInFront;
-
-import de.adesso.anki.battle.util.Position;
-import de.adesso.anki.battle.world.Body;
-import de.adesso.anki.battle.world.DynamicBody;
-import de.adesso.anki.battle.world.World;
-import de.adesso.anki.battle.world.bodies.Mine;
-import de.adesso.anki.battle.world.bodies.Roadmap;
-import de.adesso.anki.battle.world.bodies.Rocket;
-import de.adesso.anki.battle.world.bodies.Vehicle;
-import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
-
+@Slf4j
 public class VehicleStateProvider {
 	
 	
@@ -33,7 +21,11 @@ public class VehicleStateProvider {
 	
 	public List<GameState> getRoadFacts(  Vehicle vehicle ){
 		ArrayList<GameState> facts = new ArrayList<>();
-		Roadpiece nextPiece = vehicle.getRoadPiece().getNext() ;
+		if (vehicle.getCurrentRoadpiece() == null)
+			return facts;
+
+		Roadpiece nextPiece = vehicle.getCurrentRoadpiece().getNext();
+
 		if (nextPiece.isRightCurved()){
 	    	RightCurveAhead rCurve = new RightCurveAhead(150); 
 	     	facts.add(rCurve);
@@ -41,6 +33,10 @@ public class VehicleStateProvider {
 		if (nextPiece.isLeftCurved()) {
 			LeftCurveAhead lCurve = new LeftCurveAhead(150) ; 
 			facts.add(lCurve); 
+		}
+		if (nextPiece.isStraight()) {
+			StraightPieceAhead straight = new StraightPieceAhead();
+			facts.add(straight);
 		}
 		return facts;
 	}
@@ -77,29 +73,23 @@ public class VehicleStateProvider {
 			if (vehicle == body) {
 				continue;
 			}
-			String type = "";
-			if ( body instanceof Rocket) {
-				type = "Rocket";
-			}
-			if ( body instanceof Mine) {
-				type = "Mine";
-			}
-			if (body instanceof Vehicle) {
-				type = "Vehicle";
-			}
+
+			String obstacleType = body.getClass().getSimpleName() ;
 			Position position1 = vehicle.getPosition();
 			Position position2 = body.getPosition();
 			double distance = position1.distance(position2);
-			System.out.println(distance);
-			double angle = position1.angle();
-			if( angle < 180 ) {
-				ObjectInFront objInFront = new ObjectInFront(distance, "type");
-				facts.add(objInFront);
+			double angle1 = position1.angle();
+			double angle2 = position2.angle();
+			String direction = "";
+
+			if ( obstacleType.equals( "Rocket")) {
 			}
-			else {
-				ObjectBehind objBehind = new ObjectBehind(distance, "type");
-				facts.add(objBehind);
+			if (obstacleType.equals( "Mine")) {
 			}
+			if (obstacleType.equals( "Vehicle")) {
+			}
+			ObjectInFront test1 = new ObjectInFront(distance, obstacleType);
+			ObjectBehind test2 = new ObjectBehind(distance, obstacleType);
 		}
 		return facts;
 	}

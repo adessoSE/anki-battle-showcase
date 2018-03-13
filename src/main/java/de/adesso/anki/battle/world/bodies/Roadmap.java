@@ -2,6 +2,11 @@ package de.adesso.anki.battle.world.bodies;
 
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.bodies.roadpieces.*;
+import lombok.val;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Roadmap {
 
@@ -32,6 +37,34 @@ public class Roadmap {
         return anchor;
     }
 
+    public List<Roadpiece> getRoadpieces() {
+        val list = new LinkedList<Roadpiece>();
+        addWithChecks(list, anchor);
+
+        for (Roadpiece i = anchor.getNext(); i.getNext() != null && i != anchor; i = i.getNext()) {
+            addWithChecks(list, i);
+        }
+
+        return list;
+    }
+
+    private void addWithChecks(LinkedList<Roadpiece> list, Roadpiece i) {
+        if (i instanceof ReverseRoadpiece) {
+            list.add(i.reverse());
+        } else {
+            list.add(i);
+        }
+    }
+
+    public Roadpiece findRoadpieceByLocation(int roadpieceId, int locationId, boolean parsedReverse) {
+        val pieces = getRoadpieces();
+        val piece = pieces.stream().filter(x -> x.getRoadpieceId() == roadpieceId).collect(Collectors.toList());
+        if (piece.size() == 1) {
+            return parsedReverse ? piece.get(0).reverse() : piece.get(0);
+        }
+        return null;
+    }
+
     public static class RoadmapBuilder {
         private Roadmap map;
         private Roadpiece last;
@@ -49,7 +82,7 @@ public class Roadmap {
             else {
                 last.connect(next);
                 last = next;
-                if (last.getExit().distance(map.anchor.getEntry()) < 1) {
+                if (last.getExit().distance(map.anchor.getEntry()) < 10) {
                     last.connect(map.anchor);
                 }
             }
@@ -59,39 +92,65 @@ public class Roadmap {
             return map;
         }
 
-        public RoadmapBuilder straight() {
-            Roadpiece next = new StraightRoadpiece();
-            addRoadpiece(next);
+        public boolean isComplete() {
+            return map.anchor != null && map.anchor.getPrev() != null;
+        }
 
+        public RoadmapBuilder straight() {
+            return straight(false);
+        }
+
+        public RoadmapBuilder straight(boolean reverse) {
+            Roadpiece next = new StraightRoadpiece();
+            if (reverse) next = next.reverse();
+
+            addRoadpiece(next);
             return this;
         }
 
         public RoadmapBuilder left() {
-            Roadpiece next = new CurvedRoadpiece();
-            addRoadpiece(next);
-
-            return this;
+            return curve(false);
         }
 
         public RoadmapBuilder right() {
-            Roadpiece next = new CurvedRoadpiece().reverse();
-            addRoadpiece(next);
+            return curve(true);
+        }
 
+        public RoadmapBuilder curve(boolean reverse) {
+            Roadpiece next = new CurvedRoadpiece();
+            if (reverse) next = next.reverse();
+
+            addRoadpiece(next);
             return this;
         }
 
         public RoadmapBuilder start() {
-            Roadpiece next = new StartRoadpiece();
-            addRoadpiece(next);
+            return start(false);
+        }
 
+        public RoadmapBuilder start(boolean reverse) {
+            Roadpiece next = new StartRoadpiece();
+            if (reverse) next = next.reverse();
+
+            addRoadpiece(next);
             return this;
         }
 
         public RoadmapBuilder finish() {
-            Roadpiece next = new FinishRoadpiece();
-            addRoadpiece(next);
+            return finish(false);
+        }
 
+        public RoadmapBuilder finish(boolean reverse) {
+            Roadpiece next = new FinishRoadpiece();
+            if (reverse) next = next.reverse();
+
+            addRoadpiece(next);
             return this;
+        }
+
+        public void setRoadpieceId(int roadPieceId) {
+            if (last != null)
+                last.setRoadpieceId(roadPieceId);
         }
     }
 }

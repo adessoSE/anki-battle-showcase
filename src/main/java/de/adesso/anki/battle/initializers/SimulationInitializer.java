@@ -4,7 +4,6 @@ package de.adesso.anki.battle.initializers;
 import de.adesso.anki.battle.GameEngine;
 import de.adesso.anki.battle.world.World;
 import de.adesso.anki.battle.world.bodies.Roadmap;
-import de.adesso.anki.battle.world.bodies.Roadmap.RoadmapBuilder;
 import de.adesso.anki.battle.world.bodies.Vehicle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
-import com.states.GameState;
 
 @Slf4j
 @Component
@@ -46,33 +43,29 @@ public class SimulationInitializer implements ApplicationRunner {
 
     private void addVehicles() {
         Vehicle vehicle = new Vehicle();
+        vehicle.setName("vehicle1");
         vehicle.setWorld(world);
-        vehicle.setRuleEngine("factsModel"); //static for prototyping stuff
         vehicle.setTrack(3);
-        vehicle.setCurrentRoadpiece(world.getRoadmap().getAnchor());
-        vehicle.setPosition(world.getRoadmap().getAnchor().getEntry());
+        vehicle.setCurrentRoadpiece(world.getRoadmap().getAnchor().reverse());
+        vehicle.setPosition(world.getRoadmap().getAnchor().getEntry().reverse());
         vehicle.setTargetSpeed(500);
-        vehicle.setRocketReady(true);
+        vehicle.setMineReady(true);
 
-        Vehicle vehicle2 = new Vehicle();
+        world.addBody(vehicle);
+
+        /*Vehicle vehicle2 = new Vehicle();
+        vehicle2.setName("vehicle2");
         vehicle2.setWorld(world);
-        vehicle2.setRuleEngine("factsModel"); //static for prototyping stuff
         vehicle2.setTrack(1);
         vehicle2.setCurrentRoadpiece(world.getRoadmap().getAnchor());
         vehicle2.setPosition(world.getRoadmap().getAnchor().getEntry());
         vehicle2.setTargetSpeed(750);
         vehicle2.setRocketReady(true);
         world.addBody(vehicle2);
-        /*Vehicle vehicle2 = new Vehicle();
-        vehicle2.setRuleEngine("factsModel"); //static for prototyping stuff
-        Vehicle vehicle3 = new Vehicle();
-        vehicle3.setRuleEngine("factsModel"); //static for prototyping stuff
         
-      
-        world.addBody(vehicle3);
-        world.addBody(vehicle2);
         */
-        world.addBody(vehicle);
+
+
     }
 
     private void startEngine() {

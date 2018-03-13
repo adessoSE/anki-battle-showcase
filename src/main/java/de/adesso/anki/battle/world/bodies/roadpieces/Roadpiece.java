@@ -1,5 +1,6 @@
 package de.adesso.anki.battle.world.bodies.roadpieces;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.adesso.anki.battle.util.Position;
 
 public abstract class Roadpiece {
@@ -8,6 +9,8 @@ public abstract class Roadpiece {
     private Roadpiece next;
 
     private Position position;
+
+    private int roadpieceId;
 
     public abstract Position relativeEntry();
     public abstract Position relativeExit();
@@ -42,10 +45,12 @@ public abstract class Roadpiece {
         return getPosition().transform(relativeExit());
     }
 
+    @JsonIgnore
     public Roadpiece getNext() {
         return next;
     }
 
+    @JsonIgnore
     public Roadpiece getPrev() {
         return prev;
     }
@@ -77,4 +82,15 @@ public abstract class Roadpiece {
     public boolean isLeftCurved() { return false; }
     public boolean isRightCurved() { return false; }
 
+    public String getType() {
+        return getClass().getSimpleName();
+    }
+
+    public int getRoadpieceId() {
+        return roadpieceId;
+    }
+
+    public void setRoadpieceId(int roadpieceId) {
+        this.roadpieceId = roadpieceId;
+    }
 }

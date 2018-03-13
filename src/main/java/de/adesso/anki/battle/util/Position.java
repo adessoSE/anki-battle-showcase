@@ -33,6 +33,19 @@ public class Position {
     public double angle() {
         return angle;
     }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getAngle() {
+        return angle;
+    }
+
     public Position reverse() {
         return new Position(x, y, angle + 180);
     }

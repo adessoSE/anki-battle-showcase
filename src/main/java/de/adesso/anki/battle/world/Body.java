@@ -1,5 +1,8 @@
 package de.adesso.anki.battle.world;
 
+import org.eclipse.paho.client.mqttv3.MqttException;
+
+import de.adesso.anki.battle.mqtt.MqttService;
 import de.adesso.anki.battle.util.Position;
 
 public abstract class Body {
@@ -26,6 +29,6 @@ public abstract class Body {
 	}
 	
 	
-    public abstract void evaluateBehavior();
+    public abstract void evaluateBehavior(MqttService mqtt) throws MqttException;
 
 }

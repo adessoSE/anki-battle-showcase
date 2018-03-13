@@ -12,7 +12,7 @@ public class ShieldCommand extends Command {
 		
 		World world = vehicle.getWorld();
 		// amount that the shield absorbs
-		vehicle.setEnergy(vehicle.getEnergy()+25);			
+		// vehicle.setEnergy(vehicle.getEnergy()+25);
 		vehicle.setShieldReady(false);
 	}
 }

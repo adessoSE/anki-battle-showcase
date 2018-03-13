@@ -1,0 +1,13 @@
+.curve{
+  top : -285px;
+  left: -285px;
+  width: 395px ; /* Au�enradius der Kurve */
+  height: 395px; /* Au�enradius der Kurve */
+  border-bottom-right-radius: 395px; /* Au�enradius der Kurve */
+  border-bottom: 220px solid black; /* Breite der Stra�e */
+  border-right: 220px solid black; /* Breite der Stra�e */
+  box-sizing: border-box;
+  position: absolute;
+  display: inline-block;
+  transform-origin: 5px 5px;
+}
