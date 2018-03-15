@@ -24,8 +24,16 @@ public class Vehicle extends DynamicBody {
 
 	private String name;
     private Roadpiece currentRoadpiece;
+    private int energy;
 
-    private Long startLapTime = System.currentTimeMillis();
+    public int getEnergy() {
+		return energy;
+	}
+	public void setEnergy(int energy) {
+		this.energy = energy;
+	}
+
+	private Long startLapTime = System.currentTimeMillis();
     private Long currentlapTime;
     private Long bestLapTime = 1111111111111111L;  // TODO maximum 
     // System.nanoTime(
@@ -296,7 +304,7 @@ public class Vehicle extends DynamicBody {
 	public void updateLapTime() {
 		if (this.currentRoadpiece.toString().startsWith("S"))   {
 			this.startLapTime = System.currentTimeMillis(); 
-			System.out.println("Start");
+			log.debug("Start");
 		}
 		Long currentTime = System.currentTimeMillis(); 
 		this.currentlapTime = currentTime - this.startLapTime  ;

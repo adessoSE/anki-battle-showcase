@@ -11,8 +11,10 @@ public class PutMineCommand extends Command {
 	}
 	
 	public void execute(Vehicle vehicle) {
-		// TODO: set Positions
-		
+		// TODO: set Positions}
+		if (!vehicle.isMineReady()) {
+			return;
+		}
 		World world = vehicle.getWorld();
 		Mine mine = new Mine ();
 		mine.setPosition(vehicle.getPosition());
