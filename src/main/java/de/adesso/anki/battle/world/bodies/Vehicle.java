@@ -35,8 +35,7 @@ public class Vehicle extends DynamicBody {
 
 	private Long startLapTime = System.currentTimeMillis();
     private Long currentlapTime;
-    private Long bestLapTime = 1111111111111111L;  // TODO maximum 
-    // System.nanoTime(
+    private Long bestLapTime = Long.MAX_VALUE; 
     
 
 
@@ -260,10 +259,8 @@ public class Vehicle extends DynamicBody {
     	
 
     	String topic = this.name;
-    	String message ="{\"speed\":\"100\",\"nextRoadPiece\":\"left\",\"inv\":\"mine\"}";
     	// generate Message from facts
     	String messageToSend = convertFactsToMessage();
-    	//mqtt.publish(topic, message);
     	mqtt.publish(topic, messageToSend);
     }
 

@@ -146,16 +146,15 @@ public class GameEngine {
             }
 
             
-
+            // Remove while iterating, leads to exception 
+            //java.util.ConcurrentModificationException: in renderer?
+            //collisionHandling();
+            collectOrphanedWeapons();
   
             // Step 5: Render world
             renderWorld();
 
             
-            // Remove while iterating, leads to exception 
-            //java.util.ConcurrentModificationException: in renderer?
-            collisionHandling();
-            collectOrphanedWeapons();
             
             calculateLaptime();
         }
@@ -171,7 +170,7 @@ public class GameEngine {
 		}
 	}
 
-	private void subscribeAllVehicles()  {
+	public void subscribeAllVehicles()  {
         for (DynamicBody body : world.getDynamicBodies()) {
         	if (body instanceof Vehicle)
         	{
@@ -204,7 +203,7 @@ public class GameEngine {
 	}
 
 	
-	//merge though filter predicate
+	//merge though filter predicate with method above
 	private void collisionHandling() {
 		Iterator<Body> it = world.getBodiesModifiable().iterator();
         while(it.hasNext()){
@@ -219,9 +218,14 @@ public class GameEngine {
 		if ( weapon instanceof Vehicle) {
 			return false;
 		}
+		// merge into new superclass weapon ? 
     	if (weapon instanceof Rocket && !((Rocket) weapon).isActive()) {
     		return false;
     	}
+    	if (weapon instanceof Mine && !((Mine) weapon).isActive()) {
+    		return false;
+    	}
+    	
     	List<Vehicle> vehicles = world.getVehicles();
 		Position pos1 = weapon.getPosition();
 		boolean succesfulHit = false;
@@ -231,7 +235,7 @@ public class GameEngine {
 			Position pos2 = vehicle.getPosition();
 			double distance = pos1.distance(pos2);
 			//TODO find distance value that indicates a collision
-			double dummyValue = 10; 
+			double dummyValue = 30; 
 			if (distance < dummyValue) {
 				System.out.println("BOOM: " + weapon.getClass().getSimpleName()); 
 				vehicle.setEnergy(vehicle.getEnergy() - damage);
@@ -240,65 +244,6 @@ public class GameEngine {
 			}
     	}
 		return succesfulHit;
-    }
-    
-    //TODO body package into weapon
-    //for now naive if 
-    private boolean collisionHandlingDep(Body weapon) {
-		if ( weapon instanceof Vehicle) {
-			return false;
-		}
-    	if (weapon instanceof Rocket && !((Rocket) weapon).isActive()) {
-    		return false;
-    	}
-    	List<Vehicle> vehicles = world.getVehicles();
-		Position pos1 = weapon.getPosition();
-		boolean succesfulHit = false;
-		//TODO find damage values for weapon types
-		int damage = ((weapon instanceof Rocket ) ? 10 : 20);
-    	for (Vehicle vehicle : vehicles) {
-			Position pos2 = vehicle.getPosition();
-			double distance = pos1.distance(pos2);
-			//TODO find distance value that indicates a collision
-			double dummyValue = 10; 
-			if (distance < dummyValue) {
-				System.out.println("BOOM: " + weapon.getClass().getSimpleName()); 
-				vehicle.setEnergy(vehicle.getEnergy() - damage);
-				System.out.println(vehicle.getEnergy());
-				succesfulHit = true;
-			}
-    	}
-		return succesfulHit;
-    }
-    
-    
-    //TODO body package into weapon
-    //for now naive if 
-    private void collisionHandlingNew(Body weapon) {   
-		if ( weapon instanceof Vehicle) {
-			return;
-		}
-    	List<Vehicle> vehicles = world.getVehicles();
-		Position pos1 = weapon.getPosition();
-		boolean succesfulHit = false;
-		//TODO find damage values for weapon types
-		int damage = ((weapon instanceof Rocket ) ? 10 : 20);
-    	for (Vehicle vehicle : vehicles) {
-			Position pos2 = vehicle.getPosition();
-			double distance = pos1.distance(pos2);
-			System.out.println("Distance:   "+ distance);
-			//TODO find distance value that indicates a collision
-			double dummyValue = 10; 
-			if (distance < dummyValue) {
-				System.out.println("BOOM: " + weapon.getClass().getSimpleName()); 
-				vehicle.setEnergy(vehicle.getEnergy() - damage);
-				System.out.println(vehicle.getEnergy());
-				succesfulHit = true;
-			}
-    	}
-		if (succesfulHit){
-			world.deleteBody(weapon);
-		}
     }
     
  
@@ -306,15 +251,21 @@ public class GameEngine {
     private void evaluateBehavior()  {
     	List<Body> oldBodies= new ArrayList<Body>(world.getBodies());
         for (Body body : oldBodies) {
-            if (body instanceof Vehicle) {
+        	try {
+				body.evaluateBehavior(mqtt);
+			} catch (MqttException e) {
+				mqtt.connect();
+				subscribeAllVehicles();
+			}
+/*            if (body instanceof Vehicle) {
     			try {
 					body.evaluateBehavior(mqtt);
 				} catch (MqttException e) {
 					mqtt.connect();
 					subscribeAllVehicles();
-				}
-            }
+				}*/
         }
+        
     }
 
     private void renderWorld() {
