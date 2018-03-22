@@ -1,10 +1,15 @@
 language: java
+
 before_install: ./mvnw initialize
+script:
+  - ./mvnw test sonar:sonar -B
+
 cache:
   directories:
-  - $HOME/.m2
-  - node
-  - node_modules
+    - $HOME/.m2
+    - node
+    - node_modules
+    - $HOME/.sonar
 
 addons:
   sonarcloud:
@@ -12,5 +17,3 @@ addons:
     branches:
       - master
       - develop
-script:
-  - ./mvnw install sonar:sonar
