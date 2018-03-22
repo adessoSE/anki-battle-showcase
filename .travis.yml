@@ -1,2 +1,7 @@
 language: java
 before_install: ./mvnw initialize
+cache:
+  directories:
+  - $HOME/.m2
+  - node
+  - node_modules
