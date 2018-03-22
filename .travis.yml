@@ -5,3 +5,12 @@ cache:
   - $HOME/.m2
   - node
   - node_modules
+
+addons:
+  sonarcloud:
+    organization: "adessoag-github"
+    branches:
+      - master
+      - develop
+script:
+  - ./mvnw install sonar:sonar
