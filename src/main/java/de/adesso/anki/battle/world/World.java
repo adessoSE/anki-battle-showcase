@@ -38,11 +38,7 @@ public class World {
         return this.bodies;
     }
     
-    
-    public void deleteBody (Body body) {
-    	this.bodies.remove(body);
-    	//TODO throw event so frontend can visualize collision?
-    }
+
 
     public List<DynamicBody> getDynamicBodies() {
         return bodies.stream()

@@ -54,7 +54,6 @@ public class Rocket extends DynamicBody {
 
 	@Override
 	public void evaluateBehavior(MqttService mqtt) throws MqttException {
-		// TODO Auto-generated method stub
 		World world = this.getWorld();
 		if ( checkCollision(this,world)) {
 			world.getBodiesModifiable().remove(this);
@@ -79,9 +78,7 @@ public class Rocket extends DynamicBody {
 				//TODO find distance value that indicates a collision
 				double dummyValue = 30; 
 				if (distance < dummyValue) {
-					System.out.println("BOOM: " + weapon.getClass().getSimpleName()); 
 					vehicle.setEnergy(vehicle.getEnergy() - damage);
-					System.out.println(vehicle.getEnergy());
 					destroy = true;
 				}
 	    	}
