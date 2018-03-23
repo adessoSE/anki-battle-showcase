@@ -45,7 +45,6 @@ public class Mine extends DynamicBody {
 
 	@Override
 	public void evaluateBehavior(MqttService mqtt) throws MqttException {
-		// TODO Auto-generated method stub
 		World world = this.getWorld();
 		if ( checkCollision(this,world)) {
 			world.getBodiesModifiable().remove(this);

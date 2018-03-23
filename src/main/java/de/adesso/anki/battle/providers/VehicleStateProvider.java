@@ -71,6 +71,7 @@ public class VehicleStateProvider {
 		World world = vehicle.getWorld();
 		for (Body body : world.getBodies()){
 			if (vehicle == body) {
+				//skip self
 				continue;
 			}
 			//generating  facts for vehicle 
@@ -80,33 +81,27 @@ public class VehicleStateProvider {
 			Position position2 = body.getPosition();
 			double distance = position1.distance(position2);
 			double angle1 = position1.angle();
-			double angle2 = position2.angle();
-			String direction = ""; 
-			double dummyValue = 10.0;
-			
-			//direction ? 
-			ObjectInFront test1 = new ObjectInFront(distance, obstacleType);
-			ObjectBehind test2 = new ObjectBehind(distance, obstacleType);
-			facts.add(test1);
-			facts.add(test2);
-/*			if (distance < dummyValue) {
-				switch (obstacleType) {
-					case ("Rocket"):
-						
-						break;
-				}
-				if ( obstacleType.equals( "Rocket")) {
-				RocketBehind hm = new RocketBehind();
-				//directon
-				}
-				if (obstacleType.equals( "Mine")) {
-					MineInFront mineFront = new MineInFront();
-				}
-				if (obstacleType.equals( "Vehicle")) {
-					VehicleInFront vehicleFront = new VehicleInFront();
-				}
-			}*/
 
+
+			
+			//blickrichtung x cos(angle)  y sine (angle)
+			double angleRad = Math.toRadians(angle1);
+			double viewVectorX = Math.cos(angleRad);
+			double viewVectorY = Math.sin(angleRad);
+			
+			double transX = position2.getX() - position1.getX();
+			double transY = position2.getY() - position1.getY();
+			
+			double dotProduct = viewVectorX * transX + viewVectorY * transY;
+			
+			if (dotProduct < 0 ) {
+				ObjectBehind obstacle = new ObjectBehind(distance, obstacleType);
+				facts.add(obstacle);
+			}
+			else {
+				ObjectInFront obstacle = new ObjectInFront(distance, obstacleType);
+				facts.add(obstacle);
+			}		
 		}
 		return facts;
 	}

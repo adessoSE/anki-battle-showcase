@@ -126,6 +126,9 @@ public class GameEngine {
                     if (!(body instanceof Vehicle)) {
                         continue;
                     }
+                    if ((body instanceof Vehicle)) {
+                        System.out.println(((Vehicle)body).getPosition().getAngle());
+                    }
                     List<GameState> allFacts = new ArrayList<>();
                     List<GameState> factsRoad = vehicleStateProvider.getRoadFacts((Vehicle) body);
                     List<GameState> factsInventory = vehicleStateProvider.getInventoryFacts((Vehicle) body);
