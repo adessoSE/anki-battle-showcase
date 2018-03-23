@@ -6,6 +6,12 @@ public class ChangeLaneCommand extends Command {
 	private double offset;
 
 	public ChangeLaneCommand(double offset) {
+		if (offset > 67.5) {
+			offset = 67.5;
+		}
+		if (offset < -67.5) {
+			offset = -67.5;
+		}
 		this.offset = offset;
 	}
 		
