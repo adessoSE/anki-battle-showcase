@@ -22,10 +22,15 @@ public class FireRocketCommand extends Command {
 	
 	public void execute(Vehicle vehicle) {
 		// TODO: set Positions
+		if (!vehicle.isRocketReady()) {
+			return;
+		}
 		World world = vehicle.getWorld();		
 		Rocket rocket  = new Rocket (this.direction);
-		rocket.setTargetSpeed(100);
+		//TODO speed of rocket
+		rocket.setTargetSpeed(300);
 		rocket.setPosition(vehicle.getPosition());
+		//rocket.setCurrentRoadpiece(vehicle.getCurrentRoadpiece());
 		rocket.setWorld(world);
 		world.addBody(rocket);
 		vehicle.setRocketReady(false);

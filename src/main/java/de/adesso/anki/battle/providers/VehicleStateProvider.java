@@ -71,25 +71,37 @@ public class VehicleStateProvider {
 		World world = vehicle.getWorld();
 		for (Body body : world.getBodies()){
 			if (vehicle == body) {
+				//skip self
 				continue;
 			}
-
+			//generating  facts for vehicle 
+			//body all other in the current world
 			String obstacleType = body.getClass().getSimpleName() ;
 			Position position1 = vehicle.getPosition();
 			Position position2 = body.getPosition();
 			double distance = position1.distance(position2);
 			double angle1 = position1.angle();
-			double angle2 = position2.angle();
-			String direction = "";
 
-			if ( obstacleType.equals( "Rocket")) {
+
+			
+			//blickrichtung x cos(angle)  y sine (angle)
+			double angleRad = Math.toRadians(angle1);
+			double viewVectorX = Math.cos(angleRad);
+			double viewVectorY = Math.sin(angleRad);
+			
+			double transX = position2.getX() - position1.getX();
+			double transY = position2.getY() - position1.getY();
+			
+			double dotProduct = viewVectorX * transX + viewVectorY * transY;
+			
+			if (dotProduct < 0 ) {
+				ObjectBehind obstacle = new ObjectBehind(distance, obstacleType);
+				facts.add(obstacle);
 			}
-			if (obstacleType.equals( "Mine")) {
-			}
-			if (obstacleType.equals( "Vehicle")) {
-			}
-			ObjectInFront test1 = new ObjectInFront(distance, obstacleType);
-			ObjectBehind test2 = new ObjectBehind(distance, obstacleType);
+			else {
+				ObjectInFront obstacle = new ObjectInFront(distance, obstacleType);
+				facts.add(obstacle);
+			}		
 		}
 		return facts;
 	}

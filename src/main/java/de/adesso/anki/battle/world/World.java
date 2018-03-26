@@ -1,6 +1,8 @@
 package de.adesso.anki.battle.world;
 
 import de.adesso.anki.battle.world.bodies.Roadmap;
+import de.adesso.anki.battle.world.bodies.Vehicle;
+
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -31,6 +33,12 @@ public class World {
     public List<Body> getBodies() {
         return Collections.unmodifiableList(bodies);
     }
+    
+    public List<Body> getBodiesModifiable() {
+        return this.bodies;
+    }
+    
+
 
     public List<DynamicBody> getDynamicBodies() {
         return bodies.stream()
@@ -39,6 +47,15 @@ public class World {
                 .collect(Collectors.toList());
     }
 
+
+    public List<Vehicle> getVehicles() {
+        return bodies.stream()
+                .filter(x -> x instanceof Vehicle)
+                .map(x -> (Vehicle) x)
+                .collect(Collectors.toList());
+    }
+
+    
     @Override
     public String toString() {
         return "World{" +

@@ -3,6 +3,7 @@ package de.adesso.anki.battle.initializers;
 
 import de.adesso.anki.battle.GameEngine;
 import de.adesso.anki.battle.world.World;
+import de.adesso.anki.battle.world.bodies.Mine;
 import de.adesso.anki.battle.world.bodies.Roadmap;
 import de.adesso.anki.battle.world.bodies.Vehicle;
 import lombok.extern.slf4j.Slf4j;
@@ -48,10 +49,37 @@ public class SimulationInitializer implements ApplicationRunner {
         vehicle.setTrack(3);
         vehicle.setCurrentRoadpiece(world.getRoadmap().getAnchor().reverse());
         vehicle.setPosition(world.getRoadmap().getAnchor().getEntry().reverse());
-        vehicle.setTargetSpeed(500);
+        vehicle.setTargetSpeed(250);
         vehicle.setMineReady(true);
-
+        vehicle.setRocketReady(true);
         world.addBody(vehicle);
+        
+/*        Vehicle vehicle2 = new Vehicle();
+        vehicle2.setName("vehicle2");
+        vehicle2.setWorld(world);
+        vehicle2.setTrack(3);
+        vehicle2.setCurrentRoadpiece(world.getRoadmap().getAnchor().reverse());
+        vehicle2.setPosition(world.getRoadmap().getAnchor().getEntry().reverse());
+        vehicle2.setTargetSpeed(800);
+        vehicle2.setMineReady(true);
+        vehicle2.setRocketReady(true);
+        world.addBody(vehicle2);*/
+
+        
+        Mine mine = new Mine(); 
+        mine.setWorld(world);
+        mine.setTargetSpeed(0);
+        mine.setCurrentRoadpiece(world.getRoadmap().getAnchor().getNext().getNext().getNext().getNext().getNext().reverse());
+        mine.setPosition(world.getRoadmap().getAnchor().getNext().getNext().getNext().getNext().getNext().getEntry().reverse());
+        world.addBody(mine);
+        
+        
+        Mine mine2 = new Mine(); 
+        mine2.setWorld(world);
+        mine2.setTargetSpeed(0);
+        mine2.setCurrentRoadpiece(world.getRoadmap().getAnchor().getNext().getNext().getNext().reverse());
+        mine2.setPosition(world.getRoadmap().getAnchor().getNext().getNext().getNext().getEntry().reverse());
+        world.addBody(mine2);
 
         /*Vehicle vehicle2 = new Vehicle();
         vehicle2.setName("vehicle2");
