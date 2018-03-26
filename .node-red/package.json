@@ -5,5 +5,8 @@
   "dependencies": {
     "node-red-contrib-mqtt-broker": "~0.2.2",
     "node-red-contrib-anki": "file:./lib/anki-nodes"
+  },
+  "scripts": {
+    "preinstall": "npm install node-red-contrib-anki --no-optional"
   }
 }
