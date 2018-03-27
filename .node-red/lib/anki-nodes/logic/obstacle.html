@@ -4,8 +4,9 @@
         color: '#87A980',
         defaults: {
             name: {value:""},
-			art: {value: "left"}
-		//art:{options:["l","r"]},
+			obstacleType: {value: ""},
+      distance: {value:""},
+      direction:{value:""}
         },
         inputs:1,
         outputs:1,
@@ -17,23 +18,38 @@
 </script>
 
 <script type="text/x-red" data-template-name="Umwelt">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
+
+<div class="form-row">
+    <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+</div>
+
  	<div class="form-row">
-     <label for="node-input-art"><i class="icon-tag"></i>art</label>
-	 <select value= "" id ="node-input-art" placeholder= "Kurvenart">
-  <option value="MineFront">Mine vorne</option> 
-    <option value="ObjectFront">Gegenstand vorne</option> 
-	  <option value="VehicleFront">Fahrzeug vorne</option> 
-    <option value="RocketBehind">Rakete hinten</option> 
+     <label for="node-input-obstacleType"><i class="icon-tag"></i>obstacleType</label>
+	 <select value= "" id ="node-input-obstacleType" placeholder= "obstacleType">
+  <option value="Mine">Mine</option>
+	  <option value="Vehicle">Fahrzeug</option>
+    <option value="Rocket">Rakete </option>
  </select>
  </div>
+
+ <div class="form-row">
+    <label for="node-input-direction"><i class="icon-tag"></i>direction</label>
+  <select value= "" id ="node-input-direction" placeholder= "direction">
+ <option value="Front">Vorne</option>
+<option value="Behind">Hinten</option>
+</select>
+</div>
+<div class="form-row">
+    <label for="node-input-distance"><i class="icon-tag"></i> distance</label>
+    <input type="text" id="node-input-distance" placeholder="distance">
+</div>
+
+
 </script>
 
 
 
 <script type="text/x-red" data-help-name="Umwelt">
-    <p> Node chooses environment conditions</p>
+    <p> Node chooses environment conditions Test </p>
 </script>
