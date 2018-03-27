@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "anki.gateway.ip",
+      "type": "java.lang.String",
+      "description": "Defines the IP address of the Anki Gateway to use."
+    }
+  ]
+}

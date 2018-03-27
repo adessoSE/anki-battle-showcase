@@ -5,7 +5,10 @@ import de.adesso.anki.battle.sync.AnkiSynchronization;
 import de.adesso.anki.battle.world.World;
 import de.adesso.anki.battle.world.bodies.Roadmap;
 import de.adesso.anki.battle.world.bodies.Vehicle;
-import de.adesso.anki.roadmap.roadpieces.*;
+import de.adesso.anki.roadmap.roadpieces.CurvedRoadpiece;
+import de.adesso.anki.roadmap.roadpieces.FinishRoadpiece;
+import de.adesso.anki.roadmap.roadpieces.Roadpiece;
+import de.adesso.anki.roadmap.roadpieces.StartRoadpiece;
 import de.adesso.anki.sdk.AnkiGateway;
 import de.adesso.anki.sdk.AnkiVehicle;
 import de.adesso.anki.sdk.messages.*;
@@ -13,6 +16,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
@@ -27,42 +31,48 @@ import java.util.List;
 @Component
 public class AnkiInitializer implements ApplicationRunner {
 
-    private AnkiGateway gateway;
-
-    @Autowired
+    // Autowired Spring beans
     private World world;
-
-    @Autowired
     private GameEngine engine;
+    private AnkiSynchronization sync;
 
-    private List<AnkiVehicle> ankiVehicles = new ArrayList<>();
-
-    private MessageListener<LocalizationPositionUpdateMessage> listener;
-    private MessageListener<LocalizationTransitionUpdateMessage> listener2;
-    private boolean newPiece = false;
-
-    private Roadmap.RoadmapBuilder builder = Roadmap.builder();
-    private AnkiVehicle vehicle;
+    // Anki references
+    private String gatewayIp;
+    private List<AnkiVehicle> vehicles = new ArrayList<>();
+    private AnkiVehicle scanningVehicle;
     private Vehicle myVehicle;
 
-    @Autowired
-    private AnkiSynchronization sync;
+    // Message listeners
+    private MessageListener<LocalizationPositionUpdateMessage> positionListener;
+    private MessageListener<LocalizationTransitionUpdateMessage> transitionListener;
+
+    // Scanning state
+    private Roadmap.RoadmapBuilder builder = Roadmap.builder();
+    private boolean newPiece = false;
+
+    public AnkiInitializer(@Autowired World world,
+                           @Autowired GameEngine engine,
+                           @Autowired AnkiSynchronization sync,
+                           @Value("${anki.gateway.ip}") String gatewayIp) {
+        this.world = world;
+        this.engine = engine;
+        this.sync = sync;
+        this.gatewayIp = gatewayIp;
+    }
 
     @Async
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         log.info("Initializing game with Anki environment");
 
         connectToAnki();
         scanRoadmap();
-
-        //startEngine();
     }
 
     @SneakyThrows
     private void scanRoadmap() {
         // select a Vehicle to scan the roadmap
-        vehicle = ankiVehicles.get(0);
+        scanningVehicle = vehicles.get(0);
         // flash headlights
 
         LightsPatternMessage lights = new LightsPatternMessage();
@@ -73,15 +83,15 @@ public class AnkiInitializer implements ApplicationRunner {
                 1,
                 20
                 ));
-        vehicle.sendMessage(lights);
-        log.info("Selected vehicle to scan the track: " + vehicle.toString());
+        scanningVehicle.sendMessage(lights);
+        log.info("Selected vehicle to scan the track: " + scanningVehicle.toString());
         // wait until roadmap is complete
 
         Thread.sleep(5000);
 
-        listener = vehicle.addMessageListener(LocalizationPositionUpdateMessage.class, m -> handlePosition(m));
-        listener2 = vehicle.addMessageListener(LocalizationTransitionUpdateMessage.class, m -> handleTransition(m));
-        vehicle.sendMessage(new SetSpeedMessage(400, 5000));
+        positionListener = scanningVehicle.addMessageListener(LocalizationPositionUpdateMessage.class, this::handlePosition);
+        transitionListener = scanningVehicle.addMessageListener(LocalizationTransitionUpdateMessage.class, this::handleTransition);
+        scanningVehicle.sendMessage(new SetSpeedMessage(400, 5000));
     }
 
     private void handleTransition(LocalizationTransitionUpdateMessage m) {
@@ -92,10 +102,7 @@ public class AnkiInitializer implements ApplicationRunner {
         if (newPiece) {
             val ankiPiece = Roadpiece.createFromId(m.getRoadPieceId());
 
-            if (ankiPiece instanceof StraightRoadpiece) {
-                builder.straight(m.isParsedReverse());
-                builder.setRoadpieceId(m.getRoadPieceId());
-            } else if (ankiPiece instanceof CurvedRoadpiece) {
+            if (ankiPiece instanceof CurvedRoadpiece) {
                 builder.curve(m.isParsedReverse());
                 builder.setRoadpieceId(m.getRoadPieceId());
             } else if (ankiPiece instanceof StartRoadpiece) {
@@ -104,22 +111,22 @@ public class AnkiInitializer implements ApplicationRunner {
             } else if (ankiPiece instanceof FinishRoadpiece) {
                 builder.finish(m.isParsedReverse());
                 builder.setRoadpieceId(m.getRoadPieceId());
-            } else {
+            } else { // will fall back to StraightRoadpiece
                 builder.straight(m.isParsedReverse());
                 builder.setRoadpieceId(m.getRoadPieceId());
             }
 
             val segment = ankiPiece.getSegmentByLocation(m.getLocationId(), m.isParsedReverse());
             val offset = segment.getOffsetByLocation(m.getLocationId());
-            vehicle.sendMessage(new SetOffsetFromRoadCenterMessage((float) offset));
+            scanningVehicle.sendMessage(new SetOffsetFromRoadCenterMessage((float) offset));
 
             log.info(builder.build().toString());
 
             if (builder.isComplete()) {
                 world.setRoadmap(builder.build());
-                vehicle.removeMessageListener(LocalizationPositionUpdateMessage.class, listener);
-                vehicle.removeMessageListener(LocalizationTransitionUpdateMessage.class, listener2);
-                vehicle.sendMessage(new SetSpeedMessage(0, 5000));
+                scanningVehicle.removeMessageListener(LocalizationPositionUpdateMessage.class, positionListener);
+                scanningVehicle.removeMessageListener(LocalizationTransitionUpdateMessage.class, transitionListener);
+                scanningVehicle.sendMessage(new SetSpeedMessage(0, 5000));
                 LightsPatternMessage lights = new LightsPatternMessage();
                 lights.add(new LightsPatternMessage.LightConfig(
                         LightsPatternMessage.LightChannel.FRONT_RED,
@@ -135,7 +142,7 @@ public class AnkiInitializer implements ApplicationRunner {
                         0,
                         1
                 ));
-                vehicle.sendMessage(lights);
+                scanningVehicle.sendMessage(lights);
 
                 startEngine();
             }
@@ -146,11 +153,11 @@ public class AnkiInitializer implements ApplicationRunner {
 
     @SneakyThrows
     private void connectToAnki() {
-        log.info("Connecting to Anki Gateway at 10.200.100.12...");
-        gateway = new AnkiGateway("10.200.100.12", 5000);
-        ankiVehicles = gateway.findVehicles();
+        log.info("Connecting to Anki Gateway at " + gatewayIp + "...");
+        val gateway = new AnkiGateway(gatewayIp, 5000);
+        vehicles = gateway.findVehicles();
 
-        for (AnkiVehicle anki : ankiVehicles.subList(0,1)) {
+        for (AnkiVehicle anki : vehicles.subList(0,1)) {
             myVehicle = new Vehicle();
             myVehicle.setAnkiReference(anki);
             anki.connect();
