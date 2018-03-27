@@ -3,6 +3,9 @@ package de.adesso.anki.battle.world.bodies;
 import com.commands.Command;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.states.GameState;
+import com.states.ObjectBehind;
+import com.states.ObjectInFront;
+
 import de.adesso.anki.battle.mqtt.MqttService;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.DynamicBody;
@@ -240,11 +243,21 @@ public class Vehicle extends DynamicBody {
     		json.put("inv",arr);
 
 
-			//arr = new JSONArray();
-			//for (GameState gameState : this.factsObstacles) {
-			//	arr.put(gameState.getClass().getSimpleName());
-			//}
-    		//json.put("obstacles",arr);
+			arr = new JSONArray();
+			for (GameState gameState : this.factsObstacles) {
+				if( gameState instanceof ObjectBehind){
+					arr.put("Behind");
+					arr.put(((ObjectBehind) gameState).getType()); //obstacle type
+					arr.put(((ObjectBehind) gameState).getMetersBehind());
+				}
+				if( gameState instanceof ObjectInFront){
+					arr.put("Front");
+					arr.put(((ObjectInFront) gameState).getType()); //obstacle type
+					arr.put(((ObjectInFront) gameState).getMetersInFront());
+				}
+
+			}
+    		json.put("obstacles",arr);
     		return json.toString();
 
 		} catch (JSONException e) {
