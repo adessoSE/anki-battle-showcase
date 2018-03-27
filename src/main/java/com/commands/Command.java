@@ -1,8 +1,8 @@
 package com.commands;
 
-import java.time.LocalTime;
-
 import de.adesso.anki.battle.world.bodies.Vehicle;
+
+import java.time.LocalTime;
 
 
 public class Command {

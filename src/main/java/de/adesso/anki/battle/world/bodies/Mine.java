@@ -6,7 +6,6 @@ import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.Body;
 import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.World;
-
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.util.List;
