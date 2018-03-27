@@ -3,7 +3,15 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,config);
         var node = this;
         node.on('input', function(msg) {
-            if (msg.payload.obstacles.includes("MineInFront")){
+          var obstacles = msg.payload.obstacles;
+			    var newMsg = {"obstacles" : obstacles};
+          node.send(newMsg);
+        });
+    }
+    RED.nodes.registerType("Umgebungsfakten",EnvironmentFacts);
+}
+
+/*            if (msg.payload.obstacles.includes("MineInFront")){
 				var msg1 = {"fact": "MineFront"};
 			}
 			if (msg.payload.obstacles.includes("ObjectInFront")){
@@ -17,7 +25,4 @@ module.exports = function(RED) {
 			}
 			//return  [ msg1, msg2, msg3 ,msg4] ;
 			node.send([[ msg1, msg2, msg3 ,msg4]]);
-        });
-    }
-    RED.nodes.registerType("Umgebungsfakten",EnvironmentFacts);
-}
+*/

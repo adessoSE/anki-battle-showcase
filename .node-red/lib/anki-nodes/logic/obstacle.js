@@ -3,13 +3,30 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,config);
         var node = this;
         node.on('input', function(msg) {
-			if (config.art == msg.fact){
-				var newMsg = {"type":"OK", "obstacle":config.art};
-				node.send(newMsg);
-			}
-			else{
-				return null;
-			}
+        var obstacles = msg.obstacles;
+        for (i = 0; i < obstacles.length ; i++){
+            //currently [direction,type,distance]
+            var currentObstacle = obstacles[i];
+            if (config.direction != currentObstacle[0]){
+            continue;
+            }
+
+            if (config.obstacleType != currentObstacle[1]){
+              continue;
+            }
+
+            if (config.distance > currentObstacle[2] +30 || config.distance < currentObstacle[2]-30 ){
+              //Toleranzbereich ? oder min max vom user
+              continue;
+            }
+
+              var newMsg = {"type":"OK", "obstacle":currentObstacle[1]};
+              node.send(newMsg);
+              return;
+        }
+
+			return null;
+
         });
     }
     RED.nodes.registerType("Umwelt",switchObstacle);
