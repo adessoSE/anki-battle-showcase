@@ -1,8 +1,9 @@
 language: java
 
 before_install: ./mvnw initialize
+install: ./mvnw verify -DskipTests=true -Dmaven.javadoc.skip=true
 script:
-  - ./mvnw test sonar:sonar -B
+  - ./mvnw test sonar:sonar -Dmaven.javadoc.skip=true -B
 
 cache:
   directories:
@@ -10,12 +11,9 @@ cache:
     - node
     - node_modules
     - $HOME/.sonar
+before_cache:
+  - rm -rf $HOME/.m2/repository/de/adesso
 
 addons:
   sonarcloud:
     organization: "adessoag-github"
-    branches:
-      - master
-      - develop
-    github_token:
-      secure: "gE2Lpu1QbZx1Qy/OhHwLQ8Ao3y/dNQ+HfB7URDv/tLz+te+rdI1NkrsES6gb01AIks4DG9Ug6uqXbLu1KKkFVvRnItJ3S1m5RpljduNBruwDQmNPsORH5Uw3xPtOlB8gv6RBB/qfH+CFkzyvqLynmAydomHkO9tzjcTb+CT8WFdk5bOm9RrVIgNsJsjr78Qy5b5P7iiDShXaRlMEuQbDpXX5dMdvtrsJPdZye3GdPSMpSqA0W2OGxHUgTfTIDPUUo45bebySl/6HCAf//aMEKKL6HSsIvmcQEbgaF5LrzGEQRRbjOexRZI3MASUfLr9vrQubYqvrhLrOeKd8voSHnluoZPP1Ue69/RCYMP6my4Enbw3aIOgiq+BemE3HAqKMa0ztVitNe+f4S6ij/+wEHR3L8yKERdHssQlVFOfnBN3r3BLxJoDU58wHIcgzBwILlyqN2UXxykd/KCghFdxobrDrBMJiyLdUGfkJyUfkkC6Wjyzpq49Y69anZAPthdUnY8XIsFq1Xb85HgCa/ODqbIBBDYe1kJZkMr2ZE2V9/nWT2I/Y6qZoX8ltZfWIgczjIcYStlPHe391MpSDkCMG+Z4EKX2Gv7pTIrio9V0Kxtlq1974FC7vcCn5gxclbMJA0iAIlbvKjF912CjglAzLdOG0GAbtUh09TQbjGCyE+Zk="
