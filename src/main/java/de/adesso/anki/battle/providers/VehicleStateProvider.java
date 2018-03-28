@@ -106,59 +106,6 @@ public class VehicleStateProvider {
 		return facts;
 	}
 		
-		
-		
-		//if vehicle.nextRoadPiece.containsRocket()
-/*		if (nextPiece) {
-			int meters = 100;
-			String type = "";
-			RocketInFront rocketInFront  = new RocketInFront(100, type);
-			facts.add(rocketInFront); 
-		}
-		if (prevPiece) {
-			int meters = 100;
-			String type = "";
-			RocketBehind obstacleBehind  = new RocketBehind(100, type);
-			facts.add(obstacleBehind); 
-		}
-		
-		if (nextPiece) {
-			int meters = 100;
-			String type = "";
-			MineInFront mineInFront  = new MineInFront(100);
-			facts.add(mineInFront); 
-		}
-		if (nextPiece.containsRocket()) {
-			int meters = 100;
-			String type = "";
-			RocketInFront obstacleInFront  = new RocketInFront(100, type);
-				    	facts.add(rocketFact); 
-		}
-		if (prevPiece) {
-			int meters = 100;
-			String type = "";
-			RocketInFront obstacleInFront  = new RocketInFront(100, type);
-			facts.add(); 
-		}
-		
-		
-*/
 
-
-	
-	private boolean objectInNeighbourhood(Vehicle vehicle, Body body2 , double neighbourhoodDistance){
-		Position position1 = vehicle.getPosition();
-		Position position2 = body2.getPosition();
-		double distance = position1.distance(position2);
-		double angle1 = position1.angle();
-		double angle2  = position2.angle();
-		if (distance  < neighbourhoodDistance) {
-			
-		}
-		return false;
-	}
-	
-	
-	
 
 }
