@@ -3,6 +3,9 @@ package de.adesso.anki.battle.world.bodies;
 import com.commands.Command;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.states.GameState;
+import com.states.ObjectBehind;
+import com.states.ObjectInFront;
+
 import de.adesso.anki.battle.mqtt.MqttService;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.DynamicBody;
@@ -240,16 +243,28 @@ public class Vehicle extends DynamicBody {
     		json.put("inv",arr);
 
 
-			//arr = new JSONArray();
-			//for (GameState gameState : this.factsObstacles) {
-			//	arr.put(gameState.getClass().getSimpleName());
-			//}
-    		//json.put("obstacles",arr);
+
+			// 1 ebene tiefer die einzelnen attribute
+			JSONArray allObstacleFacts = new JSONArray();
+			for (GameState gameState : this.factsObstacles) {
+				JSONArray factArr = new JSONArray();
+				if( gameState instanceof ObjectBehind){
+					factArr.put("Behind");
+					factArr.put(((ObjectBehind) gameState).getType()); //obstacle type
+					factArr.put(((ObjectBehind) gameState).getMetersBehind());
+				}
+				if( gameState instanceof ObjectInFront){
+					factArr.put("Front");
+					factArr.put(((ObjectInFront) gameState).getType()); //obstacle type
+					factArr.put(((ObjectInFront) gameState).getMetersInFront());
+				}
+				allObstacleFacts.put(factArr);
+			}
+    		json.put("obstacles",allObstacleFacts);
     		return json.toString();
 
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Constructing Json error",e);
 		}
     	return "";
     }
