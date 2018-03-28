@@ -118,8 +118,7 @@ public class MqttService {
                 }
             });
         } catch (MqttException e) {
-        	log.debug("exception during initialising service");
-            e.printStackTrace();
+        	log.error("Error while connecting to MQTT broker", e);
         }
     }
 
