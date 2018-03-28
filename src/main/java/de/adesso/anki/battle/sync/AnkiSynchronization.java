@@ -15,10 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class AnkiSynchronization {
 
-    @Autowired
     private World world;
 
-    private boolean toggle;
+    public AnkiSynchronization(@Autowired World world) {
+        this.world = world;
+    }
 
     public void synchronizeState(Vehicle vehicle) {
         if (vehicle.getAnkiReference() != null) {
@@ -53,10 +54,8 @@ public class AnkiSynchronization {
             anki.addMessageListener(LocalizationTransitionUpdateMessage.class, m -> updateTransition(vehicle, m));
             anki.addMessageListener(SpeedUpdateMessage.class, m -> updateSpeed(vehicle, m));
             anki.addMessageListener(OffsetUpdateMessage.class, m -> updateOffset(vehicle, m));
-            anki.addMessageListener(Message.class, m -> {
-                log.debug("> " + m.toString());
-            });
             anki.addMessageListener(VehicleDelocalizedMessage.class, m -> onVehicleDelocalized(vehicle, m));
+            anki.addMessageListener(Message.class, m -> log.debug("> " + m.toString()));
         }
     }
 
@@ -89,27 +88,7 @@ public class AnkiSynchronization {
         log.info(m.toString());
         if (vehicle.getCurrentRoadpiece() != null) {
             val piece = vehicle.getCurrentRoadpiece();
-
-            /*/
-            if (vehicle.getPosition() != null) {
-                val maxTravel = piece.findMaximumTravel(vehicle.getPosition());
-                val fullTravel = piece.findMaximumTravel(piece.getEntry().transform(Position.at(0, -vehicle.getOffset())));
-
-                if (maxTravel > fullTravel - maxTravel) {
-                    log.info("position adjusted: distance=" + vehicle.getPosition().distance(piece.getExit().transform(Position.at(0, -vehicle.getOffset()))));
-                    vehicle.setPosition(piece.getExit().transform(Position.at(0, -vehicle.getOffset())));
-                } else {
-                    log.info("position adjusted: distance=-" + vehicle.getPosition().distance(piece.getEntry().transform(Position.at(0, -vehicle.getOffset()))));
-                    vehicle.setPosition(piece.getEntry().transform(Position.at(0, -vehicle.getOffset())));
-                }
-            } else {
-                /**/
-            if (vehicle.getPosition() != null)
-                log.info("position adjusted: distance=" + vehicle.getPosition().distance(piece.getExit().transform(Position.at(0, -vehicle.getOffset()))));
-
             vehicle.setPosition(piece.getExit().transform(Position.at(0, -vehicle.getOffset())));
-            //}
-
             vehicle.setCurrentRoadpiece(piece.getNext());
         }
     }
