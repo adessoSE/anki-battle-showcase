@@ -264,7 +264,7 @@ public class Vehicle extends DynamicBody {
     		return json.toString();
 
 		} catch (JSONException e) {
-			e.printStackTrace();
+			log.error("Constructing Json error",e);
 		}
     	return "";
     }
