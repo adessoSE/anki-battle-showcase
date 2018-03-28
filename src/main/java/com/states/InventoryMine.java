@@ -1,5 +1,5 @@
 package com.states;
 
-public class InventoryMine extends GameState{
-	public InventoryMine() {}
+public class InventoryMine extends GameState {
+
 }

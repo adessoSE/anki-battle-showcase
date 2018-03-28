@@ -13,12 +13,7 @@ import java.util.List;
 
 @Slf4j
 public class VehicleStateProvider {
-	
-	
-	public VehicleStateProvider() {
 
-	}
-	
 	public List<GameState> getRoadFacts(  Vehicle vehicle ){
 		ArrayList<GameState> facts = new ArrayList<>();
 		if (vehicle.getCurrentRoadpiece() == null)
@@ -105,7 +100,5 @@ public class VehicleStateProvider {
 		}
 		return facts;
 	}
-		
-
 
 }

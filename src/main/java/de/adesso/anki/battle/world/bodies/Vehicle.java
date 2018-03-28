@@ -112,9 +112,6 @@ public class Vehicle extends DynamicBody {
 		this.rocketReady = rocketReady;
 	}
 
-	public Vehicle() {	
-	}
-
 	public int getTrack() {
 		return this.track;
 	}

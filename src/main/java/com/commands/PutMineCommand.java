@@ -6,10 +6,6 @@ import de.adesso.anki.battle.world.bodies.Vehicle;
 
 public class PutMineCommand extends Command {
 	
-	
-	public PutMineCommand () {
-	}
-	
 	public void execute(Vehicle vehicle) {
 		// TODO: set Positions}
 		if (!vehicle.isMineReady()) {
@@ -22,6 +18,5 @@ public class PutMineCommand extends Command {
 		mine.setWorld(world);
 		vehicle.setMineReady(false);
 	}
-	
-	
+
 }
