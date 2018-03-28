@@ -54,12 +54,12 @@ public class AnkiSynchronization {
             anki.addMessageListener(LocalizationTransitionUpdateMessage.class, m -> updateTransition(vehicle, m));
             anki.addMessageListener(SpeedUpdateMessage.class, m -> updateSpeed(vehicle, m));
             anki.addMessageListener(OffsetUpdateMessage.class, m -> updateOffset(vehicle, m));
-            anki.addMessageListener(VehicleDelocalizedMessage.class, m -> onVehicleDelocalized(vehicle, m));
+            anki.addMessageListener(VehicleDelocalizedMessage.class, m -> onVehicleDelocalized(vehicle));
             anki.addMessageListener(Message.class, m -> log.debug("> " + m.toString()));
         }
     }
 
-    private void onVehicleDelocalized(Vehicle vehicle, VehicleDelocalizedMessage m) {
+    private void onVehicleDelocalized(Vehicle vehicle) {
         vehicle.setCurrentRoadpiece(null);
         vehicle.setPosition(null);
         vehicle.setTargetSpeed(0);

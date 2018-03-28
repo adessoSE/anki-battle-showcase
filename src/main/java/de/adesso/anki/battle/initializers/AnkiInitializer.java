@@ -90,11 +90,11 @@ public class AnkiInitializer implements ApplicationRunner {
         Thread.sleep(5000);
 
         positionListener = scanningVehicle.addMessageListener(LocalizationPositionUpdateMessage.class, this::handlePosition);
-        transitionListener = scanningVehicle.addMessageListener(LocalizationTransitionUpdateMessage.class, this::handleTransition);
+        transitionListener = scanningVehicle.addMessageListener(LocalizationTransitionUpdateMessage.class, m -> handleTransition());
         scanningVehicle.sendMessage(new SetSpeedMessage(400, 5000));
     }
 
-    private void handleTransition(LocalizationTransitionUpdateMessage m) {
+    private void handleTransition() {
         newPiece = true;
     }
 
