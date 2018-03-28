@@ -30,10 +30,12 @@ public abstract class DynamicBody extends Body {
         }
     }
 
+    @Override
     public Position getPosition() {
         return position;
     }
 
+    @Override
     public void setPosition(Position position) {
         this.position = position;
     }

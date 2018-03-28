@@ -76,8 +76,13 @@ public class ReverseRoadpiece extends Roadpiece {
                 "R" : original.toString() + "!";
     }
 
+    @Override
     public boolean isStraight() { return original.isStraight(); }
+
+    @Override
     public boolean isLeftCurved() { return original.isRightCurved(); }
+
+    @Override
     public boolean isRightCurved() { return original.isLeftCurved(); }
 
     @Override
@@ -85,6 +90,7 @@ public class ReverseRoadpiece extends Roadpiece {
         return original.getRoadpieceId();
     }
 
+    @Override
     public void setRoadpieceId(int roadpieceId) {
         original.setRoadpieceId(roadpieceId);
     }

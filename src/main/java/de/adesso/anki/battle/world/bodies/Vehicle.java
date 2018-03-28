@@ -286,6 +286,7 @@ public class Vehicle extends DynamicBody {
                 '}';
     }
 
+    @Override
     public void setCurrentRoadpiece(Roadpiece roadpiece) {
         currentRoadpiece = roadpiece;
     }

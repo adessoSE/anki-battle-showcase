@@ -9,6 +9,7 @@ public class BrakeCommand extends Command {
 		this.desiredSpeed = desiredSpeed; 
 	}
 	
+	@Override
 	public void execute(Vehicle vehicle){
 		vehicle.setTargetSpeed(desiredSpeed);
 	}

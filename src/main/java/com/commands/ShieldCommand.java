@@ -5,7 +5,8 @@ import de.adesso.anki.battle.world.bodies.Vehicle;
 
 public class ShieldCommand extends Command {
 	
-	public void execute(Vehicle vehicle) {
+	@Override
+    public void execute(Vehicle vehicle) {
 		// TODO:destroy Rocket, mine 
 		
 		World world = vehicle.getWorld();
