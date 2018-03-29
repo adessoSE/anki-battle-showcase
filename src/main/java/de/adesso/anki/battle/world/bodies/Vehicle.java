@@ -122,7 +122,6 @@ public class Vehicle extends DynamicBody {
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
-		// TODO Auto-generated method stub
 	}
 
 	public void setCalibrationOffset(double newOffset) {

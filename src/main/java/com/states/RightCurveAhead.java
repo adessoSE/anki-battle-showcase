@@ -4,9 +4,7 @@ public class RightCurveAhead extends GameState{
 	private int metersAhead; 
 	
 	
-	public RightCurveAhead() {
-		// TODO Auto-generated constructor stub
-	}
+	public RightCurveAhead() { }
 	
 	public RightCurveAhead(int meters) {
 		this.metersAhead = meters;

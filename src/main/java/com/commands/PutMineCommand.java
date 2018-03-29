@@ -8,7 +8,7 @@ public class PutMineCommand extends Command {
 	
 	@Override
     public void execute(Vehicle vehicle) {
-		// TODO: set Positions}
+		// TODO: set Positions
 		if (!vehicle.isMineReady()) {
 			return;
 		}

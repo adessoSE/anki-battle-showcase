@@ -1,6 +1,5 @@
 package de.adesso.anki.battle.world.bodies;
 
-import com.states.GameState;
 import de.adesso.anki.battle.mqtt.MqttService;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.Body;
@@ -24,22 +23,6 @@ public class Mine extends DynamicBody {
 	public boolean isActive () {
 		return System.currentTimeMillis() > timer + 500 ;
 	}
-
-	
-
-	//@Override
-	public void setFacts(List<GameState> facts) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	//@Override
-	public void evaluateBehavior() {
-		// TODO Auto-generated method stub
-
-	}
-
 
 	@Override
 	public void evaluateBehavior(MqttService mqtt) throws MqttException {

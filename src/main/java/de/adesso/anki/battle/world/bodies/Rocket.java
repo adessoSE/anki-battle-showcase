@@ -30,18 +30,6 @@ public class Rocket extends DynamicBody {
 	public boolean shouldExplode () {
 		return System.currentTimeMillis() > timer + 8000 ;
 	}
-	
-	//@Override
-	public void evaluateBehavior() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	//@Override
-	public void setFacts(List<GameState> facts) {
-		// Facts for rockets? 
-	}
-
 
 	@Override
 	public void evaluateBehavior(MqttService mqtt) throws MqttException {

@@ -8,8 +8,7 @@ public class UseReflectorCommand extends Command {
 	
 	@Override
     public void execute(Vehicle vehicle) {
-		/*TODO implement  reflection 
-		*/
+		// TODO: implement  reflection
 
 		World world = vehicle.getWorld();
 		for (DynamicBody dbody : world.getDynamicBodies()) {
