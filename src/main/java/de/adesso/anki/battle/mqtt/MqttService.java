@@ -42,7 +42,7 @@ public class MqttService {
     }
 
     public void connect() {
-    	try {					//test.mosquitto.org   broker.hivemq.com
+    	try {
             mqttClient = new MqttClient("tcp://localhost:1883", "anki-battle", new MemoryPersistence());
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setCleanSession(false);
@@ -59,8 +59,6 @@ public class MqttService {
                 public void messageArrived(String s, MqttMessage mqttMessage) {
                     try {
                         log.debug("MQTT message arrived: topic=" + s + "; message=" + mqttMessage.toString());
-                        String temp = mqttMessage.toString();
-                        byte[] hm = mqttMessage.getPayload();
                         JSONObject json = new JSONObject(mqttMessage.toString());
 
                         //get topic, where topic is identifier for vehicle
@@ -69,8 +67,8 @@ public class MqttService {
                         String topic = s.split("_")[0];
                         List<DynamicBody> vehicles = world.getDynamicBodies();
                         Vehicle wantedVehicle = null;
-                        for (int i = 0; i < vehicles.size(); i++) {
-                            Vehicle currentVehicle = ((Vehicle) vehicles.get(i));
+                        for (DynamicBody vehicle : vehicles) {
+                            Vehicle currentVehicle = ((Vehicle) vehicle);
                             if (topic.equals(currentVehicle.getName())) {
                                 wantedVehicle = currentVehicle;
                                 break;
@@ -78,30 +76,32 @@ public class MqttService {
                         }
                         String commandType = (String) json.get("type");
                         int speed;
-                        Command command = null;
-                        int track;
+                        Command command;
                         switch (commandType) {
-                            case ("accelerate"):
+                            case "accelerate":
                                 speed = Integer.parseInt((String) json.get("velocity"));
                                 command = new AccelerateCommand(speed);
                                 break;
-                            case ("brake"):
+                            case "brake":
                                 speed = Integer.parseInt((String) json.get("velocity"));
                                 command = new BrakeCommand(speed);
                                 break;
-                            case ("change track"):
+                            case "change track":
                                 val lane = Double.parseDouble((String) json.get("track"));
                                 command = new ChangeLaneCommand(lane);
                                 break;
-                            case ("uTurn"):
+                            case "uTurn":
                                 command = new UTurnCommand();
                                 break;
-                            case ("fireRocket"):
+                            case "fireRocket":
                                 command = new FireRocketCommand("");
                                 break;
-                            case ("putMine"):
+                            case "putMine":
                                 command = new PutMineCommand();
                                 break;
+                            default:
+                                // unknown commands are ignored
+                                command = null;
                         }
                         if (command != null) {
                             command.execute(wantedVehicle);
@@ -115,6 +115,7 @@ public class MqttService {
 
                 @Override
                 public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
+                    // we don't care if the message could actually be delivered or not
                 }
             });
         } catch (MqttException e) {
