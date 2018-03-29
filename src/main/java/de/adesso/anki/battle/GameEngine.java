@@ -255,13 +255,6 @@ public class GameEngine {
 				mqtt.connect();
 				subscribeAllVehicles();
 			}
-/*            if (body instanceof Vehicle) {
-    			try {
-					body.evaluateBehavior(mqtt);
-				} catch (MqttException e) {
-					mqtt.connect();
-					subscribeAllVehicles();
-				}*/
         }
         
     }

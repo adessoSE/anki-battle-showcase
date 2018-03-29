@@ -28,7 +28,6 @@ public class FireRocketCommand extends Command {
 		//TODO speed of rocket
 		rocket.setTargetSpeed(300);
 		rocket.setPosition(vehicle.getPosition());
-		//rocket.setCurrentRoadpiece(vehicle.getCurrentRoadpiece());
 		rocket.setWorld(world);
 		world.addBody(rocket);
 		vehicle.setRocketReady(false);

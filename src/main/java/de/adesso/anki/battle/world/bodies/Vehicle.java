@@ -195,7 +195,7 @@ public class Vehicle extends DynamicBody {
         	currentRoadpiece = oldRoadpiece;
 	}
 
-    public void setFacts(List <GameState> factsRoad, List <GameState> factsInventory,
+	public void setFacts(List <GameState> factsRoad, List <GameState> factsInventory,
     											List <GameState> factsObstacles)
     {
     	this.factsRoad = factsRoad ;
