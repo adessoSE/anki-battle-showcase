@@ -195,7 +195,7 @@ public class GameEngine {
         	Body weapon = it.next();
         	if (weapon instanceof Rocket && ((Rocket) weapon).shouldExplode()) {
         		it.remove();
-        		System.out.println("Delete orphaned rocket");
+        		log.debug("Delete orphaned rocket");
         	}
         }
 	}
@@ -235,9 +235,9 @@ public class GameEngine {
 			//TODO find distance value that indicates a collision
 			double dummyValue = 30; 
 			if (distance < dummyValue) {
-				System.out.println("BOOM: " + weapon.getClass().getSimpleName()); 
+				log.debug("BOOM: " + weapon.getClass().getSimpleName());
 				vehicle.setEnergy(vehicle.getEnergy() - damage);
-				System.out.println(vehicle.getEnergy());
+				log.debug("energy=" + vehicle.getEnergy());
 				succesfulHit = true;
 			}
     	}

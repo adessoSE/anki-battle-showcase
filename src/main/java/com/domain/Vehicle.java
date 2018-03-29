@@ -38,9 +38,4 @@ public class Vehicle {
 		this.rocketInPursuit = rocketInPursuit;
 	}
 	
-	public void fireMessage() {
-		System.out.println("Fire Message");
-	}
-	
-	
 }
