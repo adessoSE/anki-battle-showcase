@@ -1,6 +1,5 @@
 package de.adesso.anki.battle.world.bodies;
 
-import com.states.GameState;
 import de.adesso.anki.battle.mqtt.MqttService;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.Body;

@@ -247,7 +247,7 @@ public class GameEngine {
  
     
     private void evaluateBehavior()  {
-    	List<Body> oldBodies= new ArrayList<Body>(world.getBodies());
+    	List<Body> oldBodies= new ArrayList<>(world.getBodies());
         for (Body body : oldBodies) {
         	try {
 				body.evaluateBehavior(mqtt);
