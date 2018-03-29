@@ -146,7 +146,7 @@ public class GameEngine {
             
             // Remove while iterating, leads to exception 
             //java.util.ConcurrentModificationException: in renderer?
-            //collisionHandling();
+            collisionHandling();
             collectOrphanedWeapons();
   
             // Step 5: Render world
@@ -203,13 +203,7 @@ public class GameEngine {
 	
 	//merge though filter predicate with method above
 	private void collisionHandling() {
-		Iterator<Body> it = world.getBodiesModifiable().iterator();
-        while(it.hasNext()){
-        	Body weapon = it.next();
-        	if (checkCollision(weapon)) {
-        		it.remove();
-        	}
-        }
+        world.getBodiesModifiable().removeIf(this::checkCollision);
     }
 
 	private boolean checkCollision(Body weapon) {
