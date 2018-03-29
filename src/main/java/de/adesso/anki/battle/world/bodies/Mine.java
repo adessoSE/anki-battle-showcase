@@ -11,8 +11,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import java.util.List;
 
 public class Mine extends DynamicBody {
-	private long timer ; 
-	private boolean active;
+	private long timer ;
 	
 	
 	public Mine(){

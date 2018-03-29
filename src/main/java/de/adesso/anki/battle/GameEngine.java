@@ -126,11 +126,14 @@ public class GameEngine {
                     if (!(body instanceof Vehicle)) {
                         continue;
                     }
-                    List<GameState> factsRoad = vehicleStateProvider.getRoadFacts((Vehicle) body);
-                    List<GameState> factsInventory = vehicleStateProvider.getInventoryFacts((Vehicle) body);
-                    List<GameState> factsObstacles = vehicleStateProvider.getObstacleFacts((Vehicle) body);
 
-                    body.setFacts(factsRoad, factsInventory, factsObstacles);
+					final Vehicle vehicle = (Vehicle) body;
+
+					List<GameState> factsRoad = vehicleStateProvider.getRoadFacts(vehicle);
+                    List<GameState> factsInventory = vehicleStateProvider.getInventoryFacts(vehicle);
+                    List<GameState> factsObstacles = vehicleStateProvider.getObstacleFacts(vehicle);
+
+                    vehicle.setFacts(factsRoad, factsInventory, factsObstacles);
                 }
 
             

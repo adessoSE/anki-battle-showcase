@@ -46,7 +46,6 @@ public class SimulationInitializer implements ApplicationRunner {
         Vehicle vehicle = new Vehicle();
         vehicle.setName("vehicle1");
         vehicle.setWorld(world);
-        vehicle.setTrack(3);
         vehicle.setCurrentRoadpiece(world.getRoadmap().getAnchor().reverse());
         vehicle.setPosition(world.getRoadmap().getAnchor().getEntry().reverse());
         vehicle.setTargetSpeed(250);
@@ -57,7 +56,6 @@ public class SimulationInitializer implements ApplicationRunner {
 /*        Vehicle vehicle2 = new Vehicle();
         vehicle2.setName("vehicle2");
         vehicle2.setWorld(world);
-        vehicle2.setTrack(3);
         vehicle2.setCurrentRoadpiece(world.getRoadmap().getAnchor().reverse());
         vehicle2.setPosition(world.getRoadmap().getAnchor().getEntry().reverse());
         vehicle2.setTargetSpeed(800);
@@ -84,7 +82,6 @@ public class SimulationInitializer implements ApplicationRunner {
         /*Vehicle vehicle2 = new Vehicle();
         vehicle2.setName("vehicle2");
         vehicle2.setWorld(world);
-        vehicle2.setTrack(1);
         vehicle2.setCurrentRoadpiece(world.getRoadmap().getAnchor());
         vehicle2.setPosition(world.getRoadmap().getAnchor().getEntry());
         vehicle2.setTargetSpeed(750);

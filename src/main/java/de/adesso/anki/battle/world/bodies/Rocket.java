@@ -13,14 +13,11 @@ import java.util.List;
 public class Rocket extends DynamicBody {
 //TODO should rockets follow the roadmap ? 
 	// else explode after x seconds for garbage collector
-	private String direction; 
 	
 	// hotfix for driving into own rockets
-	private long timer ; 
-	private boolean active;
+	private long timer;
 	
 	public Rocket (String direction) {
-		this.direction = direction;
 		timer = System.currentTimeMillis();
 	}
 	

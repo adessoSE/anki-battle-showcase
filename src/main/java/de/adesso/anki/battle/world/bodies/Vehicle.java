@@ -1,11 +1,8 @@
 package de.adesso.anki.battle.world.bodies;
 
-import com.commands.Command;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.states.GameState;
 import com.states.ObjectBehind;
 import com.states.ObjectInFront;
-
 import de.adesso.anki.battle.mqtt.MqttService;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.DynamicBody;
@@ -48,8 +45,6 @@ public class Vehicle extends DynamicBody {
 	private List<GameState> factsInventory;
 	private List<GameState> factsObstacles;
 
-	private int track ; 		
-	private Command nextCommand;
 	private boolean rocketReady;
 	private boolean mineReady;
 	private boolean shieldReady;
@@ -110,15 +105,6 @@ public class Vehicle extends DynamicBody {
 
 	public void setRocketReady(boolean rocketReady) {
 		this.rocketReady = rocketReady;
-	}
-
-	public int getTrack() {
-		return this.track;
-	}
-	
-	
-	public void setTrack (int track) {
-		this.track = track;
 	}
 	
     public Long getstartLapTime() {
@@ -210,7 +196,6 @@ public class Vehicle extends DynamicBody {
         	currentRoadpiece = oldRoadpiece;
 	}
 
-    @Override
     public void setFacts(List <GameState> factsRoad, List <GameState> factsInventory,
     											List <GameState> factsObstacles)
     {
@@ -221,8 +206,6 @@ public class Vehicle extends DynamicBody {
     }
 
     public String convertFactsToMessage() {
-    	ObjectMapper objMapper = new ObjectMapper();
-
 		JSONObject json = new JSONObject();
 		JSONArray arr = new JSONArray();
     	try {
