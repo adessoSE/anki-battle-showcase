@@ -57,27 +57,27 @@ public class GameEngine {
     // cool ideas like random sampling can be also used
     
 	@Scheduled(fixedRate= 10000)
-	public void RocketReadySchedule() {
+	public void rocketReadySchedule() {
 		for (Vehicle vehicle: world.getVehicles() ) {
 			vehicle.setRocketReady(true);
 		}
 	}
 	@Scheduled(fixedRate= 10000)
-	public void MineReadySchedule() {
+	public void mineReadySchedule() {
 		for (Vehicle vehicle: world.getVehicles() ) {
 			vehicle.setMineReady(true);
 		}
 	}
     
 	@Scheduled(fixedRate= 10000)
-	public void ShieldSchedule() {
+	public void shieldSchedule() {
 		for (Vehicle vehicle: world.getVehicles() ) {
 			vehicle.setShieldReady(true);
 		}
 	}
     
 	@Scheduled(fixedRate= 10000)
-	public void ReflectorSchedule() {
+	public void reflectorSchedule() {
 		for (Vehicle vehicle: world.getVehicles() ) {
 			vehicle.setReflectorReady(true);
 		}
