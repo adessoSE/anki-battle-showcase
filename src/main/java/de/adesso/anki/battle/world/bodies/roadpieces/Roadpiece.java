@@ -5,6 +5,8 @@ import de.adesso.anki.battle.util.Position;
 
 public abstract class Roadpiece {
 
+    private static final double DEFAULT_WIDTH = 220;
+
     private Roadpiece prev;
     private Roadpiece next;
 
@@ -18,7 +20,7 @@ public abstract class Roadpiece {
     public abstract double getLength();
 
     public double getWidth() {
-        return 220;
+        return DEFAULT_WIDTH;
     }
 
     public void connect(Roadpiece next) {
