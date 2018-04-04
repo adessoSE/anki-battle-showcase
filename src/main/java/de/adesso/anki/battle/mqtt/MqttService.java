@@ -1,6 +1,6 @@
 package de.adesso.anki.battle.mqtt;
 
-import com.commands.*;
+import de.adesso.anki.battle.protocol.commands.*;
 import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.World;
 import de.adesso.anki.battle.world.bodies.Vehicle;

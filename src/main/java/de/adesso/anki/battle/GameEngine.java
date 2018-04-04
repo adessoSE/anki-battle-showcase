@@ -1,7 +1,7 @@
 package de.adesso.anki.battle;
 
-import com.states.GameState;
 import de.adesso.anki.battle.mqtt.MqttService;
+import de.adesso.anki.battle.protocol.states.GameState;
 import de.adesso.anki.battle.providers.VehicleStateProvider;
 import de.adesso.anki.battle.renderers.Renderer;
 import de.adesso.anki.battle.sync.AnkiSynchronization;

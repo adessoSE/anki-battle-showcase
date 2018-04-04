@@ -1,9 +1,9 @@
 package de.adesso.anki.battle.world.bodies;
 
-import com.states.GameState;
-import com.states.ObjectBehind;
-import com.states.ObjectInFront;
 import de.adesso.anki.battle.mqtt.MqttService;
+import de.adesso.anki.battle.protocol.states.GameState;
+import de.adesso.anki.battle.protocol.states.ObjectBehind;
+import de.adesso.anki.battle.protocol.states.ObjectInFront;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
