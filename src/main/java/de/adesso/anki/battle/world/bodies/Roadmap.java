@@ -56,7 +56,7 @@ public class Roadmap {
         }
     }
 
-    public Roadpiece findRoadpieceByLocation(int roadpieceId, int locationId, boolean parsedReverse) {
+    public Roadpiece findRoadpieceByLocation(int roadpieceId, boolean parsedReverse) {
         val pieces = getRoadpieces();
         val piece = pieces.stream().filter(x -> x.getRoadpieceId() == roadpieceId).collect(Collectors.toList());
         if (piece.size() == 1) {

@@ -70,7 +70,7 @@ public class AnkiSynchronization {
         // set correct roadpiece and set position to null
 
         val roadmap = world.getRoadmap();
-        val piece = roadmap.findRoadpieceByLocation(m.getRoadPieceId(), m.getLocationId(), m.isParsedReverse());
+        val piece = roadmap.findRoadpieceByLocation(m.getRoadPieceId(), m.isParsedReverse());
         log.debug("piece="+piece);
         if (piece != null && (vehicle.getCurrentRoadpiece() == null || !vehicle.getCurrentRoadpiece().equals(piece))) {
             vehicle.setCurrentRoadpiece(piece);
