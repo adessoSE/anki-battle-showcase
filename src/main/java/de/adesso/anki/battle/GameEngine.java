@@ -1,7 +1,7 @@
 package de.adesso.anki.battle;
 
-import com.states.GameState;
 import de.adesso.anki.battle.mqtt.MqttService;
+import de.adesso.anki.battle.protocol.states.GameState;
 import de.adesso.anki.battle.providers.VehicleStateProvider;
 import de.adesso.anki.battle.renderers.Renderer;
 import de.adesso.anki.battle.sync.AnkiSynchronization;
@@ -43,118 +43,72 @@ public class GameEngine {
     private boolean running = false;
     private long lastStep;
 
-    private int stepCount = 0;
+    private long stepCount = 0;
 
 
     public void start() {
         lastStep = System.nanoTime();
         running = true;
-        subscribeAllVehicles ();
-
-    	 
+        subscribeAllVehicles();
     }
-    //TODO set ready at the same time, 
-    // cool ideas like random sampling can be also used
-    
-	@Scheduled(fixedRate= 10000)
-	public void RocketReadySchedule() {
-		for (Vehicle vehicle: world.getVehicles() ) {
-			vehicle.setRocketReady(true);
-		}
-	}
-	@Scheduled(fixedRate= 10000)
-	public void MineReadySchedule() {
-		for (Vehicle vehicle: world.getVehicles() ) {
-			vehicle.setMineReady(true);
-		}
-	}
-    
-	@Scheduled(fixedRate= 10000)
-	public void ShieldSchedule() {
-		for (Vehicle vehicle: world.getVehicles() ) {
-			vehicle.setShieldReady(true);
-		}
-	}
-    
-	@Scheduled(fixedRate= 10000)
-	public void ReflectorSchedule() {
-		for (Vehicle vehicle: world.getVehicles() ) {
-			vehicle.setReflectorReady(true);
-		}
-	}
-    
-	
-    
 
     @Scheduled(fixedRate = 50)
     public void gameLoop() {
-    	VehicleStateProvider vehicleStateProvider = new VehicleStateProvider();
         if (running) {
-           
             // Step 0: Calculate elapsed nanoseconds since last loop
             long step = System.nanoTime();
             long deltaNanos = step - lastStep;
             lastStep = step;
             
             // Step 1: Synchronize with real world
-            // TODO: Synchronize with Anki vehicles
-            if (stepCount == 0) {
-                for (DynamicBody body : world.getDynamicBodies()) {
-                    if (body instanceof Vehicle)
-                        anki.synchronizeState((Vehicle) body);
-                }
-            }
+			if (stepCount % 4 == 0) {
+				synchronizeAnki();
+			}
 
-            
-            
-            // Step 2: Simulate movement
+			// Step 2: Simulate movement
             updateSimulation(deltaNanos);
 
-          
-            // Step 3: Process input
-            // TODO: Process input from frontend
-
-            // Step 4: Evaluate behavior
-
-            stepCount++;
-            if (stepCount > 3) {
-
-                List<DynamicBody> dynBodies = world.getDynamicBodies();
-
-                for (DynamicBody body : dynBodies) {
-                    log.debug(body.toString());
-                    if (!(body instanceof Vehicle)) {
-                        continue;
-                    }
-                    List<GameState> factsRoad = vehicleStateProvider.getRoadFacts((Vehicle) body);
-                    List<GameState> factsInventory = vehicleStateProvider.getInventoryFacts((Vehicle) body);
-                    List<GameState> factsObstacles = vehicleStateProvider.getObstacleFacts((Vehicle) body);
-
-                    body.setFacts(factsRoad, factsInventory, factsObstacles);
-                }
-
-            
+            // Step 3: Evaluate behavior
+            if (stepCount % 4 == 0) {
+                generateFacts();
 				evaluateBehavior();
-
-
-                stepCount = 0;
             }
 
-            
-            // Remove while iterating, leads to exception 
-            //java.util.ConcurrentModificationException: in renderer?
-            //collisionHandling();
+            collisionHandling();
             collectOrphanedWeapons();
   
-            // Step 5: Render world
+            // Step 4: Render world
             renderWorld();
 
-            
-            
             calculateLaptime();
         }
     }
-    
+
+    private void generateFacts() {
+        VehicleStateProvider vehicleStateProvider = new VehicleStateProvider();
+        List<DynamicBody> dynBodies = world.getDynamicBodies();
+
+        for (DynamicBody body : dynBodies) {
+            log.debug(body.toString());
+            if (!(body instanceof Vehicle)) {
+                continue;
+            }
+
+            final Vehicle vehicle = (Vehicle) body;
+
+            List<GameState> factsRoad = vehicleStateProvider.getRoadFacts(vehicle);
+            List<GameState> factsInventory = vehicleStateProvider.getInventoryFacts(vehicle);
+            List<GameState> factsObstacles = vehicleStateProvider.getObstacleFacts(vehicle);
+
+            vehicle.setFacts(factsRoad, factsInventory, factsObstacles);
+        }
+    }
+
+    private void synchronizeAnki() {
+		for (Vehicle v : world.getVehicles()) {
+			anki.synchronizeState(v);
+		}
+	}
 
 
 	private void calculateLaptime() {
@@ -165,7 +119,7 @@ public class GameEngine {
 		}
 	}
 
-	public void subscribeAllVehicles()  {
+	private void subscribeAllVehicles()  {
         for (DynamicBody body : world.getDynamicBodies()) {
         	if (body instanceof Vehicle)
         	{
@@ -192,7 +146,7 @@ public class GameEngine {
         	Body weapon = it.next();
         	if (weapon instanceof Rocket && ((Rocket) weapon).shouldExplode()) {
         		it.remove();
-        		System.out.println("Delete orphaned rocket");
+        		log.debug("Delete orphaned rocket");
         	}
         }
 	}
@@ -200,13 +154,7 @@ public class GameEngine {
 	
 	//merge though filter predicate with method above
 	private void collisionHandling() {
-		Iterator<Body> it = world.getBodiesModifiable().iterator();
-        while(it.hasNext()){
-        	Body weapon = it.next();
-        	if (checkCollision(weapon)) {
-        		it.remove();
-        	}
-        }
+        world.getBodiesModifiable().removeIf(this::checkCollision);
     }
 
 	private boolean checkCollision(Body weapon) {
@@ -232,9 +180,9 @@ public class GameEngine {
 			//TODO find distance value that indicates a collision
 			double dummyValue = 30; 
 			if (distance < dummyValue) {
-				System.out.println("BOOM: " + weapon.getClass().getSimpleName()); 
+				log.debug("BOOM: " + weapon.getClass().getSimpleName());
 				vehicle.setEnergy(vehicle.getEnergy() - damage);
-				System.out.println(vehicle.getEnergy());
+				log.debug("energy=" + vehicle.getEnergy());
 				succesfulHit = true;
 			}
     	}
@@ -244,7 +192,7 @@ public class GameEngine {
  
     
     private void evaluateBehavior()  {
-    	List<Body> oldBodies= new ArrayList<Body>(world.getBodies());
+    	List<Body> oldBodies= new ArrayList<>(world.getBodies());
         for (Body body : oldBodies) {
         	try {
 				body.evaluateBehavior(mqtt);
@@ -252,13 +200,6 @@ public class GameEngine {
 				mqtt.connect();
 				subscribeAllVehicles();
 			}
-/*            if (body instanceof Vehicle) {
-    			try {
-					body.evaluateBehavior(mqtt);
-				} catch (MqttException e) {
-					mqtt.connect();
-					subscribeAllVehicles();
-				}*/
         }
         
     }

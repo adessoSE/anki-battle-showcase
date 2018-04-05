@@ -1,6 +1,6 @@
 package de.adesso.anki.battle.providers;
 
-import com.states.*;
+import de.adesso.anki.battle.protocol.states.*;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.Body;
 import de.adesso.anki.battle.world.World;
@@ -13,11 +13,6 @@ import java.util.List;
 
 @Slf4j
 public class VehicleStateProvider {
-	
-	
-	public VehicleStateProvider() {
-
-	}
 	
 	public List<GameState> getRoadFacts(  Vehicle vehicle ){
 		ArrayList<GameState> facts = new ArrayList<>();
@@ -105,7 +100,5 @@ public class VehicleStateProvider {
 		}
 		return facts;
 	}
-		
-
 
 }

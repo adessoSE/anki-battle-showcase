@@ -1,14 +1,9 @@
 package de.adesso.anki.battle.world;
 
-import java.util.List;
-
-import org.eclipse.paho.client.mqttv3.MqttException;
-
 import de.adesso.anki.battle.mqtt.MqttService;
 import de.adesso.anki.battle.util.Position;
-import de.adesso.anki.battle.world.bodies.Rocket;
-import de.adesso.anki.battle.world.bodies.Vehicle;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
+import org.eclipse.paho.client.mqttv3.MqttException;
 
 public abstract class Body {
 	

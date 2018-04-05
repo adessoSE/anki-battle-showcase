@@ -1,9 +1,6 @@
 package de.adesso.anki.battle.world;
 
-import com.states.GameState;
 import de.adesso.anki.battle.util.Position;
-
-import java.util.List;
 
 public abstract class DynamicBody extends Body {
 
@@ -30,10 +27,12 @@ public abstract class DynamicBody extends Body {
         }
     }
 
+    @Override
     public Position getPosition() {
         return position;
     }
 
+    @Override
     public void setPosition(Position position) {
         this.position = position;
     }
@@ -57,11 +56,5 @@ public abstract class DynamicBody extends Body {
     public void setAcceleration(double acceleration) {
         this.acceleration = acceleration;
     }
-    
-
-	public void setFacts(List<GameState> factsRoad, List<GameState> factsInventory, List<GameState> factsObstacles) {
-		// TODO Auto-generated method stub
-
-	}
 
 }

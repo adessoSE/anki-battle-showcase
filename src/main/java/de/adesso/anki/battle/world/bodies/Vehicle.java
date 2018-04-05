@@ -1,12 +1,9 @@
 package de.adesso.anki.battle.world.bodies;
 
-import com.commands.Command;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.states.GameState;
-import com.states.ObjectBehind;
-import com.states.ObjectInFront;
-
 import de.adesso.anki.battle.mqtt.MqttService;
+import de.adesso.anki.battle.protocol.states.GameState;
+import de.adesso.anki.battle.protocol.states.ObjectBehind;
+import de.adesso.anki.battle.protocol.states.ObjectInFront;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
@@ -48,8 +45,6 @@ public class Vehicle extends DynamicBody {
 	private List<GameState> factsInventory;
 	private List<GameState> factsObstacles;
 
-	private int track ; 		
-	private Command nextCommand;
 	private boolean rocketReady;
 	private boolean mineReady;
 	private boolean shieldReady;
@@ -111,18 +106,6 @@ public class Vehicle extends DynamicBody {
 	public void setRocketReady(boolean rocketReady) {
 		this.rocketReady = rocketReady;
 	}
-
-	public Vehicle() {	
-	}
-
-	public int getTrack() {
-		return this.track;
-	}
-	
-	
-	public void setTrack (int track) {
-		this.track = track;
-	}
 	
     public Long getstartLapTime() {
 		return startLapTime;
@@ -139,7 +122,6 @@ public class Vehicle extends DynamicBody {
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
-		// TODO Auto-generated method stub
 	}
 
 	public void setCalibrationOffset(double newOffset) {
@@ -213,8 +195,7 @@ public class Vehicle extends DynamicBody {
         	currentRoadpiece = oldRoadpiece;
 	}
 
-    @Override
-    public void setFacts(List <GameState> factsRoad, List <GameState> factsInventory,
+	public void setFacts(List <GameState> factsRoad, List <GameState> factsInventory,
     											List <GameState> factsObstacles)
     {
     	this.factsRoad = factsRoad ;
@@ -224,8 +205,6 @@ public class Vehicle extends DynamicBody {
     }
 
     public String convertFactsToMessage() {
-    	ObjectMapper objMapper = new ObjectMapper();
-
 		JSONObject json = new JSONObject();
 		JSONArray arr = new JSONArray();
     	try {
@@ -289,6 +268,7 @@ public class Vehicle extends DynamicBody {
                 '}';
     }
 
+    @Override
     public void setCurrentRoadpiece(Roadpiece roadpiece) {
         currentRoadpiece = roadpiece;
     }

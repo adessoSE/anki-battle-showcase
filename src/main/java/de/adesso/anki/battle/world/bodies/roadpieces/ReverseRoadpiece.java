@@ -2,6 +2,8 @@ package de.adesso.anki.battle.world.bodies.roadpieces;
 
 import de.adesso.anki.battle.util.Position;
 
+import java.util.Objects;
+
 public class ReverseRoadpiece extends Roadpiece {
 
     private final Roadpiece original;
@@ -76,8 +78,13 @@ public class ReverseRoadpiece extends Roadpiece {
                 "R" : original.toString() + "!";
     }
 
+    @Override
     public boolean isStraight() { return original.isStraight(); }
+
+    @Override
     public boolean isLeftCurved() { return original.isRightCurved(); }
+
+    @Override
     public boolean isRightCurved() { return original.isLeftCurved(); }
 
     @Override
@@ -85,19 +92,22 @@ public class ReverseRoadpiece extends Roadpiece {
         return original.getRoadpieceId();
     }
 
+    @Override
     public void setRoadpieceId(int roadpieceId) {
         original.setRoadpieceId(roadpieceId);
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other)
-            return true;
-        if (other == null)
-            return false;
-        if (this.getClass() != other.getClass())
-            return false;
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
 
-        return this.original == ((ReverseRoadpiece) other).original;
+        final ReverseRoadpiece other = (ReverseRoadpiece) obj;
+        return Objects.equals(this.original, other.original);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.original);
     }
 }
