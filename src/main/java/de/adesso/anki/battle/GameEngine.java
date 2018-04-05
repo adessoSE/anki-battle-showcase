@@ -152,10 +152,44 @@ public class GameEngine {
             
             
             calculateLaptime();
+            checkForGameEnding();
         }
+        
     }
     
+    
+    private void checkForGameEnding() {
+    	if (world.getVehicles().size() == 1) {
+    		log.debug("Winner: " + world.getVehicles().get(0).getName());
+    	}
+    	updateVehicleList();
+    }
 
+    private void updateVehicleList() {
+    	Iterator<Body> it = world.getBodiesModifiable().iterator();
+        while(it.hasNext()){
+        	Body vehicle = it.next();
+        	if (vehicle instanceof Vehicle && vehicleDeafeated((Vehicle) vehicle)) {
+        		it.remove();
+        		log.debug("Delete orphaned rocket");
+        	}
+        }
+    	
+    	
+    	/*for (Vehicle vehicle : world.getVehicles()) {
+    		System.out.println(world.getVehicles().size());
+    		if  (vehicle.getEnergy() <= 0 ) {
+            	boolean aa  = world.getVehicles().remove(vehicle);
+            	System.out.println(aa);
+    		}
+    	}*/
+    }
+    	//world.getVehicles().removeIf(this::vehicleDeafeated);
+
+    
+    private boolean vehicleDeafeated(Vehicle vehicle) {
+    	return vehicle.getEnergy() <= 0 ; 
+    }
 
 	private void calculateLaptime() {
 		for(DynamicBody body : world.getDynamicBodies()) {
