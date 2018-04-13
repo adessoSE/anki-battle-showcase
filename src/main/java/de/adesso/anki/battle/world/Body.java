@@ -10,6 +10,8 @@ public abstract class Body {
 	private World world ; 
 	private Position position;
 	private Roadpiece currentRoadpiece;
+
+	
 	
 	public Body() {
 		

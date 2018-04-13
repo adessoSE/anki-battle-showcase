@@ -15,6 +15,7 @@ public class PutMineCommand extends Command {
 		World world = vehicle.getWorld();
 		Mine mine = new Mine ();
 		mine.setPosition(vehicle.getPosition());
+		mine.setOffsetFromCenter(vehicle.getOffset());
 		world.addBody(mine);
 		mine.setWorld(world);
 		vehicle.setMineReady(false);

@@ -231,11 +231,14 @@ public class Vehicle extends DynamicBody {
 					factArr.put("Behind");
 					factArr.put(((ObjectBehind) gameState).getType()); //obstacle type
 					factArr.put(((ObjectBehind) gameState).getMetersBehind());
+					factArr.put(((ObjectBehind) gameState).getOffSetFromCenter());
+
 				}
 				if( gameState instanceof ObjectInFront){
 					factArr.put("Front");
 					factArr.put(((ObjectInFront) gameState).getType()); //obstacle type
 					factArr.put(((ObjectInFront) gameState).getMetersInFront());
+					factArr.put(((ObjectInFront) gameState).getOffSetFromCenter());
 				}
 				allObstacleFacts.put(factArr);
 			}

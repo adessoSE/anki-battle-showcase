@@ -19,7 +19,10 @@ module.exports = function(RED) {
               //Toleranzbereich ? oder min max vom user
               continue;
             }
-
+            if (config.track > currentObstacle[3] +5 || config.track < currentObstacle[3]-5 ){
+              // have to rethink how to check track
+              continue;
+            }
               var newMsg = {"type":"OK", "obstacle":currentObstacle[1]};
               node.send(newMsg);
               return;

@@ -11,8 +11,20 @@ import java.util.List;
 
 public class Mine extends DynamicBody {
 	private long timer ;
+	private double offsetFromCenter;
 	
-	
+	public double getOffset() {
+		return offsetFromCenter;
+	}
+
+
+
+	public void setOffsetFromCenter(double offsetFromCenter) {
+		this.offsetFromCenter = offsetFromCenter;
+	}
+
+
+
 	public Mine(){
 		timer = System.currentTimeMillis();
 	}
