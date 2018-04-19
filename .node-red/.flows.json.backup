@@ -297,44 +297,11 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 500,
+        "x": 520,
         "y": 360,
         "wires": [
             [
                 "93031786.d17238"
-            ]
-        ]
-    },
-    {
-        "id": "d5cdef8.7e4501",
-        "type": "Rakete feuern",
-        "z": "21e2dd7.acbb722",
-        "name": "",
-        "x": 1080,
-        "y": 560,
-        "wires": [
-            [
-                "7b7cb3a3.60d99c"
-            ]
-        ]
-    },
-    {
-        "id": "d4ab08bd.f85d38",
-        "type": "inject",
-        "z": "21e2dd7.acbb722",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 840,
-        "y": 580,
-        "wires": [
-            [
-                "d5cdef8.7e4501"
             ]
         ]
     }
