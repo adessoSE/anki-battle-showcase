@@ -74,11 +74,8 @@ public class VehicleStateProvider {
 			//body all other in the current world
 			String obstacleType = body.getClass().getSimpleName() ;
 			
-			double offSetFromCenter;
-			if (obstacleType.equals("Rocket")) {
-				//rocket has no track attribute
-				offSetFromCenter = 0 ; 
-			}
+			double offSetFromCenter = 0;
+			//rocket has no track attribute
 			if (obstacleType.equals("Mine")) {
 				//very dirty 
 				offSetFromCenter = ((Mine)body).getOffset();
