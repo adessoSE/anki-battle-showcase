@@ -76,13 +76,14 @@ public class AnkiSynchronization {
             vehicle.setCurrentRoadpiece(piece);
             vehicle.setPosition(null);
         }
-
-        val ankiPiece = Roadpiece.createFromId(m.getRoadPieceId());
-        val segment = ankiPiece.getSegmentByLocation(m.getLocationId(), m.isParsedReverse());
-        val offset = segment.getOffsetByLocation(m.getLocationId());
-        vehicle.getAnkiReference().sendMessage(new SetOffsetFromRoadCenterMessage((float) offset));
-        vehicle.setCalibrationOffset(offset);
-        log.info("new calibration offset: " + offset);
+        
+        if (m.getRoadPieceId() != 10) {
+            val ankiPiece = Roadpiece.createFromId(m.getRoadPieceId());
+            val segment = ankiPiece.getSegmentByLocation(m.getLocationId(), m.isParsedReverse());
+            val offset = segment.getOffsetByLocation(m.getLocationId());
+            vehicle.getAnkiReference().sendMessage(new SetOffsetFromRoadCenterMessage((float) offset));
+            vehicle.setCalibrationOffset(offset);
+        }
     }
 
     private void updateTransition(Vehicle vehicle, LocalizationTransitionUpdateMessage m) {
