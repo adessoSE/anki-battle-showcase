@@ -18,7 +18,7 @@ public class Roadmap {
         if (anchor != null) {
             Roadpiece current = anchor;
             sb.append(anchor.toString());
-            while (current.getNext() != null && current.getNext() != anchor) {
+            while (current.getNext() != null && !current.getNext().equals(anchor)) {
                 current = current.getNext();
                 sb.append(current.toString());
             }
@@ -41,7 +41,7 @@ public class Roadmap {
         val list = new LinkedList<Roadpiece>();
         addWithChecks(list, anchor);
 
-        for (Roadpiece i = anchor.getNext(); i.getNext() != null && i != anchor; i = i.getNext()) {
+        for (Roadpiece i = anchor.getNext(); i.getNext() != null && !i.equals(anchor); i = i.getNext()) {
             addWithChecks(list, i);
         }
 
