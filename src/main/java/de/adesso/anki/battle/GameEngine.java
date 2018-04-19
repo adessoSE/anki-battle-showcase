@@ -81,6 +81,8 @@ public class GameEngine {
             renderWorld();
 
             calculateLaptime();
+
+            stepCount++;
         }
     }
 

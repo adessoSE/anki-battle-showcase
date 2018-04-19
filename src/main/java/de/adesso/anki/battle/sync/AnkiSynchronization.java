@@ -82,6 +82,7 @@ public class AnkiSynchronization {
         val offset = segment.getOffsetByLocation(m.getLocationId());
         vehicle.getAnkiReference().sendMessage(new SetOffsetFromRoadCenterMessage((float) offset));
         vehicle.setCalibrationOffset(offset);
+        log.info("new calibration offset: " + offset);
     }
 
     private void updateTransition(Vehicle vehicle, LocalizationTransitionUpdateMessage m) {
