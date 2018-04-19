@@ -6,6 +6,7 @@
             name: {value:""},
 			obstacleType: {value: ""},
       distance: {value:""},
+      track:{value:""},
       direction:{value:""}
         },
         inputs:1,
@@ -25,8 +26,8 @@
 </div>
 
  	<div class="form-row">
-     <label for="node-input-obstacleType"><i class="icon-tag"></i>obstacleType</label>
-	 <select value= "" id ="node-input-obstacleType" placeholder= "obstacleType">
+     <label for="node-input-obstacleType"><i class="icon-tag"></i>Typ</label>
+	 <select value= "" id ="node-input-obstacleType" placeholder= "Typ">
   <option value="Mine">Mine</option>
 	  <option value="Vehicle">Fahrzeug</option>
     <option value="Rocket">Rakete </option>
@@ -34,17 +35,20 @@
  </div>
 
  <div class="form-row">
-    <label for="node-input-direction"><i class="icon-tag"></i>direction</label>
-  <select value= "" id ="node-input-direction" placeholder= "direction">
+    <label for="node-input-direction"><i class="icon-tag"></i>Richtung</label>
+  <select value= "" id ="node-input-direction" placeholder= "Richtung">
  <option value="Front">Vorne</option>
 <option value="Behind">Hinten</option>
 </select>
 </div>
 <div class="form-row">
-    <label for="node-input-distance"><i class="icon-tag"></i> distance</label>
+    <label for="node-input-distance"><i class="icon-tag"></i> Distanz</label>
     <input type="text" id="node-input-distance" placeholder="distance">
 </div>
-
+<div class="form-row">
+    <label for="node-input-track"><i class="icon-tag"></i> Spur</label>
+    <input type="text" id="node-input-track" placeholder="Spur">
+</div>
 
 </script>
 

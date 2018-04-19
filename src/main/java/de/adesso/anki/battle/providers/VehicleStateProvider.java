@@ -4,6 +4,7 @@ import de.adesso.anki.battle.protocol.states.*;
 import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.Body;
 import de.adesso.anki.battle.world.World;
+import de.adesso.anki.battle.world.bodies.Mine;
 import de.adesso.anki.battle.world.bodies.Vehicle;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
 import lombok.extern.slf4j.Slf4j;
@@ -72,6 +73,18 @@ public class VehicleStateProvider {
 			//generating  facts for vehicle 
 			//body all other in the current world
 			String obstacleType = body.getClass().getSimpleName() ;
+			
+			double offSetFromCenter = 0;
+			//rocket has no track attribute
+			if (obstacleType.equals("Mine")) {
+				//very dirty 
+				offSetFromCenter = ((Mine)body).getOffset();
+			}
+			else {
+				offSetFromCenter = ((Vehicle)body).getOffset();
+			}
+			
+			
 			Position position1 = vehicle.getPosition();
 			Position position2 = body.getPosition();
 			double distance = position1.distance(position2);
@@ -88,13 +101,13 @@ public class VehicleStateProvider {
 			double transY = position2.getY() - position1.getY();
 			
 			double dotProduct = viewVectorX * transX + viewVectorY * transY;
-			
+
 			if (dotProduct < 0 ) {
-				ObjectBehind obstacle = new ObjectBehind(distance, obstacleType);
+				ObjectBehind obstacle = new ObjectBehind(distance, obstacleType,offSetFromCenter);
 				facts.add(obstacle);
 			}
 			else {
-				ObjectInFront obstacle = new ObjectInFront(distance, obstacleType);
+				ObjectInFront obstacle = new ObjectInFront(distance, obstacleType,offSetFromCenter);
 				facts.add(obstacle);
 			}		
 		}
