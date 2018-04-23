@@ -144,7 +144,7 @@
         "type": "mosca in",
         "z": "f318e467.1a1638",
         "mqtt_port": 1883,
-        "mqtt_ws_port": 8080,
+        "mqtt_ws_port": "8083",
         "name": "",
         "username": "",
         "password": "",

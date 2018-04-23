@@ -3,8 +3,9 @@
   "description": "A Node-RED Project",
   "version": "0.0.1",
   "dependencies": {
-    "node-red-contrib-mqtt-broker": "~0.2.2",
-    "node-red-contrib-anki": "file:./lib/anki-nodes"
+    "node-red": "^0.18.4",
+    "node-red-contrib-anki": "file:./lib/anki-nodes",
+    "node-red-contrib-mqtt-broker": "~0.2.2"
   },
   "scripts": {
     "preinstall": "npm install node-red-contrib-anki --no-optional"
