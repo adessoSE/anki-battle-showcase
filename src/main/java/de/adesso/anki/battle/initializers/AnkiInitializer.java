@@ -25,6 +25,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Profile("anki")
@@ -41,6 +42,7 @@ public class AnkiInitializer implements ApplicationRunner {
     private List<AnkiVehicle> vehicles = new ArrayList<>();
     private AnkiVehicle scanningVehicle;
     private Vehicle myVehicle;
+    private String preferredId;
 
     // Message listeners
     private MessageListener<LocalizationPositionUpdateMessage> positionListener;
@@ -53,11 +55,13 @@ public class AnkiInitializer implements ApplicationRunner {
     public AnkiInitializer(@Autowired World world,
                            @Autowired GameEngine engine,
                            @Autowired AnkiSynchronization sync,
-                           @Value("${anki.gateway.ip}") String gatewayIp) {
+                           @Value("${anki.gateway.ip}") String gatewayIp,
+                           @Value("${anki.preferred_vehicle}") String preferredId) {
         this.world = world;
         this.engine = engine;
         this.sync = sync;
         this.gatewayIp = gatewayIp;
+        this.preferredId = preferredId;
     }
 
     @Async
@@ -72,7 +76,8 @@ public class AnkiInitializer implements ApplicationRunner {
     @SneakyThrows
     private void scanRoadmap() {
         // select a Vehicle to scan the roadmap
-        scanningVehicle = vehicles.get(0);
+        scanningVehicle = findPreferredVehicle(vehicles);
+
         // flash headlights
 
         LightsPatternMessage lights = new LightsPatternMessage();
@@ -92,6 +97,14 @@ public class AnkiInitializer implements ApplicationRunner {
         positionListener = scanningVehicle.addMessageListener(LocalizationPositionUpdateMessage.class, this::handlePosition);
         transitionListener = scanningVehicle.addMessageListener(LocalizationTransitionUpdateMessage.class, m -> handleTransition());
         scanningVehicle.sendMessage(new SetSpeedMessage(400, 5000));
+    }
+
+    private AnkiVehicle findPreferredVehicle(List<AnkiVehicle> vehicles) {
+        Optional<AnkiVehicle> preferredVehicle = vehicles.stream()
+                .filter(v -> v.toString().equals(preferredId))
+                .findFirst();
+
+        return preferredVehicle.orElse(vehicles.get(0));
     }
 
     private void handleTransition() {
@@ -157,13 +170,12 @@ public class AnkiInitializer implements ApplicationRunner {
         val gateway = new AnkiGateway(gatewayIp, 5000);
         vehicles = gateway.findVehicles();
 
-        for (AnkiVehicle anki : vehicles.subList(0,1)) {
-            myVehicle = new Vehicle();
-            myVehicle.setAnkiReference(anki);
-            anki.connect();
-            anki.sendMessage(new SdkModeMessage());
-            world.addBody(myVehicle);
-        }
+        AnkiVehicle anki = findPreferredVehicle(vehicles);
+        myVehicle = new Vehicle();
+        myVehicle.setAnkiReference(anki);
+        anki.connect();
+        anki.sendMessage(new SdkModeMessage());
+        world.addBody(myVehicle);
     }
 
     private void startEngine() {

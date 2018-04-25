@@ -4,6 +4,11 @@
       "name": "anki.gateway.ip",
       "type": "java.lang.String",
       "description": "Defines the IP address of the Anki Gateway to use."
+    },
+    {
+      "name": "anki.preferred_vehicle",
+      "type": "java.lang.String",
+      "description": "Defines a preferred vehicle to use."
     }
   ]
 }
