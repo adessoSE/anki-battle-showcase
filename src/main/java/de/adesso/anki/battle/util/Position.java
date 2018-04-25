@@ -94,6 +94,11 @@ public class Position {
     }
 
     public double distance(Position other) {
+        if (other == null) {
+            return Double.POSITIVE_INFINITY;
+        }
+
+
         double dx = this.x - other.x;
         double dy = this.y - other.y;
 

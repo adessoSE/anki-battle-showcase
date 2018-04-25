@@ -65,52 +65,57 @@ public class VehicleStateProvider {
 	public List<GameState> getObstacleFacts(Vehicle vehicle ){
 		ArrayList<GameState> facts = new ArrayList<>();	
 		World world = vehicle.getWorld();
-		for (Body body : world.getBodies()){
-			if (vehicle == body) {
+
+		if (vehicle.getPosition() == null) {
+			return facts;
+		}
+
+		for (Body body : world.getBodies()) {
+			if (vehicle == body || body.getPosition() == null) {
 				//skip self
 				continue;
 			}
-			//generating  facts for vehicle 
+
+			//generating  facts for vehicle
 			//body all other in the current world
-			String obstacleType = body.getClass().getSimpleName() ;
-			
+			String obstacleType = body.getClass().getSimpleName();
+
 			double offSetFromCenter = 0;
 			//rocket has no track attribute
 			if (obstacleType.equals("Mine")) {
-				//very dirty 
-				offSetFromCenter = ((Mine)body).getOffset();
+				//very dirty
+				offSetFromCenter = ((Mine) body).getOffset();
+			} else {
+				offSetFromCenter = ((Vehicle) body).getOffset();
 			}
-			else {
-				offSetFromCenter = ((Vehicle)body).getOffset();
-			}
-			
-			
+
+
 			Position position1 = vehicle.getPosition();
 			Position position2 = body.getPosition();
+
 			double distance = position1.distance(position2);
 			double angle1 = position1.angle();
 
 
-			
 			//blickrichtung x cos(angle)  y sine (angle)
 			double angleRad = Math.toRadians(angle1);
 			double viewVectorX = Math.cos(angleRad);
 			double viewVectorY = Math.sin(angleRad);
-			
+
 			double transX = position2.getX() - position1.getX();
 			double transY = position2.getY() - position1.getY();
-			
+
 			double dotProduct = viewVectorX * transX + viewVectorY * transY;
 
-			if (dotProduct < 0 ) {
-				ObjectBehind obstacle = new ObjectBehind(distance, obstacleType,offSetFromCenter);
+			if (dotProduct < 0) {
+				ObjectBehind obstacle = new ObjectBehind(distance, obstacleType, offSetFromCenter);
+				facts.add(obstacle);
+			} else {
+				ObjectInFront obstacle = new ObjectInFront(distance, obstacleType, offSetFromCenter);
 				facts.add(obstacle);
 			}
-			else {
-				ObjectInFront obstacle = new ObjectInFront(distance, obstacleType,offSetFromCenter);
-				facts.add(obstacle);
-			}		
 		}
+
 		return facts;
 	}
 

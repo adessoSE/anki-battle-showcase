@@ -297,6 +297,10 @@ public class Vehicle extends DynamicBody {
 		return horizontalSpeed;
 	}
 	public void updateLapTime() {
+		if (currentRoadpiece == null) {
+			return;
+		}
+
 		if (this.currentRoadpiece.toString().startsWith("S"))   {
 			this.startLapTime = System.currentTimeMillis(); 
 			log.debug("Start");
