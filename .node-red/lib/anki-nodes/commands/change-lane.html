@@ -1,6 +1,6 @@
 <script type="text/javascript">
-    RED.nodes.registerType('Spur wechseln',{
-        category: 'Aktionen',
+    RED.nodes.registerType('Change track',{
+        category: 'Commands',
         color: '#a6bbcf',
         defaults: {
             name: {value:""},
@@ -10,12 +10,12 @@
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"Spur wechseln";
+            return this.name||"Change track";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="Spur wechseln">
+<script type="text/x-red" data-template-name="Change track">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -26,6 +26,6 @@
  </div>
 </script>
 
-<script type="text/x-red" data-help-name="Spur wechseln">
+<script type="text/x-red" data-help-name="Change track">
     <p> Node that changes lane</p>
 </script>

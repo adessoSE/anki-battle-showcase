@@ -12,5 +12,5 @@ module.exports = function(RED) {
 			}
         });
     }
-    RED.nodes.registerType("Kurve",switchCurve);
+    RED.nodes.registerType("Curve",switchCurve);
 }

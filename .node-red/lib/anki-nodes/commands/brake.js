@@ -1,5 +1,5 @@
 module.exports = function(RED) {
-    function fireRocket(config) {
+    function brake(config) {
         RED.nodes.createNode(this,config);
         var node = this;
         node.on('input', function(msg) {
@@ -7,5 +7,5 @@ module.exports = function(RED) {
 			node.send(newMsg);
         });
     }
-    RED.nodes.registerType("Bremsen",fireRocket);
+    RED.nodes.registerType("Brake",brake);
 }

@@ -32,5 +32,5 @@ module.exports = function(RED) {
 
         });
     }
-    RED.nodes.registerType("Umwelt",switchObstacle);
+    RED.nodes.registerType("Obstacle",switchObstacle);
 }

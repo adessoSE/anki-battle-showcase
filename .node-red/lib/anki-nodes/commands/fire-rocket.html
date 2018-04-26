@@ -1,6 +1,6 @@
 <script type="text/javascript">
-    RED.nodes.registerType('Rakete feuern',{
-        category: 'Aktionen',
+    RED.nodes.registerType('Fire rocket',{
+        category: 'Commands',
         color: '#a6bbcf',
         defaults: {
             name: {value:""}
@@ -9,18 +9,18 @@
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"Rakete feuern";
+            return this.name||"Fire rocket";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="Rakete feuern">
+<script type="text/x-red" data-template-name="Fire rocket">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="Rakete feuern">
+<script type="text/x-red" data-help-name="Fire rocket">
     <p> Node that fires rocket</p>
 </script>

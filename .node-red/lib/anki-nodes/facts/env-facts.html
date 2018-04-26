@@ -1,6 +1,6 @@
 <script type="text/javascript">
-    RED.nodes.registerType('Umgebungsfakten',{
-        category: 'Fakten',
+    RED.nodes.registerType('Environment facts',{
+        category: 'Facts',
         color: '#E2D96E',
         defaults: {
             name: {value:""}
@@ -9,18 +9,18 @@
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"Umgebungsfakten";
+            return this.name||"Environment facts";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="Umgebungsfakten">
+<script type="text/x-red" data-template-name="Environment facts">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="Umgebungsfakten">
+<script type="text/x-red" data-help-name="Environment facts">
     <p> Node that checks environment</p>
 </script>

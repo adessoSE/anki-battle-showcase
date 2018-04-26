@@ -1,6 +1,6 @@
 <script type="text/javascript">
-    RED.nodes.registerType('Kurve',{
-        category: 'Logik',
+    RED.nodes.registerType('Curve',{
+        category: 'Logic',
         color: '#87A980',
         defaults: {
             name: {value:""},
@@ -11,25 +11,25 @@
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"Kurve";
+            return this.name||"Curve";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="Kurve">
+<script type="text/x-red" data-template-name="Curve">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
  	<div class="form-row">
-     <label for="node-input-art"><i class="icon-tag"></i>art</label>
+     <label for="node-input-art"><i class="icon-tag"></i>Type</label>
 	 <select value= "" id ="node-input-art" placeholder= "Kurvenart">
-  <option value="Linkskurve">Links</option> 
-    <option value="Rechtskurve">Rechts</option> 
+  <option value="Linkskurve">Left</option>
+    <option value="Rechtskurve">Right</option>
  </select>
  </div>
 </script>
 
-<script type="text/x-red" data-help-name="Kurve">
+<script type="text/x-red" data-help-name="Curve">
     <p> Node that evaluates user rules for curve</p>
 </script>

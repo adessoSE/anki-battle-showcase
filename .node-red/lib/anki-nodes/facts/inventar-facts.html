@@ -1,6 +1,6 @@
 <script type="text/javascript">
-    RED.nodes.registerType('Inventarfakten',{
-        category: 'Fakten',
+    RED.nodes.registerType('Inventar facts',{
+        category: 'Facts',
         color: '#E2D96E',
         defaults: {
             name: {value:""}
@@ -9,18 +9,18 @@
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"Inventarfakten";
+            return this.name||"Inventar facts";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="Inventarfakten">
+<script type="text/x-red" data-template-name="Inventar facts">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="Inventarfakten">
+<script type="text/x-red" data-help-name="Inventar facts">
     <p> Node that checks inventar</p>
 </script>

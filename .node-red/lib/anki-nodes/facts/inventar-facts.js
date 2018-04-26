@@ -8,5 +8,5 @@ module.exports = function(RED) {
             node.send(newMsg);
         });
     }
-    RED.nodes.registerType("Inventarfakten",InventarNode);
+    RED.nodes.registerType("Inventar facts",InventarNode);
 }

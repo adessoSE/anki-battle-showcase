@@ -7,5 +7,5 @@ module.exports = function(RED) {
             node.send(newMsg);
         });
     }
-    RED.nodes.registerType("Mine legen",PutMine);
+    RED.nodes.registerType("Mine",PutMine);
 }

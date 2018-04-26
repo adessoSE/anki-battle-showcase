@@ -1,6 +1,6 @@
 <script type="text/javascript">
-    RED.nodes.registerType('Rundenzeit',{
-        category: 'Logik',
+    RED.nodes.registerType('Lap time',{
+        category: 'Presentation mode',
         color: '#87A980',
         defaults: {
             name: {value:""},
@@ -10,18 +10,18 @@
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"Rundenzeit";
+            return this.name||"Lap time";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="Rundenzeit">
+<script type="text/x-red" data-template-name="Lap time">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="Rundenzeit">
+<script type="text/x-red" data-help-name="Lap time">
     <p> Node that measures lap time </p>
 </script>
