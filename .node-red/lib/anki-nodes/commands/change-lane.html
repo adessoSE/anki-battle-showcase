@@ -10,7 +10,7 @@
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"Change track";
+            return this.name||this._("change-lane.label");
         }
     });
 </script>
@@ -21,7 +21,7 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 	 	<div class="form-row">
-     <label for="node-input-track"><i class="icon-tag"></i> track</label>
+     <label for="node-input-track"><i class="icon-tag"></i> <span data-i18n=change-lane.track></span></label>
      <input type="text" id="node-input-track">
  </div>
 </script>
