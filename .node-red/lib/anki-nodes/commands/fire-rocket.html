@@ -3,7 +3,8 @@
         category: 'Commands',
         color: '#a6bbcf',
         defaults: {
-            name: {value:""}
+            name: {value:""},
+
         },
         inputs:1,
         outputs:1,
@@ -17,9 +18,18 @@
 <script type="text/x-red" data-template-name="Fire rocket">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="name">
     </div>
+	 	<div class="form-row">
+     <label for="node-input-test"><i class="icon-tag"></i>test</label>
+	 <select value= "" id ="node-input-test" placeholder= "Bereit">
+  <option value="test1" data-i18n="fire-rocket.test.command"</option>
+    <option value="test2">Mine</option>
+	    <option value="test3">Shield</option>
+ </select>
+ </div>
 </script>
+
 
 <script type="text/x-red" data-help-name="Fire rocket">
     <p> Node that fires rocket</p>
