@@ -1,0 +1,6 @@
+{
+    "u-turn": {
+        "label" : "Umdrehen",
+		"info": "Kehre die aktuelle Fahrtrichtung um"
+    }
+}
