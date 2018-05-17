@@ -1,6 +1,7 @@
 {
     "accelerate": {
         "label" : "Accelerate",
-		"velocity": "Velocity"
+		"velocity": "Velocity",
+		"info": "Accelerates Car"
     }
 }

@@ -1,6 +1,7 @@
 {
     "accelerate": {
         "label" : "Beschleunige",
-		"velocity": "Geschwindigkeit"
+		"velocity": "Geschwindigkeit",
+		"info": "Beschleunige Auto auf die gewünschte Geschwindigkeit"
     }
 }

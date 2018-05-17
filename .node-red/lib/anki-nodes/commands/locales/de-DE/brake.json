@@ -1,0 +1,7 @@
+{
+    "brake": {
+        "label" : "Bremsen",
+		"velocity": "Geschwindigkeit",
+		"info": "Bremse Auto auf die gewünschte Geschwindigkeit"
+    }
+}
