@@ -1,8 +1,5 @@
 {
     "fire-rocket": {
-        "test": {
-            "command": "Fire Rocket",
-        }
-            
+            "label": "Fire Rocket"           
     }
 }
