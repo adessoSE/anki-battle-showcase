@@ -1,0 +1,9 @@
+{
+    "curve": {
+        "label" : "Curve",
+		"type" : "Type",
+		"left" : "Left",
+		"right": "Right",
+		"info": " Curve conditions"
+    }
+}

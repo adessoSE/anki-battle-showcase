@@ -1,0 +1,9 @@
+{
+    "curve": {
+        "label" : "Kurve",
+		"type": "Kurvenart",
+		"left": "Links",
+		"right": "Rechts",
+		"info": "Kurvenbedingungen "
+    }
+}

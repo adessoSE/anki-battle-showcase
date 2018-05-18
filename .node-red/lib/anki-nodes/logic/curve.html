@@ -11,7 +11,7 @@
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"Curve";
+            return this.name|| this._("curve.label");
         }
     });
 </script>
@@ -22,10 +22,10 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
  	<div class="form-row">
-     <label for="node-input-art"><i class="icon-tag"></i>Type</label>
+     <label for="node-input-art"><i class="icon-tag"></i><span data-i18n="curve.type"></span></</label>
 	 <select value= "" id ="node-input-art" placeholder= "Kurvenart">
-  <option value="Linkskurve">Left</option>
-    <option value="Rechtskurve">Right</option>
+  <option value="Linkskurve" data-i18n="curve.left" ></option>
+    <option value="Rechtskurve" data-i18n="curve.right"> </option>
  </select>
  </div>
 </script>

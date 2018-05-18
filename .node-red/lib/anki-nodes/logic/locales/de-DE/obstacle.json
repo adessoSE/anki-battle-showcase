@@ -1,0 +1,15 @@
+{
+    "obstacle": {
+        "label" : "Hindernis",
+		"type": "Art",
+		"rocket": "Rakete",
+		"mine": "Mine",
+		"vehicle": "Auto",
+		"distance": "Distanz",
+		"track": "Spur",
+		"direction": "Richtung",
+		"front": "Vorne",
+		"behind":"Hinten",
+		"info": "Hindernisbedingungen"
+    }
+}

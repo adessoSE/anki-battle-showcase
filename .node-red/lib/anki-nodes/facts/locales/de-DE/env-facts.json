@@ -1,0 +1,6 @@
+{
+    "env-facts": {
+        "label" : "Umgebungsfakten",
+		"info": "Filtere Umgebungsfakten heraus"
+    }
+}

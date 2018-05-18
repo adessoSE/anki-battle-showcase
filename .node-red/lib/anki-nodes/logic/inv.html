@@ -11,7 +11,7 @@
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"Inventar";
+            return this.name|| this._("inv.label");
         }
     });
 </script>
@@ -22,11 +22,11 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
  	<div class="form-row">
-     <label for="node-input-art"><i class="icon-tag"></i>Type</label>
+     <label for="node-input-art"><i class="icon-tag"></i><span data-i18n="inv.type"></span></label>
 	 <select value= "" id ="node-input-art" placeholder= "Bereit">
-  <option value="InventoryRocket">Rocket</option>
-    <option value="InventoryMine">Mine</option>
-	    <option value="InventoryShield">Shield</option> 
+  <option value="InventoryRocket" data-i18n="inv.rocket"></option>
+    <option value="InventoryMine" data-i18n="inv.mine"></option>
+	    <option value="InventoryShield" data-i18n="inv.shield"></option> 
  </select>
  </div>
 </script>

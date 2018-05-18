@@ -1,0 +1,6 @@
+{
+    "env-facts": {
+        "label" : "Environment Facts",
+		"info": "Extract environment facts"
+    }
+}

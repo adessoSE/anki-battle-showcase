@@ -1,0 +1,10 @@
+{
+    "inv": {
+        "label" : "Inventar",
+		"type" : "Item",
+		"rocket" : "Rocket",
+		"mine": "Mine",
+		"shield": "Shield",
+		"info": " Curve conditions"
+    }
+}

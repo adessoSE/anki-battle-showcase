@@ -1,0 +1,6 @@
+{
+    "straight": {
+        "label" : "Straight Road",
+		"info": " Fires if road piece is straight"
+    }
+}

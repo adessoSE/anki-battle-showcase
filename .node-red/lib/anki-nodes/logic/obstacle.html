@@ -13,7 +13,7 @@
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"Obstacle";
+            return this.name|| this._("obstacle.label");
         }
     });
 </script>
@@ -26,27 +26,27 @@
 </div>
 
  	<div class="form-row">
-     <label for="node-input-obstacleType"><i class="icon-tag"></i>Type</label>
+     <label for="node-input-obstacleType"><i class="icon-tag"></i><span data-i18n=obstacle.type></span></label>
 	 <select value= "" id ="node-input-obstacleType" placeholder= "type">
-  <option value="Mine">Mine</option>
-	  <option value="Vehicle">Vehicle</option>
-    <option value="Rocket">Rocket </option>
+  <option value="Mine" data-i18n="obstacle.mine"></option>
+	  <option value="Vehicle" data-i18n="obstacle.vehicle"></option>
+    <option value="Rocket" data-i18n="obstacle.rocket"> </option>
  </select>
  </div>
 
  <div class="form-row">
-    <label for="node-input-direction"><i class="icon-tag"></i>Direction</label>
+    <label for="node-input-direction"><i class="icon-tag"></i><span data-i18n=obstacle.direction></span></label>
   <select value= "" id ="node-input-direction" placeholder= "direction">
- <option value="Front">Front</option>
-<option value="Behind">Behind</option>
+ <option value="Front" data-i18n="obstacle.front"></option>
+<option value="Behind" data-i18n="obstacle.behind"></option>
 </select>
 </div>
 <div class="form-row">
-    <label for="node-input-distance"><i class="icon-tag"></i> Distance</label>
+    <label for="node-input-distance"><i class="icon-tag"></i> <span data-i18n=obstacle.distance></span></label>
     <input type="text" id="node-input-distance" placeholder="distance">
 </div>
 <div class="form-row">
-    <label for="node-input-track"><i class="icon-tag"></i> Track</label>
+    <label for="node-input-track"><i class="icon-tag"></i> <span data-i18n=obstacle.track></span></label>
     <input type="text" id="node-input-track" placeholder="track">
 </div>
 
