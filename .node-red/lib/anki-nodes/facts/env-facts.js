@@ -8,7 +8,7 @@ module.exports = function(RED) {
           node.send(newMsg);
         });
     }
-    RED.nodes.registerType("Umgebungsfakten",EnvironmentFacts);
+    RED.nodes.registerType("Environment facts",EnvironmentFacts);
 }
 
 /*            if (msg.payload.obstacles.includes("MineInFront")){

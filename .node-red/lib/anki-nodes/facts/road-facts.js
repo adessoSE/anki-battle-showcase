@@ -13,9 +13,9 @@ module.exports = function(RED) {
 			else if (msg.payload.nextRoadPiece[0] == "StraightPieceAhead"){
 				var newMsg = {"fact":"straightPiece"};
 			}
-			
+
 			node.send(newMsg);
         });
     }
-    RED.nodes.registerType("Streckenfakten",RoadFacts);
+    RED.nodes.registerType("Road facts",RoadFacts);
 }

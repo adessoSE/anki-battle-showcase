@@ -1,0 +1,7 @@
+{
+    "brake": {
+        "label" : "Brake",
+		"velocity": "Velocity",
+		"info": "Brake Car"
+    }
+}

@@ -7,5 +7,5 @@ module.exports = function(RED) {
             node.send(newMsg);
         });
     }
-    RED.nodes.registerType("Spur wechseln",changeTrack);
+    RED.nodes.registerType("Change track",changeTrack);
 }

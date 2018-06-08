@@ -1,6 +1,6 @@
 <script type="text/javascript">
-    RED.nodes.registerType('Beschleunigen',{
-        category: 'Aktionen',
+    RED.nodes.registerType('Accelerate',{
+        category: 'Commands',
         color: '#a6bbcf',
         defaults: {
             name: {value:""},
@@ -10,22 +10,25 @@
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"Beschleunigen";
-        }
+            return this.name|| this._("accelerate.label");
+        },
+		paletteLabel: function() {
+			return this.name|| this._("accelerate.label");
+		}
     });
 </script>
 
-<script type="text/x-red" data-template-name="Beschleunigen">
+<script type="text/x-red" data-template-name="Accelerate">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text"  id="node-input-name" placeholder="Name">
     </div>
  	<div class="form-row">
-     <label for="node-input-velocity"><i class="icon-tag"></i> velocity</label>
+     <label for="node-input-velocity"><i class="icon-tag"></i> <span data-i18n="accelerate.velocity"></span></label>
      <input type="text" id="node-input-velocity">
  </div>
 </script>
 
-<script type="text/x-red" data-help-name="Beschleunigen">
+<script type="text/x-red" data-help-name="Accelerate">
     <p> Node that accelerates vehicle</p>
 </script>

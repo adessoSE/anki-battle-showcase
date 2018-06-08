@@ -1,0 +1,10 @@
+{
+    "inv": {
+        "label" : "Inventar",
+		"type": "Gegenstand",
+		"rocket": "Rakete",
+		"mine": "Mine",
+		"shield": "Schild",
+		"info": "Inventarbedingungen "
+    }
+}

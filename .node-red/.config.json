@@ -414,7 +414,7 @@
     "Streckenfakten": {
      "name": "Streckenfakten",
      "types": [
-      "Streckenfakten"
+      "Road facts"
      ],
      "enabled": true,
      "local": true,
@@ -424,7 +424,7 @@
     "Inventarfakten": {
      "name": "Inventarfakten",
      "types": [
-      "Inventarfakten"
+      "Inventar facts"
      ],
      "enabled": true,
      "local": true,
@@ -434,7 +434,7 @@
     "Umgebungsfakten": {
      "name": "Umgebungsfakten",
      "types": [
-      "Umgebungsfakten"
+      "Environment facts"
      ],
      "enabled": true,
      "local": true,
@@ -444,7 +444,7 @@
     "Rakete feuern": {
      "name": "Rakete feuern",
      "types": [
-      "Rakete feuern"
+      "Fire rocket"
      ],
      "enabled": true,
      "local": true,
@@ -454,7 +454,7 @@
     "Mine legen": {
      "name": "Mine legen",
      "types": [
-      "Mine legen"
+      "Mine"
      ],
      "enabled": true,
      "local": true,
@@ -464,7 +464,7 @@
     "Spur wechseln": {
      "name": "Spur wechseln",
      "types": [
-      "Spur wechseln"
+      "Change track"
      ],
      "enabled": true,
      "local": true,
@@ -474,7 +474,7 @@
     "Beschleunigen": {
      "name": "Beschleunigen",
      "types": [
-      "Beschleunigen"
+      "Accelerate"
      ],
      "enabled": true,
      "local": true,
@@ -484,7 +484,7 @@
     "Bremsen": {
      "name": "Bremsen",
      "types": [
-      "Bremsen"
+      "Brake"
      ],
      "enabled": true,
      "local": true,
@@ -494,7 +494,7 @@
     "Schild": {
      "name": "Schild",
      "types": [
-      "Schild"
+      "Shield"
      ],
      "enabled": true,
      "local": true,
@@ -514,7 +514,7 @@
     "roadLogic": {
      "name": "roadLogic",
      "types": [
-      "Kurve"
+      "Curve"
      ],
      "enabled": true,
      "local": true,
@@ -534,7 +534,7 @@
     "Gerade": {
      "name": "Gerade",
      "types": [
-      "Gerade"
+      "Straight"
      ],
      "enabled": true,
      "local": true,
@@ -544,7 +544,7 @@
     "Rundenzeit": {
      "name": "Rundenzeit",
      "types": [
-      "Rundenzeit"
+      "Lap time"
      ],
      "enabled": true,
      "local": true,
@@ -554,7 +554,7 @@
     "Umwelt": {
      "name": "Umwelt",
      "types": [
-      "Umwelt"
+      "Obstacle"
      ],
      "enabled": true,
      "local": true,

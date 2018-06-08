@@ -7,5 +7,5 @@ module.exports = function(RED) {
             node.send(newMsg);
         });
     }
-    RED.nodes.registerType("Schild",UseShield);
+    RED.nodes.registerType("Shield",UseShield);
 }

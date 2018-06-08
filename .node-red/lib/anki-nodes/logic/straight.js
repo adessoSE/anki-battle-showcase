@@ -12,5 +12,5 @@ module.exports = function(RED) {
 			}
         });
     }
-    RED.nodes.registerType("Gerade",checkStraight);
+    RED.nodes.registerType("Straight",checkStraight);
 }

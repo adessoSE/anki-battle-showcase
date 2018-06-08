@@ -31,46 +31,6 @@
         "birthPayload": ""
     },
     {
-        "id": "8ddda9e0.0e2988",
-        "type": "Streckenfakten",
-        "z": "21e2dd7.acbb722",
-        "name": "",
-        "x": 460,
-        "y": 240,
-        "wires": [
-            [
-                "8b1cff9b.c202d",
-                "4c1b8fcf.f0067"
-            ]
-        ]
-    },
-    {
-        "id": "8b1cff9b.c202d",
-        "type": "Kurve",
-        "z": "21e2dd7.acbb722",
-        "name": "Linkskurve?",
-        "art": "Linkskurve",
-        "x": 690,
-        "y": 220,
-        "wires": [
-            [
-                "be8efba.d98f008"
-            ]
-        ]
-    },
-    {
-        "id": "be8efba.d98f008",
-        "type": "Spur wechseln",
-        "z": "21e2dd7.acbb722",
-        "name": "Fahre nach links",
-        "track": "-67.5",
-        "x": 940,
-        "y": 180,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "5b86c095.5d2d1",
         "type": "mqtt in",
         "z": "21e2dd7.acbb722",
@@ -95,9 +55,7 @@
         "x": 270,
         "y": 200,
         "wires": [
-            [
-                "8ddda9e0.0e2988"
-            ]
+            []
         ]
     },
     {
@@ -111,32 +69,6 @@
         "broker": "35c7aa89.6ce4d6",
         "x": 1170,
         "y": 340,
-        "wires": []
-    },
-    {
-        "id": "4c1b8fcf.f0067",
-        "type": "Kurve",
-        "z": "21e2dd7.acbb722",
-        "name": "Rechtskurve?",
-        "art": "Rechtskurve",
-        "x": 740,
-        "y": 260,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "23d09044.ef798",
-        "type": "debug",
-        "z": "21e2dd7.acbb722",
-        "name": "Debug-Ausgabe",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "x": 491,
-        "y": 147,
         "wires": []
     },
     {
@@ -156,37 +88,6 @@
         ]
     },
     {
-        "id": "473d829c.74e63c",
-        "type": "Umwelt",
-        "z": "21e2dd7.acbb722",
-        "name": "",
-        "obstacleType": "Mine",
-        "distance": "200",
-        "track": "0",
-        "direction": "Front",
-        "x": 500,
-        "y": 460,
-        "wires": [
-            [
-                "6fb81115.29967"
-            ]
-        ]
-    },
-    {
-        "id": "8c038ee3.5af3b",
-        "type": "debug",
-        "z": "21e2dd7.acbb722",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "x": 550,
-        "y": 780,
-        "wires": []
-    },
-    {
         "id": "2b2f62bc.36395e",
         "type": "json",
         "z": "21e2dd7.acbb722",
@@ -198,90 +99,7 @@
         "y": 420,
         "wires": [
             [
-                "81c1b528.6dc7f8"
-            ]
-        ]
-    },
-    {
-        "id": "81c1b528.6dc7f8",
-        "type": "Umgebungsfakten",
-        "z": "21e2dd7.acbb722",
-        "name": "",
-        "x": 300,
-        "y": 480,
-        "wires": [
-            [
-                "473d829c.74e63c",
-                "a5798daa.c849c"
-            ]
-        ]
-    },
-    {
-        "id": "6fb81115.29967",
-        "type": "Spur wechseln",
-        "z": "21e2dd7.acbb722",
-        "name": "",
-        "track": "67.5",
-        "x": 760,
-        "y": 440,
-        "wires": [
-            [
-                "7b7cb3a3.60d99c"
-            ]
-        ]
-    },
-    {
-        "id": "a5798daa.c849c",
-        "type": "Umwelt",
-        "z": "21e2dd7.acbb722",
-        "name": "Umwelt",
-        "obstacleType": "Mine",
-        "distance": "280",
-        "track": "67.5",
-        "direction": "Front",
-        "x": 500,
-        "y": 520,
-        "wires": [
-            [
-                "41fe820d.487a8c"
-            ]
-        ]
-    },
-    {
-        "id": "41fe820d.487a8c",
-        "type": "Spur wechseln",
-        "z": "21e2dd7.acbb722",
-        "name": "",
-        "track": "0",
-        "x": 760,
-        "y": 520,
-        "wires": [
-            [
-                "7b7cb3a3.60d99c"
-            ]
-        ]
-    },
-    {
-        "id": "63dfb8f7.d78c88",
-        "type": "Mine legen",
-        "z": "21e2dd7.acbb722",
-        "name": "",
-        "x": 820,
-        "y": 720,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "93031786.d17238",
-        "type": "Mine legen",
-        "z": "21e2dd7.acbb722",
-        "name": "",
-        "x": 700,
-        "y": 360,
-        "wires": [
-            [
-                "7b7cb3a3.60d99c"
+                "69b280ad.849c1"
             ]
         ]
     },
@@ -297,11 +115,119 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 520,
+        "x": 500,
         "y": 360,
         "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d4ab08bd.f85d38",
+        "type": "inject",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 840,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "eeda392b.cdcf68",
+        "type": "Change track",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "track": "67.5",
+        "x": 780,
+        "y": 440,
+        "wires": [
             [
-                "93031786.d17238"
+                "7b7cb3a3.60d99c"
+            ]
+        ]
+    },
+    {
+        "id": "c313fc49.c382d",
+        "type": "Change track",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "track": "0",
+        "x": 780,
+        "y": 500,
+        "wires": [
+            [
+                "7b7cb3a3.60d99c"
+            ]
+        ]
+    },
+    {
+        "id": "f9a3f203.d38f6",
+        "type": "Brake",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "velocity": "100",
+        "x": 280,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3125d16f.e8972e",
+        "type": "Mine",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "x": 830,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "69b280ad.849c1",
+        "type": "Environment facts",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "x": 290,
+        "y": 460,
+        "wires": [
+            [
+                "2bd94448.c45bdc"
+            ]
+        ]
+    },
+    {
+        "id": "16aaad9.b77d552",
+        "type": "Road facts",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "x": 500,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2bd94448.c45bdc",
+        "type": "Obstacle",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "obstacleType": "Mine",
+        "distance": "1111",
+        "track": "22",
+        "direction": "Behind",
+        "x": 500,
+        "y": 520,
+        "wires": [
+            [
+                "c313fc49.c382d"
             ]
         ]
     }

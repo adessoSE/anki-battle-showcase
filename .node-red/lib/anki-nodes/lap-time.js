@@ -25,5 +25,5 @@ module.exports = function(RED) {
 		node.send( newMsg);
         });
     }
-    RED.nodes.registerType("Rundenzeit",lapTime);
+    RED.nodes.registerType("Lap time",lapTime);
 }

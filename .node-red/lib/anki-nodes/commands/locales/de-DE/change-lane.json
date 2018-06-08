@@ -1,0 +1,7 @@
+{
+    "change-lane": {
+        "label" : "Spurwechsel",
+		"track": "Spur",
+		"info": "Wechsel Spur"
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "obstacle": {
+        "label": "Obstacle",
+		"type": "Type",
+		"rocket": "Rocket",
+		"mine": "Mine",
+		"vehicle": "Vehicle",
+		"distance": "Distance",
+		"track": "Track",
+		"direction": "Direction",
+		"front": "Front",
+		"behind": "Behind",
+		"info": " Curve conditions"
+    }
+}

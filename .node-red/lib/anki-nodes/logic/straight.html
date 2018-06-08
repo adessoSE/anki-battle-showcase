@@ -1,6 +1,6 @@
 <script type="text/javascript">
-    RED.nodes.registerType('Gerade',{
-        category: 'Logik',
+    RED.nodes.registerType('Straight',{
+        category: 'Logic',
         color: '#87A980',
         defaults: {
             name: {value:""}
@@ -9,18 +9,21 @@
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"Gerade";
+            return this.name|| this._("straight.label");
+        },
+		paletteLabel: function() {
+            return this.name||this._("straight.label");
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="Gerade">
+<script type="text/x-red" data-template-name="Straight">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="Gerade">
+<script type="text/x-red" data-help-name="Straight">
     <p> Node that checks if straight piece</p>
 </script>

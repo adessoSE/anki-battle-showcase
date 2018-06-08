@@ -1,6 +1,6 @@
 <script type="text/javascript">
-    RED.nodes.registerType('Bremsen',{
-        category: 'Aktionen',
+    RED.nodes.registerType('Brake',{
+        category: 'Commands',
         color: '#a6bbcf',
         defaults: {
             name: {value:""},
@@ -10,22 +10,25 @@
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"Bremsen";
+            return this.name|| this._("brake.label");
+        },
+		paletteLabel: function() {
+            return this.name|| this._("brake.label");
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="Bremsen">
+<script type="text/x-red" data-template-name="Brake">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 	<div class="form-row">
-		<label for="node-input-velocity"><i class="icon-tag"></i> velocity</label>
+		<label for="node-input-velocity"><i class="icon-tag"></i>  <span data-i18n="brake.velocity"></span></label>
 		<input type="text" id="node-input-velocity">
  </div>
 </script>
 
-<script type="text/x-red" data-help-name="Bremsen">
+<script type="text/x-red" data-help-name="Brake">
     <p> Node that brakes a vehicle</p>
 </script>

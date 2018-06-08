@@ -7,5 +7,5 @@ module.exports = function(RED) {
 		node.send(newMsg);
         });
     }
-    RED.nodes.registerType("Beschleunigen",accelerate);
+    RED.nodes.registerType("Accelerate",accelerate);
 }

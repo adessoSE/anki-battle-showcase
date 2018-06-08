@@ -1,6 +1,6 @@
 <script type="text/javascript">
-    RED.nodes.registerType('Umwelt',{
-        category: 'Logik',
+    RED.nodes.registerType('Obstacle',{
+        category: 'Logic',
         color: '#87A980',
         defaults: {
             name: {value:""},
@@ -13,12 +13,15 @@
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"Umwelt";
+            return this.name|| this._("obstacle.label");
+        },
+		paletteLabel: function() {
+            return this.name||this._("obstacle.label");
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="Umwelt">
+<script type="text/x-red" data-template-name="Obstacle">
 
 <div class="form-row">
     <label for="node-input-name"><i class="icon-tag"></i> Name</label>
@@ -26,34 +29,34 @@
 </div>
 
  	<div class="form-row">
-     <label for="node-input-obstacleType"><i class="icon-tag"></i>Typ</label>
-	 <select value= "" id ="node-input-obstacleType" placeholder= "Typ">
-  <option value="Mine">Mine</option>
-	  <option value="Vehicle">Fahrzeug</option>
-    <option value="Rocket">Rakete </option>
+     <label for="node-input-obstacleType"><i class="icon-tag"></i><span data-i18n=obstacle.type></span></label>
+	 <select value= "" id ="node-input-obstacleType" placeholder= "type">
+  <option value="Mine" data-i18n="obstacle.mine"></option>
+	  <option value="Vehicle" data-i18n="obstacle.vehicle"></option>
+    <option value="Rocket" data-i18n="obstacle.rocket"> </option>
  </select>
  </div>
 
  <div class="form-row">
-    <label for="node-input-direction"><i class="icon-tag"></i>Richtung</label>
-  <select value= "" id ="node-input-direction" placeholder= "Richtung">
- <option value="Front">Vorne</option>
-<option value="Behind">Hinten</option>
+    <label for="node-input-direction"><i class="icon-tag"></i><span data-i18n=obstacle.direction></span></label>
+  <select value= "" id ="node-input-direction" placeholder= "direction">
+ <option value="Front" data-i18n="obstacle.front"></option>
+<option value="Behind" data-i18n="obstacle.behind"></option>
 </select>
 </div>
 <div class="form-row">
-    <label for="node-input-distance"><i class="icon-tag"></i> Distanz</label>
+    <label for="node-input-distance"><i class="icon-tag"></i> <span data-i18n=obstacle.distance></span></label>
     <input type="text" id="node-input-distance" placeholder="distance">
 </div>
 <div class="form-row">
-    <label for="node-input-track"><i class="icon-tag"></i> Spur</label>
-    <input type="text" id="node-input-track" placeholder="Spur">
+    <label for="node-input-track"><i class="icon-tag"></i> <span data-i18n=obstacle.track></span></label>
+    <input type="text" id="node-input-track" placeholder="track">
 </div>
 
 </script>
 
 
 
-<script type="text/x-red" data-help-name="Umwelt">
-    <p> Node chooses environment conditions Test </p>
+<script type="text/x-red" data-help-name="Obstacle">
+    <p> Node that chooses environment conditions. </p>
 </script>

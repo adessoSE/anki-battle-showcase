@@ -7,5 +7,5 @@ module.exports = function(RED) {
             node.send(newMsg);
         });
     }
-    RED.nodes.registerType("Rakete feuern",fireRocket);
+    RED.nodes.registerType("Fire rocket",fireRocket);
 }

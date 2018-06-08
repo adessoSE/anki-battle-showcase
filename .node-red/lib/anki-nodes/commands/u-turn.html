@@ -1,6 +1,6 @@
 <script type="text/javascript">
     RED.nodes.registerType('U Turn',{
-        category: 'Aktionen',
+        category: 'Commands',
         color: '#a6bbcf',
         defaults: {
             name: {value:""}
@@ -9,7 +9,10 @@
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"U Turn";
+            return this.name|| this._("u-turn.label");
+        },
+		paletteLabel: function() {
+            return this.name|| this._("u-turn.label");
         }
     });
 </script>
