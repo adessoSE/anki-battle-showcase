@@ -24,7 +24,7 @@ For this we used Node-Red.
 * Configure Simulation in /src/main/java/de/adesso/anki/battle/initializers/SimulationInitializer.java
 * Run Spring Boot Application
 
-
+![Anki](/doc/anki-showcase.PNG)
 ## Usage (Anki)
 * Bluetooth gateway is necessary
 *
