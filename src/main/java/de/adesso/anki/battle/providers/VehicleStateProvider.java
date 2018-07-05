@@ -5,6 +5,7 @@ import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.Body;
 import de.adesso.anki.battle.world.World;
 import de.adesso.anki.battle.world.bodies.Mine;
+import de.adesso.anki.battle.world.bodies.Rocket;
 import de.adesso.anki.battle.world.bodies.Vehicle;
 import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
 import lombok.extern.slf4j.Slf4j;
@@ -85,7 +86,8 @@ public class VehicleStateProvider {
 			if (obstacleType.equals("Mine")) {
 				//very dirty
 				offSetFromCenter = ((Mine) body).getOffset();
-			} else {
+			}
+			if (obstacleType.equals("Vehicle")) {
 				offSetFromCenter = ((Vehicle) body).getOffset();
 			}
 
