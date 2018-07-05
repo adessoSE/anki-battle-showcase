@@ -1,7 +1,7 @@
 # Anki Battle Showcase
 ANKI Battle Showcase is a showcase racing game.
 It offers a racing and a battle mode, integrating custom bots and rulessets.
-Its purpose is to integrate a framework for creating custom behavior to show the ease specifying complex bot behavior.
+Its purpose is to integrate a framework for creating custom behavior.
 For this we used Node-Red.
 
 ![Node-Red Integration](/doc/node-red.PNG)
