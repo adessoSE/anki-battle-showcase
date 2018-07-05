@@ -4,9 +4,9 @@ It offers a racing and a battle mode, integrating custom bots and rulessets.
 Its purpose is to integrate a framework for creating custom behavior to show the ease specifying complex bot behavior.
 For this we used Node-Red.
 
-![Node-Red Integration](/doc/node-red.png)
+![Node-Red Integration](/doc/node-red.PNG)
 
-![Node-Red Interaction](/doc/node-red-interaction.png)
+![Node-Red Interaction](/doc/node-red-interaction.PNG)
 ## Prerequisites
 * JDK
 * Node
