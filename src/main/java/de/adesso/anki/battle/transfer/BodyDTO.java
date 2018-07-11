@@ -23,20 +23,18 @@ public class BodyDTO {
     
     
     
-    public BodyDTO(Body body) {
-        this.body = body;
-    }
     
     // find corresponding Anki vehicle
-    public BodyDTO(Body body, AnkiVehicle anki) {
+    public BodyDTO(Body body) {
         this.body = body;
         this.speed = ((DynamicBody)body).getSpeed();
         if (this.getType().equals("Vehicle")) {
-        	this.anki = anki;
-            this.BTAdress = ((Vehicle)body).getAnkiReference().toString();
+        	if ( ((Vehicle)body).getAnkiReference() != null) {
+            	this.BTAdress = ((Vehicle)body).getAnkiReference().toString();
+        	}
         }
         else {
-        	//Rockets and mines should have no BT Adress
+        	//Rockets and mines should or in simulation have no BT Adress
         	this.BTAdress = "NULL";
         }
     }
