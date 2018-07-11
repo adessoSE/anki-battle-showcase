@@ -32,16 +32,13 @@ public class MqqtRenderer implements Renderer {
     @Async
     public void render(World world) {
     	try {
-    	RoadmapDTO road = new RoadmapDTO(world.getRoadmap());
-    	ObjectMapper mapper = new ObjectMapper();
-    	String roadJSON = mapper.writeValueAsString(road);
-        mqtt.publish("ext/roadmap",roadJSON );
-    	
-    	String bodies = mapper.writeValueAsString(world.getBodies().stream().map(BodyDTO::new).collect(Collectors.toList()));
-        mqtt.publish("ext/bodies", bodies);
-        System.out.println("JO");
-        System.out.println(roadJSON);
-    	System.out.println(bodies);
+	    	RoadmapDTO road = new RoadmapDTO(world.getRoadmap());
+	    	ObjectMapper mapper = new ObjectMapper();
+	    	String roadJSON = mapper.writeValueAsString(road);
+	        mqtt.publish("ext/roadmap",roadJSON );
+	    	
+	    	String bodies = mapper.writeValueAsString(world.getBodies().stream().map(BodyDTO::new).collect(Collectors.toList()));
+	        mqtt.publish("ext/bodies", bodies);
     	}
     	catch(JsonMappingException e) {
     		System.out.println("Json generation failed");
