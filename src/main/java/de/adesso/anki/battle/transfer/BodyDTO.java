@@ -4,10 +4,7 @@ import de.adesso.anki.battle.util.Position;
 import de.adesso.anki.battle.world.Body;
 import de.adesso.anki.battle.world.DynamicBody;
 import de.adesso.anki.battle.world.bodies.Vehicle;
-import de.adesso.anki.battle.world.bodies.roadpieces.Roadpiece;
 
-
-import de.adesso.anki.sdk.AnkiGateway;
 import de.adesso.anki.sdk.AnkiVehicle;
 import de.adesso.anki.sdk.messages.*;
 
@@ -17,7 +14,7 @@ public class BodyDTO {
     
     private double speed; 
     
-    private String BTAdress;
+    private String btAdress;
 
     private AnkiVehicle anki; 
     
@@ -30,12 +27,12 @@ public class BodyDTO {
         this.speed = ((DynamicBody)body).getSpeed();
         if (this.getType().equals("Vehicle")) {
         	if ( ((Vehicle)body).getAnkiReference() != null) {
-            	this.BTAdress = ((Vehicle)body).getAnkiReference().toString();
+            	this.btAdress = ((Vehicle)body).getAnkiReference().toString();
         	}
         }
         else {
         	//Rockets and mines should or in simulation have no BT Adress
-        	this.BTAdress = "NULL";
+        	this.btAdress = "NULL";
         }
     }
 
@@ -52,12 +49,10 @@ public class BodyDTO {
     public Position getPosition() {
         return body.getPosition();
     }
- //   public AnkiVehicle getAnkiReference() {
- //   	return this.anki;
- //  }
+
     
     public String getBTAdress() {
-    	return this.BTAdress;
+    	return this.btAdress;
     }
     
     

@@ -5,7 +5,7 @@ import de.adesso.anki.battle.transfer.BodyDTO;
 import de.adesso.anki.battle.transfer.RoadmapDTO;
 import de.adesso.anki.battle.world.World;
 
-import org.eclipse.paho.client.mqttv3.MqttClient;
+
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -41,12 +41,9 @@ public class MqqtRenderer implements Renderer {
 	        mqtt.publish("ext/bodies", bodies);
     	}
     	catch(JsonMappingException e) {
-    		System.out.println("Json generation failed");
     	}
     	catch(MqttException e) {
-    		System.out.println("Mqqt ERROR");
     	} catch (JsonProcessingException e) {
-			System.out.println("Something went wrong while mapping to json");
 		}
     }
 }
