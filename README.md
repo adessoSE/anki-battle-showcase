@@ -1,10 +1,12 @@
 # Anki Battle Showcase
 ANKI Battle Showcase is a showcase racing game.
-It offers a racing and a battle mode.
-Its purpose is to integrate a to demonstrate.
-For this we used Node-Red
-Integrates custom bots and rulessets.
+It offers a racing and a battle mode, integrating custom bots and rulessets.
+Its purpose is to integrate a framework for creating custom behavior.
+For this we used Node-Red.
 
+![Node-Red Integration](/doc/node-red.PNG)
+
+![Node-Red Interaction](/doc/node-red-interaction.PNG)
 ## Prerequisites
 * JDK
 * Node
@@ -22,7 +24,7 @@ Integrates custom bots and rulessets.
 * Configure Simulation in /src/main/java/de/adesso/anki/battle/initializers/SimulationInitializer.java
 * Run Spring Boot Application
 
-
+![Anki](/doc/anki-showcase.PNG)
 ## Usage (Anki)
 * Bluetooth gateway is necessary
 *
