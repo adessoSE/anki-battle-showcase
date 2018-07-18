@@ -41,9 +41,12 @@ public class MqqtRenderer implements Renderer {
 	        mqtt.publish("ext/bodies", bodies);
     	}
     	catch(JsonMappingException e) {
+    		e.printStackTrace();
     	}
     	catch(MqttException e) {
+    		e.printStackTrace();
     	} catch (JsonProcessingException e) {
+    		e.printStackTrace();
 		}
     }
 }
