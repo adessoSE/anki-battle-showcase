@@ -3,7 +3,6 @@ package de.adesso.anki.battle.protocol.commands;
 import de.adesso.anki.battle.world.World;
 import de.adesso.anki.battle.world.bodies.Rocket;
 import de.adesso.anki.battle.world.bodies.Vehicle;
-import de.adesso.anki.sdk.messages.VehicleStateUpdateMessage;
 import lombok.extern.slf4j.Slf4j;
 
 
