@@ -24,7 +24,7 @@ public class Rocket extends DynamicBody {
 	
 	// TODO adjust timers
 	public boolean isActive () {
-		return System.currentTimeMillis() > timer + 500 ;
+		return System.currentTimeMillis() > timer + 200 ;	
 	}
 	public boolean shouldExplode () {
 		return System.currentTimeMillis() > timer + 8000 ;
