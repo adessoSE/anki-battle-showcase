@@ -180,7 +180,7 @@ public class GameEngine {
 			Position pos2 = vehicle.getPosition();
 			double distance = pos1.distance(pos2);
 			//TODO find distance value that indicates a collision
-			double dummyValue = 30; 
+			double dummyValue = 50; 
 			if (distance < dummyValue) {
 				log.debug("BOOM: " + weapon.getClass().getSimpleName());
 				vehicle.setEnergy(vehicle.getEnergy() - damage);

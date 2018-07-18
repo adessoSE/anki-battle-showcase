@@ -3,6 +3,7 @@ package de.adesso.anki.battle.protocol.commands;
 import de.adesso.anki.battle.world.World;
 import de.adesso.anki.battle.world.bodies.Rocket;
 import de.adesso.anki.battle.world.bodies.Vehicle;
+import de.adesso.anki.sdk.messages.VehicleStateUpdateMessage;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -26,7 +27,7 @@ public class FireRocketCommand extends Command {
 		World world = vehicle.getWorld();		
 		Rocket rocket  = new Rocket (this.direction);
 		//TODO speed of rocket
-		rocket.setTargetSpeed(300);
+		rocket.setTargetSpeed(vehicle.getSpeed()+500);
 		rocket.setPosition(vehicle.getPosition());
 		rocket.setWorld(world);
 		world.addBody(rocket);
