@@ -7,6 +7,5 @@
     "node-red-contrib-anki": "file:./lib/anki-nodes",
     "node-red-contrib-mqtt-broker": "~0.2.2"
   },
-  "scripts": {
-      }
+  "scripts": {}
 }

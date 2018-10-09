@@ -12,6 +12,7 @@ public class Roadmap {
 
     private Roadpiece anchor;
 
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -38,7 +39,7 @@ public class Roadmap {
     }
 
     public List<Roadpiece> getRoadpieces() {
-        val list = new LinkedList<Roadpiece>();
+        LinkedList<Roadpiece> list = new LinkedList<Roadpiece>();
         addWithChecks(list, anchor);
 
         for (Roadpiece i = anchor.getNext(); i.getNext() != null && !i.equals(anchor); i = i.getNext()) {

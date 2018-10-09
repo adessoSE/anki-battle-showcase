@@ -35,6 +35,15 @@ public class MqttService {
     public void publish(String topic, String message) throws MqttException {
         mqttClient.publish(topic, new MqttMessage(message.getBytes()));
         log.debug("MQTT message published: topic="+topic+"; message="+message);
+
+    }
+
+    public void publishRetained(String topic, String message) throws MqttException {
+        MqttMessage mqttMessage = new MqttMessage(message.getBytes());
+        mqttMessage.setRetained(true);
+        mqttClient.publish(topic, mqttMessage);
+        log.debug("MQTT message published: topic="+topic+"; message="+message);
+
     }
 
     public void subscribe(String topicFilter) throws MqttException {

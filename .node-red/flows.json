@@ -23,12 +23,12 @@
         "compatmode": true,
         "keepalive": "60",
         "cleansession": true,
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
         "birthTopic": "",
         "birthQos": "0",
-        "birthPayload": ""
+        "birthPayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
     },
     {
         "id": "5b86c095.5d2d1",
@@ -98,9 +98,7 @@
         "x": 130,
         "y": 420,
         "wires": [
-            [
-                "69b280ad.849c1"
-            ]
+            []
         ]
     },
     {
@@ -241,6 +239,74 @@
         "y": 780,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "7c630382.0c445c",
+        "type": "inject",
+        "z": "21e2dd7.acbb722",
+        "name": "Beschleu",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 260,
+        "y": 640,
+        "wires": [
+            [
+                "9dac2c34.9bcdd"
+            ]
+        ]
+    },
+    {
+        "id": "a067fff7.5f44b",
+        "type": "Brake",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "velocity": "0",
+        "x": 520,
+        "y": 740,
+        "wires": [
+            [
+                "7b7cb3a3.60d99c"
+            ]
+        ]
+    },
+    {
+        "id": "9dac2c34.9bcdd",
+        "type": "Accelerate",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "velocity": "400",
+        "x": 520,
+        "y": 640,
+        "wires": [
+            [
+                "7b7cb3a3.60d99c"
+            ]
+        ]
+    },
+    {
+        "id": "2d7bbc74.6f6f74",
+        "type": "inject",
+        "z": "21e2dd7.acbb722",
+        "name": "Bremsen",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 260,
+        "y": 740,
+        "wires": [
+            [
+                "a067fff7.5f44b"
+            ]
         ]
     }
 ]

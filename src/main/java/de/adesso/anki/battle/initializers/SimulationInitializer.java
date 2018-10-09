@@ -36,8 +36,7 @@ public class SimulationInitializer implements ApplicationRunner {
 
     private void buildRoadmap() {
         Roadmap map = Roadmap.builder()
-                        .start().left().left().straight().left().left().finish()
-                        .build();
+                        .left().left().left().straight().right().right().right().straight().build();
     	world.setRoadmap(map);
     }
 
@@ -52,7 +51,7 @@ public class SimulationInitializer implements ApplicationRunner {
         vehicle.setRocketReady(true);
         world.addBody(vehicle);
         
-        Mine mine = new Mine(); 
+        /*Mine mine = new Mine();
         mine.setWorld(world);
         mine.setTargetSpeed(0);
         mine.setCurrentRoadpiece(world.getRoadmap().getAnchor().getNext().getNext().getNext().getNext().getNext().reverse());
@@ -64,7 +63,7 @@ public class SimulationInitializer implements ApplicationRunner {
         mine2.setTargetSpeed(0);
         mine2.setCurrentRoadpiece(world.getRoadmap().getAnchor().getNext().getNext().getNext().reverse());
         mine2.setPosition(world.getRoadmap().getAnchor().getNext().getNext().getNext().getEntry().reverse());
-        world.addBody(mine2);
+        world.addBody(mine2);*/
     }
 
     private void startEngine() {

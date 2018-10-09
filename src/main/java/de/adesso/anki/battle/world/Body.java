@@ -35,7 +35,7 @@ public abstract class Body {
         currentRoadpiece = roadpiece;
     }
 
-    public Roadpiece getRoadPiece () {
+    public Roadpiece getRoadpiece() {
     	return this.currentRoadpiece;
     }
 	

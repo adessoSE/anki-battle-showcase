@@ -178,15 +178,17 @@ public class GameEngine {
 		int damage = ((weapon instanceof Rocket ) ? 10 : 20);
     	for (Vehicle vehicle : vehicles) {
 			Position pos2 = vehicle.getPosition();
-			double distance = pos1.distance(pos2);
-			//TODO find distance value that indicates a collision
-			double dummyValue = 50; 
-			if (distance < dummyValue) {
-				log.debug("BOOM: " + weapon.getClass().getSimpleName());
-				vehicle.setEnergy(vehicle.getEnergy() - damage);
-				log.debug("energy=" + vehicle.getEnergy());
-				succesfulHit = true;
-			}
+			if(pos2 != null && pos1 != null) {
+                double distance = pos1.distance(pos2);
+                //TODO find distance value that indicates a collisionHandling
+                double dummyValue = 30;
+                if (distance < dummyValue) {
+                    log.debug("BOOM: " + weapon.getClass().getSimpleName());
+                    vehicle.setEnergy(vehicle.getEnergy() - damage);
+                    log.debug("energy=" + vehicle.getEnergy());
+                    succesfulHit = true;
+                }
+            }
     	}
 		return succesfulHit;
     }

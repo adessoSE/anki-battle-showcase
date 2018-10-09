@@ -26,7 +26,7 @@ public class FireRocketCommand extends Command {
 		World world = vehicle.getWorld();		
 		Rocket rocket  = new Rocket (this.direction);
 		//TODO speed of rocket
-		rocket.setTargetSpeed(vehicle.getSpeed()+500);
+		rocket.setTargetSpeed(vehicle.getTargetSpeed() + 200);
 		rocket.setPosition(vehicle.getPosition());
 		rocket.setWorld(world);
 		world.addBody(rocket);

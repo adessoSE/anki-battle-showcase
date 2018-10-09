@@ -23,17 +23,17 @@ public class AnkiSynchronization {
 
     public void synchronizeState(Vehicle vehicle) {
         if (vehicle.getAnkiReference() != null) {
-            val anki = vehicle.getAnkiReference();
+            AnkiVehicle anki = vehicle.getAnkiReference();
 
             if (vehicle.getTargetSpeed() > 0) {
-                val speed = new SetSpeedMessage((int) vehicle.getTargetSpeed() + 1, (int) vehicle.getAcceleration());
+                SetSpeedMessage speed = new SetSpeedMessage((int) vehicle.getTargetSpeed() + 1, (int) vehicle.getAcceleration());
                 send(anki, speed);
             }
 
-            val speed2 = new SetSpeedMessage((int) vehicle.getTargetSpeed(), (int) vehicle.getAcceleration());
+            SetSpeedMessage speed2 = new SetSpeedMessage((int) vehicle.getTargetSpeed(), (int) vehicle.getAcceleration());
             send(anki, speed2);
 
-            val lane = new ChangeLaneMessage(
+            ChangeLaneMessage lane = new ChangeLaneMessage(
                     (float) vehicle.getTargetOffset(),
                     (int) vehicle.getHorizontalSpeed(),
                     1500);
@@ -55,8 +55,13 @@ public class AnkiSynchronization {
             anki.addMessageListener(SpeedUpdateMessage.class, m -> updateSpeed(vehicle, m));
             anki.addMessageListener(OffsetUpdateMessage.class, m -> updateOffset(vehicle, m));
             anki.addMessageListener(VehicleDelocalizedMessage.class, m -> onVehicleDelocalized(vehicle));
+            anki.addMessageListener(VehicleStateUpdateMessage.class, m -> onVehicleStateUpdate(vehicle, m));
             anki.addMessageListener(Message.class, m -> log.debug("> " + m.toString()));
         }
+    }
+
+    private void onVehicleStateUpdate(Vehicle vehicle, VehicleStateUpdateMessage m) {
+        vehicle.getAnkiReference().getAdvertisement().updateState(m);
     }
 
     private void onVehicleDelocalized(Vehicle vehicle) {
@@ -87,7 +92,7 @@ public class AnkiSynchronization {
     }
 
     private void updateTransition(Vehicle vehicle, LocalizationTransitionUpdateMessage m) {
-        log.info(m.toString());
+        //log.info(m.toString());
         if (vehicle.getCurrentRoadpiece() != null) {
             val piece = vehicle.getCurrentRoadpiece();
             vehicle.setPosition(piece.getExit().transform(Position.at(0, -vehicle.getOffset())));

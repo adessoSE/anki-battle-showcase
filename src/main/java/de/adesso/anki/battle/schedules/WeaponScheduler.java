@@ -26,28 +26,40 @@ public class WeaponScheduler {
     @Scheduled(fixedRate = WEAPON_COOLDOWN_MS)
     public void resetRocketReady() {
         for (Vehicle vehicle : world.getVehicles() ) {
-            vehicle.setRocketReady(true);
+            //if ((vehicle.getAnkiReference() != null && !vehicle.getAnkiReference().getAdvertisement().isCharging())
+            //        || (vehicle.getPosition() != null && vehicle.getCurrentRoadpiece() != null)) {
+                vehicle.setRocketReady(true);
+            //}
         }
     }
 
     @Scheduled(fixedRate = WEAPON_COOLDOWN_MS)
     public void resetMineReady() {
         for (Vehicle vehicle : world.getVehicles() ) {
-            vehicle.setMineReady(true);
+            //if ((vehicle.getAnkiReference() != null && !vehicle.getAnkiReference().getAdvertisement().isCharging())
+            //        || (vehicle.getPosition() != null && vehicle.getCurrentRoadpiece() != null)) {
+                vehicle.setMineReady(true);
+            //}
         }
     }
 
     @Scheduled(fixedRate = WEAPON_COOLDOWN_MS)
     public void resetShieldReady() {
         for (Vehicle vehicle : world.getVehicles() ) {
-            vehicle.setShieldReady(true);
+            //if ((vehicle.getAnkiReference() != null && !vehicle.getAnkiReference().getAdvertisement().isCharging())
+            //        || (vehicle.getPosition() != null && vehicle.getCurrentRoadpiece() != null)) {
+                vehicle.setShieldReady(true);
+            //}
         }
     }
 
     @Scheduled(fixedRate = WEAPON_COOLDOWN_MS)
     public void resetReflectorReady() {
         for (Vehicle vehicle : world.getVehicles() ) {
-            vehicle.setReflectorReady(true);
+            //if ((vehicle.getAnkiReference() != null && !vehicle.getAnkiReference().getAdvertisement().isCharging())
+            //        || (vehicle.getPosition() != null && vehicle.getCurrentRoadpiece() != null)) {
+                vehicle.setReflectorReady(true);
+            //}
         }
     }
 }

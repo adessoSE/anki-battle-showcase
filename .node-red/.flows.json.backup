@@ -23,12 +23,12 @@
         "compatmode": true,
         "keepalive": "60",
         "cleansession": true,
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
         "birthTopic": "",
         "birthQos": "0",
-        "birthPayload": ""
+        "birthPayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
     },
     {
         "id": "5b86c095.5d2d1",
@@ -76,7 +76,7 @@
         "type": "mosca in",
         "z": "f318e467.1a1638",
         "mqtt_port": 1883,
-        "mqtt_ws_port": 8080,
+        "mqtt_ws_port": "8083",
         "name": "",
         "username": "",
         "password": "",
@@ -228,6 +228,86 @@
         "wires": [
             [
                 "c313fc49.c382d"
+            ]
+        ]
+    },
+    {
+        "id": "55fe0b82.96cb24",
+        "type": "Inventar",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "art": "left",
+        "x": 240,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7c630382.0c445c",
+        "type": "inject",
+        "z": "21e2dd7.acbb722",
+        "name": "Beschleu",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 260,
+        "y": 640,
+        "wires": [
+            [
+                "9dac2c34.9bcdd"
+            ]
+        ]
+    },
+    {
+        "id": "a067fff7.5f44b",
+        "type": "Brake",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "velocity": "0",
+        "x": 520,
+        "y": 740,
+        "wires": [
+            [
+                "7b7cb3a3.60d99c"
+            ]
+        ]
+    },
+    {
+        "id": "9dac2c34.9bcdd",
+        "type": "Accelerate",
+        "z": "21e2dd7.acbb722",
+        "name": "",
+        "velocity": "400",
+        "x": 520,
+        "y": 640,
+        "wires": [
+            [
+                "7b7cb3a3.60d99c"
+            ]
+        ]
+    },
+    {
+        "id": "2d7bbc74.6f6f74",
+        "type": "inject",
+        "z": "21e2dd7.acbb722",
+        "name": "Bremsen",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 260,
+        "y": 740,
+        "wires": [
+            [
+                "a067fff7.5f44b"
             ]
         ]
     }

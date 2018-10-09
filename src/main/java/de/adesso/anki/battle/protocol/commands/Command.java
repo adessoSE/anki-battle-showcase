@@ -7,6 +7,7 @@ import java.time.LocalTime;
 
 public abstract class Command {
 
+
 	private LocalTime time;
 	
 	protected Command() {

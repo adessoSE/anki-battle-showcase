@@ -1,6 +1,8 @@
 package de.adesso.anki.battle.world.bodies;
 
 import de.adesso.anki.battle.mqtt.MqttService;
+import de.adesso.anki.battle.protocol.commands.FireRocketCommand;
+import de.adesso.anki.battle.protocol.commands.PutMineCommand;
 import de.adesso.anki.battle.protocol.states.GameState;
 import de.adesso.anki.battle.protocol.states.ObjectBehind;
 import de.adesso.anki.battle.protocol.states.ObjectInFront;
@@ -253,12 +255,24 @@ public class Vehicle extends DynamicBody {
 
     @Override
     public void evaluateBehavior(MqttService mqtt) throws MqttException {
-    	
-
     	String topic = this.name;
-    	// generate Message from facts
-    	String messageToSend = convertFactsToMessage();
-    	mqtt.publish(topic, messageToSend);
+
+    	if(topic != null)
+		{
+			if(this.position != null)
+			{
+				FireRocketCommand fireRocketCommand = new FireRocketCommand("");
+				fireRocketCommand.execute(this);
+
+				PutMineCommand putMineCommand = new PutMineCommand();
+				putMineCommand.execute(this);
+			}
+
+			// generate Message from facts
+			String messageToSend = convertFactsToMessage();
+			mqtt.publish(topic, messageToSend);
+		}
+
     }
 
     @Override
