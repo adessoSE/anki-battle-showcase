@@ -149,10 +149,11 @@ public class AnkiInitializer implements ApplicationRunner {
                 20
                 ));
         scanningVehicle.sendMessage(lights);
+
         log.info("Selected vehicle to scan the track: " + scanningVehicle.toString());
         // wait until roadmap is complete
 
-        Thread.sleep(7000);
+        Thread.sleep(2000);
 
         positionListener = scanningVehicle.addMessageListener(LocalizationPositionUpdateMessage.class, this::handlePosition);
         transitionListener = scanningVehicle.addMessageListener(LocalizationTransitionUpdateMessage.class, m -> handleTransition());

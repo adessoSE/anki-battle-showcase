@@ -49,13 +49,14 @@ public class MqqtRenderer implements Renderer {
 	private void renderMqtt(World world) {
 		try {
 			String bodies = mapper.writeValueAsString(world.getBodies().stream().map(BodyDTO::new).collect(Collectors.toList()));
-			mqtt.publish("ext/bodies", bodies);
+			//mqtt.publish("ext/bodies", bodies);
+			mqtt.publish("ext/bodiess", bodies);
 			//System.out.println(bodies + "\n");
 
 			if(world.getCollisions().size() > 0)
 			{
 				String collisions = mapper.writeValueAsString(world.getCollisions().stream().map(CollisionDTO::new).collect(Collectors.toList()));
-				mqtt.publish("ext/collisions", collisions);
+				//mqtt.publish("ext/collisions", collisions);
 				System.out.println(collisions);
 				world.getCollisions().clear();
 			}
